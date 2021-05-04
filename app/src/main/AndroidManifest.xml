@@ -19,7 +19,7 @@
         android:theme="@style/ThemeApp">
         <activity
             android:name=".ChatActivity"
-            android:theme="@style/AppThemeNo" />
+            android:theme="@style/ThemeAppNo" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".DashboardActivity">
             <intent-filter>
