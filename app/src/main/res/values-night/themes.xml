@@ -26,6 +26,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+
     </style>
 
     <style name="ThemeApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
