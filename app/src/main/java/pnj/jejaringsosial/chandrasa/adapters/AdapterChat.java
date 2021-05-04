@@ -44,11 +44,11 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         //inflate layout left receiver right sender
         if (i==MSG_TYPE_RIGHT) {
-            View view = LayoutInflater. from(context).inflate(R.layout.row_chat_right, viewGroup, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.row_chat_right, viewGroup, false);
             return new MyHolder(view);
         }
         else {
-            View view = LayoutInflater. from(context).inflate(R.layout.row_chat_left, viewGroup, false);
+            View view = LayoutInflater.from(context).inflate(R.layout.row_chat_left, viewGroup, false);
             return new MyHolder(view);
 
         }
@@ -59,6 +59,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         //get data
         String message = chatList.get(i).getMessage();
         String timeStamp = chatList.get(i).getTimestamp();
+        //String isSeenTv = chatList.get(i).get
 
         //convert timestamp to dd/mm/yy hh:mm am/pm
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
@@ -68,6 +69,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         //set data
         myHolder.messageTv.setText(message);
         myHolder.timeTv.setText(dateTime);
+        //myHolder.isSeenTv.setText();
         try {
             Picasso.get().load(imageUrl).into(myHolder.profileIv);
         }
