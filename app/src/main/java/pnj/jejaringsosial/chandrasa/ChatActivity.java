@@ -154,6 +154,31 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         readMessages();
+
+        seenMessage();
+
+    }
+
+    private void seenMessage() {
+        userRefForSeen = FirebaseDatabase.getInstance().getReference("Chats");
+        seenListener = userRefForSeen.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    ModelChat chat = ds.getValue(ModelChat.class);
+                    if (chat.getReceiver().equals(myUid) && chat.getSender().equals(hisUid)) {
+                        HashMap<String, Object> hasSeenHashMap = new HashMap<>();
+                        hasSeenHashMap.put("isSeen", true);
+                        ds.getRef().updateChildren(hasSeenHashMap);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void readMessages() {
@@ -218,6 +243,12 @@ public class ChatActivity extends AppCompatActivity {
     protected void onStart() {
         checkUserStatus();
         super.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        userRefForSeen.removeEventListener(seenListener);
     }
 
     @Override
