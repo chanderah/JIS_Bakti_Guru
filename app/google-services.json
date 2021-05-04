@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "69425903329",
+    "project_id": "jejaringsosialchandra",
+    "storage_bucket": "jejaringsosialchandra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:69425903329:android:45baec0b5c2aa1712ae9a0",
+        "android_client_info": {
+          "package_name": "pnj.jejaringsosial.chandrasa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "69425903329-octi1sms3knmnela8l8ke5bp2hi4378n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu7prLnBm3rJgAqkV9mDVqiL9f4-dq9Yk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "69425903329-octi1sms3knmnela8l8ke5bp2hi4378n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
