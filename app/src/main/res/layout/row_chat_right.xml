@@ -24,19 +24,20 @@
             android:layout_height="wrap_content"
             android:text="02/03/2019 05:59PM"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/messageTv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:maxWidth="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/bg_sender"
             android:padding="15dp"
-            android:text="His Message"  
+            android:text="His Message"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
+        <!--android:background="@drawable/bg_sender"-->
 
     </LinearLayout>
 
