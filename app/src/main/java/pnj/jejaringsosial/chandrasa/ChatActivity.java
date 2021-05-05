@@ -198,6 +198,10 @@ public class ChatActivity extends AppCompatActivity {
                     adapterChat.notifyDataSetChanged();
                     //set adapter to recyclerview
                     recyclerView.setAdapter(adapterChat);
+
+                    //scroll to latest chat
+                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
+
                 }
             }
 
