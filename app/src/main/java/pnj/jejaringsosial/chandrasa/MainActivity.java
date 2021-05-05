@@ -133,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                                 hashMap.put("email", email);
                                 hashMap.put("uid", uid);
                                 hashMap.put("name", ""); //edit profile
+                                hashMap.put("onlineStatus", "online"); //edit status
                                 hashMap.put("phone", ""); //edit profile
                                 hashMap.put("image", ""); //edit profile
                                 hashMap.put("cover", ""); //edit profile
