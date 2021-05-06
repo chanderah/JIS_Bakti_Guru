@@ -100,13 +100,6 @@ public class ChatActivity extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance();
         usersDbRef = firebaseDatabase.getReference("Users");
 
-        //act bar title
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Create Account");
-        //enable back button
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
-
         //search user get info
         Query userQuery = usersDbRef.orderByChild("uid").equalTo(hisUid);
         //get user pic and name
