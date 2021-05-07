@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,19 +22,21 @@
             android:id="@+id/timeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="02/03/2019 05:59PM"
+            android:text="23:31 - Wed, May 5"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:textColor="@color/black"
             android:textSize="10sp" />
 
         <TextView
             android:id="@+id/messageTv"
-            android:layout_width="0dp"
-            android:maxWidth="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:maxWidth="20dp"
             android:padding="15dp"
             android:text="His Message"
-            android:background="@drawable/bg_sender"
+            android:background="@color/hover"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
