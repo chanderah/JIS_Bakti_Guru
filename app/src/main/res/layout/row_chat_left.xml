@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:id="@+id/messageLayout">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +32,7 @@
             android:text="asjkdjkash jkdashd kjash kdjahskj dhaskj hdakjsh dkjahskjh akjdshd kjash dkjahs kjdhda kjshjk"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:background="@color/hover" />
+            android:background="@drawable/bg_receiver" />
 
 
         <TextView
