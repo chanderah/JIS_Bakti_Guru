@@ -31,6 +31,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -39,6 +41,16 @@ import java.util.Locale;
 
 import pnj.jejaringsosial.chandrasa.adapters.AdapterChat;
 import pnj.jejaringsosial.chandrasa.models.ModelChat;
+import pnj.jejaringsosial.chandrasa.models.ModelUser;
+import pnj.jejaringsosial.chandrasa.notifications.APIService;
+import pnj.jejaringsosial.chandrasa.notifications.Client;
+import pnj.jejaringsosial.chandrasa.notifications.Data;
+import pnj.jejaringsosial.chandrasa.notifications.FirebaseMessaging;
+import pnj.jejaringsosial.chandrasa.notifications.Response;
+import pnj.jejaringsosial.chandrasa.notifications.Sender;
+import pnj.jejaringsosial.chandrasa.notifications.Token;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -46,7 +58,7 @@ public class ChatActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView recyclerView;
     ImageView profileIv;
-    TextView nameTv, userStatusTv;
+    TextView nameTv, userStatusTv, emailTv;
     EditText messageEt;
     ImageButton sendBtn;
 
@@ -64,8 +76,10 @@ public class ChatActivity extends AppCompatActivity {
     String hisUid;
     String myUid;
     String hisImage;
+    String hisEmail;
 
-
+    APIService apiService;
+    boolean notify = false;
 
 
     @Override
@@ -80,6 +94,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.chat_recyclerView) ;
         profileIv = findViewById(R.id.profileIv) ;
         nameTv = findViewById(R.id.nameTv) ;
+        emailTv = findViewById(R.id.emailTv) ;
         userStatusTv = findViewById(R.id.userStatusTv) ;
         messageEt = findViewById(R.id.messageEt) ;
         sendBtn = findViewById(R.id.sendBtn) ;
@@ -91,6 +106,9 @@ public class ChatActivity extends AppCompatActivity {
         //recyclerview properties
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        //create api service
+        apiService = Client.getRetrofit("https://fcm.googleapis.com/").create(APIService.class);
 
         Intent intent = getIntent();
         hisUid = intent.getStringExtra("hisUid");
@@ -110,7 +128,10 @@ public class ChatActivity extends AppCompatActivity {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     //get data
                     String name =""+ ds.child("name").getValue();
+                    String email = "" + ds.child("email").getValue();
+
                     hisImage =""+ ds.child("image").getValue();
+
 
                     //get value onlinestatus
                     String onlineStatus = ""+ ds.child("onlineStatus").getValue();
@@ -129,6 +150,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     //set data
                     nameTv.setText(name);
+                    emailTv.setText(email);
 
                     try {
                         //image received, set to iv toolbar
@@ -149,9 +171,8 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         //click button to send msg
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        sendBtn.setOnClickListener((v) -> {
+                notify = true;
                 //get text from et
                 String message = messageEt.getText().toString().trim();
                 //check text empty or not
@@ -163,7 +184,9 @@ public class ChatActivity extends AppCompatActivity {
                     //text not empty
                     sendMessage(message);
                 }
-            }
+                //reset et after send msg
+                messageEt.setText("");
+
         });
 
         readMessages();
@@ -239,16 +262,66 @@ public class ChatActivity extends AppCompatActivity {
         hashMap.put("isSeen", false);
         databaseReference.child("Chats").push().setValue(hashMap);
 
-        //reset et after send msg
-        messageEt.setText("");
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference("Users").child(myUid);
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                ModelUser user = dataSnapshot.getValue(ModelUser.class);
 
+                if (notify) {
+                    senNotification(hisUid, user.getName(), message);
+                }
+                notify = false;
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void senNotification(String hisUid, String name, String message) {
+        DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
+        Query query = allTokens.orderByKey().equalTo(hisUid);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    Token token = ds.getValue(Token.class);
+                    Data data = new Data(myUid, name+" : "+message, "New Message", hisUid, R.drawable.ic_default_img);
+
+                    Sender sender = new Sender(data, token.getToken());
+                    apiService.sendNotification(sender)
+                            .enqueue(new Callback<Response>() {
+                                @Override
+                                public void onResponse(Call<Response> call, retrofit2.Response<Response> response) {
+                                    Toast.makeText(ChatActivity.this, "Message Sent", Toast.LENGTH_SHORT).show();
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<Response> call, Throwable t) {
+
+                                }
+                            });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void checkUserStatus() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
             //signed user stay here
-            myUid = user.getUid(); //curent user id
+            myUid = user.getUid(); //current user id
         }
         else {
             startActivity(new Intent(this, MainActivity.class));

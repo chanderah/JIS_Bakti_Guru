@@ -17,10 +17,11 @@
             //cover photo
             <ImageView
                 android:id="@+id/coverIv"
+                android:src="@drawable/a"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:scaleType="centerCrop"
-                android:background="@color/hover">
+                android:background="@color/colorWhite">
 
             </ImageView>
 
@@ -74,7 +75,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginBottom="4dp"
-                        android:paddingBottom="1dp"
                         android:textColor="@color/colorWhite"
                         android:layout_marginLeft="5dp" />
 

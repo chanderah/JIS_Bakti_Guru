@@ -20,10 +20,9 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_default"
-            app:civ_circle_background_color="@color/colorPrimaryDark"/>
+            android:background="@drawable/ic_default_img_white"/>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -32,21 +31,37 @@
 
             <TextView
                 android:id="@+id/nameTv"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="His Name"
+                android:text=""
+                app:layout_constraintLeft_toRightOf="@id/profileIv"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints,NotSibling" />
 
             <TextView
                 android:id="@+id/userStatusTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                app:layout_constraintTop_toBottomOf="@id/nameTv"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/emailTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="online"
+                android:text=""
+                android:textSize="10sp"
+                android:textAlignment="textEnd"
                 android:textColor="@color/colorWhite"
-                android:textStyle="bold"/>
-        </LinearLayout>
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <!--RecyclerView-->
@@ -74,7 +89,7 @@
             android:textColorHint="@color/colorGrey"
             android:padding="15dp"
             android:inputType="textCapSentences|textMultiLine"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <ImageButton
