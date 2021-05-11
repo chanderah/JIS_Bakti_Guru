@@ -347,20 +347,20 @@ public class ProfileFragment extends Fragment {
                         pickFromCamera();
                     } else {
                         //denied
-                        Toast.makeText(getActivity(), "Please enable camera & storage permission", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please allow camera & storage permission", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
             break;
             case STORAGE_REQUEST_CODE: {
                 if (grantResults.length > 0) {
-                    boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (writeStorageAccepted) {
                         //allowed
                         pickFromGallery();
                     } else {
                         //denied
-                        Toast.makeText(getActivity(), "Please storage permission", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please allow storage permission", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -466,6 +466,7 @@ public class ProfileFragment extends Fragment {
         galleryIntent.setType("image/*");
         startActivityForResult(galleryIntent, IMAGE_PICK_GALLERY_CODE);
     }
+
     private void checkUserStatus() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
@@ -500,6 +501,10 @@ public class ProfileFragment extends Fragment {
         if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+
+        if (id == R.id.action_add_post) {
+            startActivity(new Intent(getActivity(), AddPostActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

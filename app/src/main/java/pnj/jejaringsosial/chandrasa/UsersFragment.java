@@ -171,6 +171,9 @@ public class UsersFragment extends Fragment {
         //inflate menu
         inflater.inflate(R.menu.menu_main, menu);
 
+        //hide addpost from this fragment
+        menu.findItem(R.id.action_add_post).setVisible(false);
+
         //searchview
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
