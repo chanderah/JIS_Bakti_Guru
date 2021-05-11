@@ -3,6 +3,7 @@ package pnj.jejaringsosial.chandrasa;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -32,7 +33,9 @@ public class  DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        ActionBar actionBar = getSupportActionBar();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
 
         firebaseAuth = FirebaseAuth.getInstance();

@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                             finish();
                         } else {
                             pd.dismiss();
-                            // If sign in fails, display a message to the user.
+                            // If sign in fails, display default_coverimg message to the user.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }

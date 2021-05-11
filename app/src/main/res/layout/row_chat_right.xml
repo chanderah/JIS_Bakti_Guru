@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/messageLayout"
-    android:padding="5dp">
+    android:id="@+id/messageLayout">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,37 +17,49 @@
             android:layout_height="50dp"
             android:src="@drawable/ic_default_img"
             app:civ_border_color="@null"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/timeTv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="23:31 - Wed, May 5"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:textColor="@color/black"
-            android:textSize="10sp" />
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/messageTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="200dp"
-            android:padding="15dp"
-            android:text="His Message"
             android:background="@drawable/bg_sender"
+            android:minWidth="65dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="22dp"
+            android:text="His Message"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/timeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="15dp"
+            android:text="23:31 - Wed, May 5"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/messageTv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/isSeenTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:text="Delivered"
+        android:text=""
+        android:paddingRight="15dp"
+        android:paddingBottom="5dp"
+        android:textSize="12sp"
         android:textAlignment="textEnd" />
 
 </LinearLayout>

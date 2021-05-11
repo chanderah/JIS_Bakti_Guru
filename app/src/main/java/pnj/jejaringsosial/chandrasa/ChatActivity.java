@@ -178,7 +178,7 @@ public class ChatActivity extends AppCompatActivity {
                 //check text empty or not
                 if (TextUtils.isEmpty(message)) {
                     //text empty
-                    Toast.makeText(ChatActivity.this, "Please enter a message", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatActivity.this, "Please enter default_coverimg message", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //text not empty
@@ -369,6 +369,7 @@ public class ChatActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         //hide searchview
         menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.action_add_post).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 

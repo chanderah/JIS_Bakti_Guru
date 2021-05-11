@@ -131,7 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
                             startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
                             finish();
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // If sign in fails, display default_coverimg message to the user.
                             progressDialog.dismiss();
                             Toast.makeText(RegisterActivity.this, "Registering account failed.",
                                     Toast.LENGTH_SHORT).show();

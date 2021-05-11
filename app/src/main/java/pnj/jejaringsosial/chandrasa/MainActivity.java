@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(new Intent(MainActivity.this, DashboardActivity.class));                            finish();
 
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // If sign in fails, display default_coverimg message to the user.
                             Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
 
                         }
