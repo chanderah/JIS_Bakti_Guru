@@ -129,7 +129,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
                 myHolder.isSeenTv.setText("Seen");
             }
             else {
-                myHolder.isSeenTv.setText("Delivered");
+                myHolder.isSeenTv.setText("Sent");
             }
         }
         else {

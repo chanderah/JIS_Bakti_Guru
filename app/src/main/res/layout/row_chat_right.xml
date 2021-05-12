@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_sender"
             android:minWidth="65dp"
+            android:maxWidth="380dp"
             android:paddingTop="5dp"
             android:paddingBottom="10dp"
             android:paddingLeft="15dp"
