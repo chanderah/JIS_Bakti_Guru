@@ -59,6 +59,14 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/pImageIv"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/default_coverimg" />
+
         <TextView
             android:id="@+id/pTitleTv"
             android:layout_width="match_parent"
@@ -74,12 +82,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoLink="all"/>
-
-        <ImageView
-            android:id="@+id/pImageIv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"/>
 
         <TextView
             android:id="@+id/pLikesTv"

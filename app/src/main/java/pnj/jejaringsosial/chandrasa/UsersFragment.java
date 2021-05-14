@@ -57,7 +57,7 @@ public class UsersFragment extends Fragment {
 
         //init recyclerview
         recyclerView = view.findViewById(R.id.users_recyclerView);
-        //sete properties
+        //set properties
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

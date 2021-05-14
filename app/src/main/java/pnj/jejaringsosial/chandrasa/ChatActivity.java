@@ -62,6 +62,8 @@ public class ChatActivity extends AppCompatActivity {
     EditText messageEt;
     ImageButton sendBtn;
 
+    ActionBar actionBar;
+
     FirebaseAuth firebaseAuth;
 
     FirebaseDatabase firebaseDatabase;
@@ -86,6 +88,11 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        //enable back button
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //init view
         Toolbar toolbar = findViewById(R.id.toolbar) ;
@@ -363,6 +370,7 @@ public class ChatActivity extends AppCompatActivity {
         checkOnlineStatus("online");
         super.onResume();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

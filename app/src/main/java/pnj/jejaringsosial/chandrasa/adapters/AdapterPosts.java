@@ -36,9 +36,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     }
 
     @NonNull
-    @NotNull
     @Override
-    public MyHolder onCreateViewHolder(@NonNull @NotNull ViewGroup viewGroup, int i) {
+    public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         //inflate layout row post
         View view = LayoutInflater.from(context).inflate(R.layout.row_posts, viewGroup, false);
 
@@ -46,7 +45,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull MyHolder myHolder, int i) {
+    public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
         //get data
         String uid = postList.get(i).getUid();
         String uEmail = postList.get(i).getuEmail();
@@ -55,14 +54,17 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         String pId = postList.get(i).getpId();
         String pTitle = postList.get(i).getpTitle();
         String pDesc = postList.get(i).getpDesc();
-        String pImage = postList.get(i).getUid();
-        String pTimeStamp = postList.get(i).getUid();
+        String pImage = postList.get(i).getpImage();
+        String pTimeStamp = postList.get(i).getpTime();
 
-
+        //convert timestamp
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.setTimeInMillis(Long.parseLong(pTimeStamp));
+        String pTime = DateFormat.format("dd/MM/yy hh:mm aa", calendar).toString();
 
         //set data
         myHolder.uNameTv.setText(uName);
-        myHolder.pTimeTv.setText("pTime");
+        myHolder.pTimeTv.setText(pTime);
         myHolder.pTitleTv.setText(pTitle);
         myHolder.pDescriptionTv.setText(pDesc);
 
@@ -74,51 +76,49 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
         }
 
-        //set post image, if equals no image then hide iv
+        //set post image
         if (pImage.equals("noImage")) {
-            //hide iv
             myHolder.pImageIv.setVisibility(View.GONE);
         }
         else {
-
             try {
                 Picasso.get().load(pImage).into(myHolder.pImageIv);
             }
-            catch (Exception e){
+            catch (Exception e) {
 
             }
-
-            //handle btn click
-            myHolder.moreBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //
-                    Toast.makeText(context, "More", Toast.LENGTH_SHORT).show();
-                }
-            });
-            myHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //
-                    Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
-                }
-            });
-            myHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //
-                    Toast.makeText(context, "Comment", Toast.LENGTH_SHORT).show();
-                }
-            });
-            myHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //
-                    Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
-                }
-            });
-
         }
+
+        //handle btn click
+        myHolder.moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                Toast.makeText(context, "More", Toast.LENGTH_SHORT).show();
+            }
+        });
+        myHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
+            }
+        });
+        myHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                Toast.makeText(context, "Comment", Toast.LENGTH_SHORT).show();
+            }
+        });
+        myHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+                Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
