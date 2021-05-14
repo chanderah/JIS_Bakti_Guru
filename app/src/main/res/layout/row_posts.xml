@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
@@ -12,7 +13,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,14 +74,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoLink="all"/>
+
         <ImageView
             android:id="@+id/pImageIv"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorWhite"/>
+
         <TextView
             android:id="@+id/pLikesTv"
-            android:text="1.2k likes"
+            android:text="... likes"
             android:textColor="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -100,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="LIKE"
-                android:drawableStart="@drawable/ic_like_black"
+                android:drawableLeft="@drawable/ic_like_white"
                 android:drawablePadding="5dp"
                 android:background="@color/colorWhite"/>
             <Button
@@ -109,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="COMMENT"
-                android:drawableStart="@drawable/ic_comment_black"
+                android:drawableLeft="@drawable/ic_comment_white"
                 android:drawablePadding="5dp"
                 android:background="@color/colorWhite"/>
             <Button
@@ -118,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="SHARE"
-                android:drawableStart="@drawable/ic_share_black"
+                android:drawableLeft="@drawable/ic_share_white"
                 android:drawablePadding="5dp"
                 android:background="@color/colorWhite"/>
 

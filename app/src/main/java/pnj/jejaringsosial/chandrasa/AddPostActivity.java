@@ -40,6 +40,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -115,27 +116,6 @@ public class AddPostActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         checkUserStatus();
 
-        actionBar.setSubtitle(email);
-
-        //get info current user to include in post
-        userDbRef = FirebaseDatabase.getInstance().getReference("Users");
-        Query query = userDbRef.orderByChild("email").equalTo(email);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                    name = ""+ ds.child("name").getValue();
-                    email = ""+ ds.child("email").getValue();
-                    dp = ""+ ds.child("image").getValue();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
-
-            }
-        });
-
         //init views
         titleEt = findViewById(R.id.pTitleEt) ;
         descriptionEt = findViewById(R.id.pDescriptionEt) ;
@@ -177,6 +157,27 @@ public class AddPostActivity extends AppCompatActivity {
                     uploadData(title, description, String.valueOf(image_rui));
 
                 }
+            }
+        });
+
+        actionBar.setSubtitle(email);
+
+        //get info current user to include in post
+        userDbRef = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = userDbRef.orderByChild("email").equalTo(email);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    name = ""+ ds.child("name").getValue();
+                    email = ""+ ds.child("email").getValue();
+                    dp = ""+ ds.child("image").getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
             }
         });
 
@@ -298,7 +299,7 @@ public class AddPostActivity extends AppCompatActivity {
     }
 
     private void showImagePickDialog() {
-        //optionns(camera, gallery) in dialog
+        //options(camera, gallery) in dialog
         String[] options = {"Camera", "Gallery"};
 
         //dialog
@@ -329,6 +330,8 @@ public class AddPostActivity extends AppCompatActivity {
                 }
             }
         });
+        //create and show dialog
+        builder.create().show();
     }
 
     private void pickFromGallery() {

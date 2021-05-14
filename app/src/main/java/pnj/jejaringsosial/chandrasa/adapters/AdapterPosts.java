@@ -39,11 +39,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     @NotNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull @NotNull ViewGroup viewGroup, int i) {
-
         //inflate layout row post
         View view = LayoutInflater.from(context).inflate(R.layout.row_posts, viewGroup, false);
-
-
 
         return new MyHolder(view);
     }
@@ -61,14 +58,11 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         String pImage = postList.get(i).getUid();
         String pTimeStamp = postList.get(i).getUid();
 
-        //convert timestamp
-        Calendar calendar = Calendar.getInstance(Locale.getDefault());
-        calendar.setTimeInMillis(Long.parseLong(pTimeStamp));
-        String pTime = DateFormat.format("dd/MM/yyyy hh:mm aa", calendar).toString();
+
 
         //set data
         myHolder.uNameTv.setText(uName);
-        myHolder.pTimeTv.setText(pTime);
+        myHolder.pTimeTv.setText("pTime");
         myHolder.pTitleTv.setText(pTitle);
         myHolder.pDescriptionTv.setText(pDesc);
 
@@ -76,7 +70,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         try {
             Picasso.get().load(uDp).placeholder(R.drawable.ic_default_img).into(myHolder.uPictureIv);
         }
-        catch (Exception e){
+        catch (Exception e) {
 
         }
 
@@ -88,45 +82,43 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         else {
 
             try {
-                Picasso.get().load(pId).into(myHolder.pImageIv);
+                Picasso.get().load(pImage).into(myHolder.pImageIv);
             }
             catch (Exception e){
 
             }
 
+            //handle btn click
+            myHolder.moreBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //
+                    Toast.makeText(context, "More", Toast.LENGTH_SHORT).show();
+                }
+            });
+            myHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //
+                    Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
+                }
+            });
+            myHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //
+                    Toast.makeText(context, "Comment", Toast.LENGTH_SHORT).show();
+                }
+            });
+            myHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //
+                    Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
-
-
-        //handle btn click
-        myHolder.moreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-                Toast.makeText(context, "More", Toast.LENGTH_SHORT).show();
-            }
-        });
-        myHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-                Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
-            }
-        });
-        myHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-                Toast.makeText(context, "Comment", Toast.LENGTH_SHORT).show();
-            }
-        });
-        myHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-                Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
 
     @Override
