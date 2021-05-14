@@ -229,10 +229,8 @@ public class AddPostActivity extends AppCompatActivity {
                                                 //database added
                                                 pd.dismiss();
                                                 Toast.makeText(AddPostActivity.this, "Post published", Toast.LENGTH_SHORT).show();
-                                                titleEt.setText("");
-                                                descriptionEt.setText("");
-                                                imageIv.setImageURI(null);
-                                                image_rui = null;
+                                                startActivity(new Intent(AddPostActivity.this, DashboardActivity.class));
+                                                finish();
 
                                             }
                                         })
