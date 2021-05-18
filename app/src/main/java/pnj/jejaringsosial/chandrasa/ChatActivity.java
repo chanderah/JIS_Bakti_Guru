@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,6 +65,8 @@ public class ChatActivity extends AppCompatActivity {
 
     ActionBar actionBar;
 
+    SwipeRefreshLayout swiperefreshlayout;
+
     FirebaseAuth firebaseAuth;
 
     FirebaseDatabase firebaseDatabase;
@@ -100,6 +103,14 @@ public class ChatActivity extends AppCompatActivity {
         userStatusTv = findViewById(R.id.userStatusTv) ;
         messageEt = findViewById(R.id.messageEt) ;
         sendBtn = findViewById(R.id.sendBtn) ;
+
+        //swipe refresh
+        swiperefreshlayout = findViewById(R.id.swiperefreshLayout);
+        swiperefreshlayout.setOnRefreshListener(() -> {
+            Toast.makeText(this, "Refresh running...", Toast.LENGTH_SHORT).show();
+            readMessages(); //
+            swiperefreshlayout.setRefreshing(false);
+        });
 
         //layout recycler view
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -180,7 +191,7 @@ public class ChatActivity extends AppCompatActivity {
                 //check text empty or not
                 if (TextUtils.isEmpty(message)) {
                     //text empty
-                    Toast.makeText(ChatActivity.this, "Please enter default_coverimg message", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatActivity.this, "Please enter a message", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     //text not empty

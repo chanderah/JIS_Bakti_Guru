@@ -63,6 +63,11 @@ public class HomeFragment extends Fragment {
 
         //swipe refresh
         swiperefreshlayout = view.findViewById(R.id.swiperefreshLayout);
+        swiperefreshlayout.setOnRefreshListener(() -> {
+            Toast.makeText(getActivity(), "Refresh running...", Toast.LENGTH_SHORT).show();
+            loadPosts(); //
+            swiperefreshlayout.setRefreshing(false);
+        });
 
         //recycler view and its properties
         recyclerView = view.findViewById(R.id.postsRecyclerview);
@@ -81,19 +86,6 @@ public class HomeFragment extends Fragment {
         loadPosts();
 
         return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-
-        //swipe refresh called
-        swiperefreshlayout.setOnRefreshListener(() -> {
-            Toast.makeText(getActivity(), "Refresh running...", Toast.LENGTH_SHORT).show();
-            loadPosts(); // your code
-            swiperefreshlayout.setRefreshing(false);
-        });
-
-        super.onViewCreated(view, savedInstanceState);
     }
 
     private void loadPosts() {
@@ -229,4 +221,5 @@ public class HomeFragment extends Fragment {
 
                 return super.onOptionsItemSelected(item);
             }
-        }
+
+}

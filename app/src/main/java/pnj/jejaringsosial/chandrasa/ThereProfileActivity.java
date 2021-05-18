@@ -1,18 +1,21 @@
 package pnj.jejaringsosial.chandrasa;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +47,7 @@ public class ThereProfileActivity extends AppCompatActivity {
     TextView nameTv, emailTv, phoneTv;
 
     RecyclerView postsRecyclerView;
+    SwipeRefreshLayout swiperefreshlayout;
 
     List<ModelPost> postList;
     AdapterPosts adapterPosts;
@@ -67,6 +71,14 @@ public class ThereProfileActivity extends AppCompatActivity {
         emailTv = findViewById(R.id.emailTv);
         phoneTv = findViewById(R.id.phoneTv);
         postsRecyclerView = findViewById(R.id.recyclerview_posts);
+
+        //swipe refresh
+        swiperefreshlayout = findViewById(R.id.swiperefreshLayout);
+        swiperefreshlayout.setOnRefreshListener(() -> {
+            Toast.makeText(this, "Refresh running...", Toast.LENGTH_SHORT).show();
+            loadHisPosts(); //
+            swiperefreshlayout.setRefreshing(false);
+        });
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -121,6 +133,7 @@ public class ThereProfileActivity extends AppCompatActivity {
         loadHisPosts();
 
     }
+
 
     private void loadHisPosts() {
 
@@ -210,6 +223,7 @@ public class ThereProfileActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void checkUserStatus() {
         FirebaseUser user = firebaseAuth.getCurrentUser();

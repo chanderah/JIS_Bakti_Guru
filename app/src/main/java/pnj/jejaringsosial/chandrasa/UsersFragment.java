@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +62,11 @@ public class UsersFragment extends Fragment {
 
         //swipe refresh
         swiperefreshlayout = view.findViewById(R.id.swiperefreshLayout);
+        swiperefreshlayout.setOnRefreshListener(() -> {
+            Toast.makeText(getActivity(), "Refresh running...", Toast.LENGTH_SHORT).show();
+            getAllUsers(); //
+            swiperefreshlayout.setRefreshing(false);
+        });
 
         //init recyclerview
         recyclerView = view.findViewById(R.id.users_recyclerView);
@@ -232,5 +240,7 @@ public class UsersFragment extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

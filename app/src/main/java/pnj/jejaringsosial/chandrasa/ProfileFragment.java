@@ -141,7 +141,11 @@ public class ProfileFragment extends Fragment {
 
         //swipe refresh
         swiperefreshlayout = view.findViewById(R.id.swiperefreshLayout);
-
+        swiperefreshlayout.setOnRefreshListener(() -> {
+            Toast.makeText(getActivity(), "Refresh running...", Toast.LENGTH_SHORT).show();
+            loadMyPosts(); //
+            swiperefreshlayout.setRefreshing(false);
+        });
 
         pd = new ProgressDialog(getActivity());
 
@@ -186,6 +190,7 @@ public class ProfileFragment extends Fragment {
 
             }
         });
+
 
         //fab button click
         fab.setOnClickListener(v -> showEditProfileDialog());
@@ -657,6 +662,8 @@ public class ProfileFragment extends Fragment {
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
+
+
     }
 
 
