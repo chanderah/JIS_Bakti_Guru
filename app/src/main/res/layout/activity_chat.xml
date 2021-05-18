@@ -19,6 +19,7 @@
             android:id="@+id/profileIv"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:translationX="-20dp"
             android:scaleType="centerCrop"
             android:background="@drawable/ic_default_img_white"/>
 
@@ -26,14 +27,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="20dp"
+            android:translationX="-10dp"
             android:gravity="center">
 
             <TextView
                 android:id="@+id/nameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:translationY="-1dp"
+                android:text="zz"
                 app:layout_constraintLeft_toRightOf="@id/profileIv"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
@@ -44,7 +46,9 @@
                 android:id="@+id/userStatusTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="Last seen at"
+                android:textSize="12sp"
+                android:translationY="-4dp"
                 app:layout_constraintTop_toBottomOf="@id/nameTv"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold"
@@ -54,7 +58,7 @@
                 android:id="@+id/emailTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="zz"
                 android:textSize="10sp"
                 android:textAlignment="textEnd"
                 android:textColor="@color/colorWhite"

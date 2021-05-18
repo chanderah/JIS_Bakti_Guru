@@ -17,18 +17,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ThemeApp">
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".AddVideoActivity"></activity>
+        <activity android:name=".VideosActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity android:name=".UserProfileActivity" />
         <activity android:name=".AddPostActivity" />
         <activity
             android:name=".ChatActivity"
             android:theme="@style/ThemeAppNo" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".DashboardActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />

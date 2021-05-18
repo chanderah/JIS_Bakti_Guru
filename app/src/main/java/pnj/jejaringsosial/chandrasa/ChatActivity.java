@@ -63,7 +63,7 @@ public class ChatActivity extends AppCompatActivity {
     EditText messageEt;
     ImageButton sendBtn;
 
-    ActionBar actionBar;
+    private ActionBar actionBar;
 
     SwipeRefreshLayout swiperefreshlayout;
 
@@ -103,6 +103,12 @@ public class ChatActivity extends AppCompatActivity {
         userStatusTv = findViewById(R.id.userStatusTv) ;
         messageEt = findViewById(R.id.messageEt) ;
         sendBtn = findViewById(R.id.sendBtn) ;
+
+        //init actionbar
+        actionBar = getSupportActionBar();
+        //add back btn
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         //layout recycler view
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -198,6 +204,12 @@ public class ChatActivity extends AppCompatActivity {
 
         seenMessage();
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 
     private void seenMessage() {
