@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,9 +25,19 @@ import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
 
 public class AddVideoActivity extends AppCompatActivity {
 
@@ -43,7 +55,10 @@ public class AddVideoActivity extends AppCompatActivity {
 
     private String[] cameraPermissions;
 
-    private Uri videoUri; //uri picked video
+    private Uri videoUri = null; //uri picked video
+    private String title;
+
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +79,30 @@ public class AddVideoActivity extends AppCompatActivity {
         uploadVideoBtn = findViewById(R.id.uploadVideoBtn);
         pickVideoFab = findViewById(R.id.pickVideoFab);
 
+        //setup progress dialog
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
+        progressDialog.setMessage("Uploading Video...");
+        progressDialog.setCanceledOnTouchOutside(false);
+
         //camera perms
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         //handle click upload video
         uploadVideoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                title = titleEt.getText().toString().trim();
+                if (TextUtils.isEmpty(title)){
+                    Toast.makeText(AddVideoActivity.this, "Please enter a caption...", Toast.LENGTH_SHORT).show();
+                }
+                else if (videoUri==null){
+                    //video is not picked
+                    Toast.makeText(AddVideoActivity.this, "Pick a video first...", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    //upload video to firebase
+                    uploadVideoFirebase();
+                }
             }
         });
 
@@ -81,6 +113,69 @@ public class AddVideoActivity extends AppCompatActivity {
                 videoPickDialog();
             }
         });
+    }
+
+    private void uploadVideoFirebase() {
+        //show pd
+        progressDialog.show();
+
+        //timestamp
+        String timestamp = ""+ System.currentTimeMillis();
+
+        //file path and name in firebase
+        String filePathAndName = "Videos/" + "video_" + timestamp;
+
+        //storage ref
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
+        //upload video
+        storageReference.putFile(videoUri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        //vid uploaded, get url
+                        Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                        while (!uriTask.isSuccessful());
+                        Uri downloadUri = uriTask.getResult();
+                        if (uriTask.isSuccessful()){
+                            //url uploaded video received
+
+                            //video details to db
+                            HashMap<String, Object> hashMap = new HashMap<>();
+                            hashMap.put("id", "" + timestamp);
+                            hashMap.put("title", title);
+                            hashMap.put("timestamp", "" + timestamp);
+                            hashMap.put("videoUrl", "" + downloadUri);
+
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
+                            reference.child(timestamp)
+                                    .setValue(hashMap)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            //video detail uploaded to db
+                                            progressDialog.dismiss();
+                                            Toast.makeText(AddVideoActivity.this, "Video uploaded...", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull @NotNull Exception e) {
+                                            //fail
+                                            progressDialog.dismiss();
+                                            Toast.makeText(AddVideoActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        //failed upload to storage
+                        progressDialog.dismiss();
+                        Toast.makeText(AddVideoActivity.this, ""+e.getMessage() , Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void videoPickDialog() {
