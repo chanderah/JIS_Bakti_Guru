@@ -104,14 +104,6 @@ public class ChatActivity extends AppCompatActivity {
         messageEt = findViewById(R.id.messageEt) ;
         sendBtn = findViewById(R.id.sendBtn) ;
 
-        //swipe refresh
-        swiperefreshlayout = findViewById(R.id.swiperefreshLayout);
-        swiperefreshlayout.setOnRefreshListener(() -> {
-            Toast.makeText(this, "Refresh running...", Toast.LENGTH_SHORT).show();
-            readMessages(); //
-            swiperefreshlayout.setRefreshing(false);
-        });
-
         //layout recycler view
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);

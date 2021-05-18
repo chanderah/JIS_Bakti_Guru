@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,7 @@ import java.util.List;
 
 import pnj.jejaringsosial.chandrasa.ChatActivity;
 import pnj.jejaringsosial.chandrasa.R;
-import pnj.jejaringsosial.chandrasa.ThereProfileActivity;
+import pnj.jejaringsosial.chandrasa.UserProfileActivity;
 import pnj.jejaringsosial.chandrasa.models.ModelUser;
 
 public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
@@ -75,7 +74,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
                     if (which==0) {
                         //profile clicked
                         //click to go profile with uid, uid of clicked user
-                        Intent intent = new Intent(context, ThereProfileActivity.class);
+                        Intent intent = new Intent(context, UserProfileActivity.class);
                         intent.putExtra("uid", hisUID);
                         context.startActivity(intent);
 

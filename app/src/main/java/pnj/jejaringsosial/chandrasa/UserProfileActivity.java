@@ -1,7 +1,6 @@
 package pnj.jejaringsosial.chandrasa;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
@@ -15,7 +14,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,7 +36,7 @@ import java.util.List;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterPosts;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
 
-public class ThereProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
 
@@ -57,7 +55,7 @@ public class ThereProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_there_profile);
+        setContentView(R.layout.activity_user_profile);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
@@ -162,7 +160,7 @@ public class ThereProfileActivity extends AppCompatActivity {
                     postList.add(myPosts);
 
                     //adapter
-                    adapterPosts = new AdapterPosts(ThereProfileActivity.this, postList);
+                    adapterPosts = new AdapterPosts(UserProfileActivity.this, postList);
 
                     //set this adapter  to rv
                     postsRecyclerView.setAdapter(adapterPosts);
@@ -172,7 +170,7 @@ public class ThereProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
-                Toast.makeText(ThereProfileActivity.this, ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfileActivity.this, ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -181,7 +179,7 @@ public class ThereProfileActivity extends AppCompatActivity {
 
     private void searchHisPosts(final String searchQuery) {
         //linear layout for rv
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ThereProfileActivity.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(UserProfileActivity.this);
         //show newest post first
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
@@ -208,7 +206,7 @@ public class ThereProfileActivity extends AppCompatActivity {
                     }
 
                     //adapter
-                    adapterPosts = new AdapterPosts(ThereProfileActivity.this, postList);
+                    adapterPosts = new AdapterPosts(UserProfileActivity.this, postList);
 
                     //set this adapter  to rv
                     postsRecyclerView.setAdapter(adapterPosts);
@@ -218,7 +216,7 @@ public class ThereProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
-                Toast.makeText(ThereProfileActivity.this, ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfileActivity.this, ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

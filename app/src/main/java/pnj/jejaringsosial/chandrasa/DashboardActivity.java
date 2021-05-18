@@ -18,7 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+
+import java.util.HashMap;
 
 import pnj.jejaringsosial.chandrasa.notifications.Token;
 
@@ -27,6 +30,11 @@ public class  DashboardActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ActionBar actionBar;
     String mUID;
+
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference usersDbRef;
+
+    DatabaseReference userRefForSeen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +47,9 @@ public class  DashboardActivity extends AppCompatActivity {
         actionBar.setTitle("Profile");
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        firebaseDatabase = firebaseDatabase.getInstance();
+        usersDbRef = firebaseDatabase.getReference("Users");
 
         //nav
         BottomNavigationView navigationView = findViewById(R.id.navigation);
@@ -60,6 +71,7 @@ public class  DashboardActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         checkUserStatus();
+        checkOnlineStatus("online");
         super.onResume();
     }
 
@@ -87,10 +99,30 @@ public class  DashboardActivity extends AppCompatActivity {
         }
     }
 
+    private void checkOnlineStatus(String status) {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users").child(mUID) ;
+        HashMap<String, Object> hashMap = new HashMap<>() ;
+        hashMap.put("onlineStatus", status);
+        //update value onlineStatus current user
+        dbRef.updateChildren(hashMap);
+    }
+
     @Override
     protected void onStart() {
         checkUserStatus();
+        checkOnlineStatus("online");
         super.onStart();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //get timestamp
+        String timestamp = String.valueOf(System.currentTimeMillis());
+
+        //set offline with last seen timestamp
+        checkOnlineStatus(timestamp);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener =

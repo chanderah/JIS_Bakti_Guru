@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Locale;
 
 import pnj.jejaringsosial.chandrasa.R;
-import pnj.jejaringsosial.chandrasa.ThereProfileActivity;
+import pnj.jejaringsosial.chandrasa.UserProfileActivity;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
 
 public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
@@ -127,7 +127,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             @Override
             public void onClick(View v) {
                 //click to go profile with uid, uid of clicked user
-                Intent intent = new Intent(context, ThereProfileActivity.class);
+                Intent intent = new Intent(context, UserProfileActivity.class);
                 intent.putExtra("uid",uid);
                 context.startActivity(intent);
             }

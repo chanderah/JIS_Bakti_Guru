@@ -153,6 +153,7 @@ public class HomeFragment extends Fragment {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
             //signed user stay here
+
         }
         else {
             startActivity(new Intent(getActivity(), MainActivity.class));
