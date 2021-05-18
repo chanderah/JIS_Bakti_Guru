@@ -10,6 +10,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -38,6 +39,7 @@ public class UsersFragment extends Fragment {
     RecyclerView recyclerView;
     AdapterUsers adapterUsers;
     List<ModelUser> userList;
+    SwipeRefreshLayout swiperefreshlayout;
 
     FirebaseAuth firebaseAuth;
 
@@ -54,6 +56,9 @@ public class UsersFragment extends Fragment {
 
         //init firebase
         firebaseAuth = FirebaseAuth.getInstance();
+
+        //swipe refresh
+        swiperefreshlayout = view.findViewById(R.id.swiperefreshLayout);
 
         //init recyclerview
         recyclerView = view.findViewById(R.id.users_recyclerView);
@@ -129,7 +134,6 @@ public class UsersFragment extends Fragment {
                             modelUser.getEmail().toLowerCase().contains(query.toLowerCase())) {
                             userList.add(modelUser);
                         }
-
                     }
 
                     //adapter
@@ -185,7 +189,7 @@ public class UsersFragment extends Fragment {
                 //called when user press search from keyb
                 //if search query isnt empty then search
                 if (!TextUtils.isEmpty(s.trim())) {
-                    //search text containts text, search it
+                    //search text contains text, search it
                     searchUsers(s);
                 }
                 else {
@@ -200,7 +204,7 @@ public class UsersFragment extends Fragment {
                 //called when user press any single letter
                 //if search query isnt empty then search
                 if (!TextUtils.isEmpty(s.trim())) {
-                    //search text containts text, search it
+                    //search text contains text, search it
                     searchUsers(s);
                 }
                 else {

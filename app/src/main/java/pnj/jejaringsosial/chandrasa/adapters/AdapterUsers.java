@@ -1,6 +1,8 @@
 package pnj.jejaringsosial.chandrasa.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import java.util.List;
 
 import pnj.jejaringsosial.chandrasa.ChatActivity;
 import pnj.jejaringsosial.chandrasa.R;
+import pnj.jejaringsosial.chandrasa.ThereProfileActivity;
 import pnj.jejaringsosial.chandrasa.models.ModelUser;
 
 public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
@@ -61,14 +64,32 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
         }
 
         //handle item click
-        myHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        myHolder.itemView.setOnClickListener(v -> {
 
-                Intent intent = new Intent(context, ChatActivity.class);
-                intent.putExtra("hisUid", hisUID);
-                context.startActivity(intent);
-            }
+
+            //show dialog
+            AlertDialog.Builder builder =  new AlertDialog.Builder(context);
+            builder.setItems(new String[]{"Profile", "Chat"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which==0) {
+                        //profile clicked
+                        //click to go profile with uid, uid of clicked user
+                        Intent intent = new Intent(context, ThereProfileActivity.class);
+                        intent.putExtra("uid", hisUID);
+                        context.startActivity(intent);
+
+                    }
+                    if (which==1) {
+                        //chat clicked
+                        Intent intent = new Intent(context, ChatActivity.class);
+                        intent.putExtra("hisUid", hisUID);
+                        context.startActivity(intent);
+                    }
+
+                }
+            });
+            builder.create().show();
         });
     }
 

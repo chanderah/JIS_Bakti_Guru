@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ public class ChatListFragment extends Fragment {
 
     FirebaseAuth firebaseAuth;
 
+    SwipeRefreshLayout swiperefreshlayout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +39,9 @@ public class ChatListFragment extends Fragment {
 
         //init firebase
         firebaseAuth = FirebaseAuth.getInstance();
+
+        //swipe refresh
+        swiperefreshlayout = view.findViewById(R.id.swiperefreshLayout);
 
         return view;
     }

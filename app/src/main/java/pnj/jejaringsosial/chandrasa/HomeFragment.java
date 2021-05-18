@@ -5,12 +5,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -45,23 +45,30 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<ModelPost> postList;
     AdapterPosts adapterPosts;
+    SwipeRefreshLayout swiperefreshlayout;
 
     public HomeFragment() {
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
         //init
         firebaseAuth = FirebaseAuth.getInstance();
 
+        //swipe refresh
+        swiperefreshlayout = view.findViewById(R.id.swiperefreshLayout);
+
         //recycler view and its properties
         recyclerView = view.findViewById(R.id.postsRecyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        //show newest post first, for this load from last
+
+        //show newest post first
         layoutManager.setStackFromEnd(true);
         layoutManager.setReverseLayout(true);
 
@@ -74,6 +81,19 @@ public class HomeFragment extends Fragment {
         loadPosts();
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+
+        //swipe refresh called
+        swiperefreshlayout.setOnRefreshListener(() -> {
+            Toast.makeText(getActivity(), "Refresh running...", Toast.LENGTH_SHORT).show();
+            loadPosts(); // your code
+            swiperefreshlayout.setRefreshing(false);
+        });
+
+        super.onViewCreated(view, savedInstanceState);
     }
 
     private void loadPosts() {
@@ -205,6 +225,7 @@ public class HomeFragment extends Fragment {
                 if (id == R.id.action_add_post) {
                     startActivity(new Intent(getActivity(), AddPostActivity.class));
                 }
+
 
                 return super.onOptionsItemSelected(item);
             }
