@@ -17,4 +17,12 @@
         android:src="@drawable/ic_add_white"
         android:tintMode="@color/colorWhite"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/videosRv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/row_video"
+        android:nestedScrollingEnabled="false"/>
+
 </RelativeLayout>
