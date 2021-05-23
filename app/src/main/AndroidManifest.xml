@@ -20,11 +20,9 @@
         <activity android:name=".AddVideoActivity"></activity>
         <activity android:name=".VideosActivity">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+
 
         </activity>
         <activity android:name=".UserProfileActivity" />
@@ -35,9 +33,17 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".DashboardActivity">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"/>
 
         <service
             android:name=".notifications.FirebaseService"
