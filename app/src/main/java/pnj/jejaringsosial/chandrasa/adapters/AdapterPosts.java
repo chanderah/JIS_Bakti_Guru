@@ -1,21 +1,37 @@
 package pnj.jejaringsosial.chandrasa.adapters;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.text.format.DateFormat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
@@ -33,9 +49,12 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     Context context;
     List<ModelPost> postList;
 
+    String myUid;
+
     public AdapterPosts(Context context, List<ModelPost> postList) {
         this.context = context;
         this.postList = postList;
+        myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     @NonNull
@@ -84,9 +103,10 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             myHolder.pImageIv.setVisibility(View.GONE);
         }
         else {
+            myHolder.pImageIv.setVisibility(View.VISIBLE);
+
             try {
                 Picasso.get().load(pImage).into(myHolder.pImageIv);
-                myHolder.pImageIv.setVisibility(View.VISIBLE);
             }
             catch (Exception e) {
 
@@ -94,12 +114,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         }
 
         //handle btn click
-        myHolder.moreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-                Toast.makeText(context, "More", Toast.LENGTH_SHORT).show();
-            }
+        myHolder.moreBtn.setOnClickListener(v -> {
+            showMoreOptions(myHolder.moreBtn, uid, myUid, pId, pImage);
         });
         myHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +148,71 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                 context.startActivity(intent);
             }
         });
+
+    }
+
+    private void showMoreOptions(ImageButton moreBtn, String uid, String myUid, String pId, String pImage) {
+        PopupMenu popupMenu = new PopupMenu(context, moreBtn, Gravity.END);
+
+        if (uid.equals(myUid)){
+            //add items menu
+            popupMenu.getMenu().add(Menu.NONE, 0, 0, "Delete");
+
+        }
+        //add items
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                if (id==0) {
+                    //delete clicked
+                    beginDelete(pId, pImage);
+                }
+                return false;
+            }
+        });
+        //show menu
+        popupMenu.show();
+    }
+
+    private void beginDelete(final String pId, String pImage) {
+
+        final ProgressDialog pd = new ProgressDialog(context);
+        pd.setMessage("Deleting...");
+
+        StorageReference picRef = FirebaseStorage.getInstance().getReferenceFromUrl(pImage);
+        picRef.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        //image deleted, now delete database
+                        Query fquery = FirebaseDatabase.getInstance().getReference("Posts").orderByChild("pId").equalTo(pId);
+                        fquery.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                                    ds.getRef().removeValue(); //remove values matched pid
+                                }
+                                //deleted 
+                                Toast.makeText(context, "Deleted successfully.", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        //failed, cant go further
+                        pd.dismiss();
+                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 
