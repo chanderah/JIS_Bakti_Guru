@@ -1,7 +1,6 @@
 package pnj.jejaringsosial.chandrasa;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -30,6 +29,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Objects;
+
+import pnj.jejaringsosial.chandrasa.fragments.DashboardActivity;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package pnj.jejaringsosial.chandrasa;
+package pnj.jejaringsosial.chandrasa.fragments;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -61,6 +61,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import pnj.jejaringsosial.chandrasa.AddPostActivity;
+import pnj.jejaringsosial.chandrasa.MainActivity;
+import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterPosts;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
 
@@ -628,6 +631,9 @@ public class ProfileFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //inflate menu
         inflater.inflate(R.menu.menu_main, menu);
+
+        //hide option
+        menu.findItem(R.id.action_create_group).setVisible(false);
 
         MenuItem item = menu.findItem(R.id.action_search);
 

@@ -1,4 +1,4 @@
-package pnj.jejaringsosial.chandrasa;
+package pnj.jejaringsosial.chandrasa.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +34,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import pnj.jejaringsosial.chandrasa.GroupCreateActivity;
+import pnj.jejaringsosial.chandrasa.MainActivity;
+import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterUsers;
 import pnj.jejaringsosial.chandrasa.models.ModelUser;
 
@@ -236,6 +239,9 @@ public class UsersFragment extends Fragment {
         if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+        else if (id==R.id.action_create_group) {
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

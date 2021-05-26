@@ -1,4 +1,4 @@
-package pnj.jejaringsosial.chandrasa;
+package pnj.jejaringsosial.chandrasa.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +19,10 @@ import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import pnj.jejaringsosial.chandrasa.GroupCreateActivity;
+import pnj.jejaringsosial.chandrasa.MainActivity;
+import pnj.jejaringsosial.chandrasa.R;
 
 public class ChatListFragment extends Fragment {
 
@@ -85,6 +89,9 @@ public class ChatListFragment extends Fragment {
         if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+        else if (id==R.id.action_create_group) {
+            startActivity(new Intent(getActivity(), GroupCreateActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
