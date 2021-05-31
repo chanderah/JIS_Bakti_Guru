@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 
 import java.util.HashMap;
 
@@ -91,6 +92,9 @@ public class  DashboardActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = sp.edit();
             editor.putString("Current_USERID", mUID);
             editor.apply();
+
+            //update token
+            updateToken(FirebaseInstanceId.getInstance().getToken());
         }
         else {
             startActivity(new Intent(DashboardActivity.this, MainActivity.class));
@@ -161,6 +165,13 @@ public class  DashboardActivity extends AppCompatActivity {
                             FragmentTransaction ft4 = getSupportFragmentManager().beginTransaction();
                             ft4.replace(R.id.content, fragment4, "");
                             ft4.commit();
+
+                        case R.id.nav_more:
+                            actionBar.setTitle("More");
+                            ChatListFragment fragment5 = new ChatListFragment();
+                            FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
+                            ft5.replace(R.id.content, fragment5, "");
+                            ft5.commit();
                             return true;
                     }
 

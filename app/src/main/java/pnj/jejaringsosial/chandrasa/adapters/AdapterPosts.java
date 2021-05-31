@@ -3,6 +3,7 @@ package pnj.jejaringsosial.chandrasa.adapters;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.IInterface;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -40,6 +41,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import pnj.jejaringsosial.chandrasa.AddPostActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.UserProfileActivity;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
@@ -157,6 +159,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         if (uid.equals(myUid)){
             //add items menu
             popupMenu.getMenu().add(Menu.NONE, 0, 0, "Delete");
+            popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
 
         }
         //add items
@@ -167,6 +170,14 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                 if (id==0) {
                     //delete clicked
                     beginDelete(pId, pImage);
+                }
+                else if (id==1) {
+                    //edit clicked
+                    //start AddpostActivity key "editPost" id post clicked
+                    Intent intent = new Intent(context, AddPostActivity.class);
+                    intent.putExtra("key", "editPost");
+                    intent.putExtra("editPostId", pId);
+                    context.startActivity(intent);
                 }
                 return false;
             }
