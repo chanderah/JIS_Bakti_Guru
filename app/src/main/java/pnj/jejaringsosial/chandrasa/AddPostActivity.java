@@ -375,6 +375,7 @@ public class AddPostActivity extends AppCompatActivity {
                     if (!editImage.equals("noImage")) {
                         try {
                             Picasso.get().load(editImage).into(imageIv);
+                            imageIv.setClickable(false);
                         }
                         catch (Exception e) {
 
@@ -394,7 +395,7 @@ public class AddPostActivity extends AppCompatActivity {
         pd.setMessage("Publishing post...");
         pd.show();
 
-        //post img name, post id, post time
+        //put post img name, post id, post time
         String timeStamp = String.valueOf(System.currentTimeMillis());
         String filePathAndName = "Posts/" + "post_" + timeStamp;
 
@@ -431,6 +432,7 @@ public class AddPostActivity extends AppCompatActivity {
                                 hashMap.put("pDesc", description);
                                 hashMap.put("pImage", downloadUri);
                                 hashMap.put("pTime", timeStamp);
+                                hashMap.put("pLikes", "0");
 
                                 //path to store post data
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
