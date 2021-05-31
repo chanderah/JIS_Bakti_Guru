@@ -297,9 +297,46 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
+        //create chatlist child in database
+        DatabaseReference chatRef1  = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(myUid)
+                .child(hisUid);
+        chatRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()){
+                    chatRef1.child("id").setValue(hisUid);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+        });
+
+        DatabaseReference chatRef2  = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(myUid)
+                .child(hisUid);
+        chatRef2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()){
+                    chatRef2.child("id").setValue(myUid);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
-    private void senNotification(String hisUid, String name, String message) {
+    private void senNotification(final String hisUid, String name, String message) {
         DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
         Query query = allTokens.orderByKey().equalTo(hisUid);
         query.addValueEventListener(new ValueEventListener() {

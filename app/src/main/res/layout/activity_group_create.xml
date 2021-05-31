@@ -6,15 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".GroupCreateActivity">
+    tools:context=".GroupCreateActivity"
+    android:background="@color/colorPrimary">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_centerHorizontal="true"
         android:id="@+id/groupIconIv"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        app:civ_border_color="@color/black"
+        app:civ_border_width="2dp"
         android:src="@drawable/ic_group_primary"
-        app:civ_circle_background_color="@color/colorGrey" />
+        app:civ_circle_background_color="@color/colorWhite" />
 
     <EditText
         android:id="@+id/groupTitleEt"
