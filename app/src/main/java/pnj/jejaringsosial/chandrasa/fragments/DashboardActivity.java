@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 
 import java.util.HashMap;
@@ -64,8 +63,6 @@ public class  DashboardActivity extends AppCompatActivity {
 
         checkUserStatus();
 
-        //update token
-        updateToken(FirebaseInstanceId.getInstance().getToken());
     }
 
     @Override
@@ -94,7 +91,6 @@ public class  DashboardActivity extends AppCompatActivity {
             editor.apply();
 
             //update token
-            updateToken(FirebaseInstanceId.getInstance().getToken());
         }
         else {
             startActivity(new Intent(DashboardActivity.this, MainActivity.class));
