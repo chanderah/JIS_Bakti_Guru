@@ -17,9 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ThemeApp">
-        <activity android:name=".GroupCreateActivity"></activity>
+        <activity android:name=".PostDetailActivity"></activity>
+        <activity android:name=".GroupCreateActivity" />
         <activity android:name=".AddVideoActivity" />
-        <activity android:name=".VideosActivity"></activity>
+        <activity android:name=".VideosActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".AddPostActivity" />
         <activity
@@ -35,6 +36,7 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
+
         <service
             android:name=".notifications.FirebaseMessaging"
             android:enabled="true"

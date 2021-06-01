@@ -21,6 +21,7 @@ import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 import java.util.HashMap;
 
 import pnj.jejaringsosial.chandrasa.MainActivity;
+import pnj.jejaringsosial.chandrasa.NotificationsFragment;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.notifications.Token;
 
@@ -162,9 +163,9 @@ public class  DashboardActivity extends AppCompatActivity {
                             ft4.replace(R.id.content, fragment4, "");
                             ft4.commit();
 
-                        case R.id.nav_more:
-                            actionBar.setTitle("More");
-                            ChatListFragment fragment5 = new ChatListFragment();
+                        case R.id.nav_notification:
+                            actionBar.setTitle("Notifications");
+                            NotificationsFragment fragment5 = new NotificationsFragment();
                             FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
                             ft5.replace(R.id.content, fragment5, "");
                             ft5.commit();

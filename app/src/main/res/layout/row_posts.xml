@@ -7,7 +7,7 @@
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true"
-    app:cardBackgroundColor="@color/colorWhite"
+    app:cardBackgroundColor="@color/colorPrimaryDark"
     app:contentPadding="5dp"
     >
 
@@ -26,7 +26,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/uPictureIv"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_default_img"
+                android:src="@drawable/ic_default_img_white"
                 android:layout_width="50dp"
                 android:layout_height="50dp"/>
 
@@ -38,7 +38,7 @@
                 <TextView
                     android:id="@+id/uNameTv"
                     android:text="Name"
-                    android:textColor="@color/colorBlack"
+                    android:textColor="@color/colorWhite"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -46,6 +46,7 @@
                 <TextView
                     android:id="@+id/pTimeTv"
                     android:text="33 min"
+                    android:textColor="@color/colorWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -73,13 +74,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:text="Title"
             android:autoLink="all"/>
         <TextView
             android:id="@+id/pDescriptionTv"
             android:text="The description of post"
-            android:textColor="@color/black"
+            android:textColor="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoLink="all"/>
@@ -87,7 +89,7 @@
         <TextView
             android:id="@+id/pLikesTv"
             android:text="... likes"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <View
