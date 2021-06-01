@@ -92,14 +92,15 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
 
         }
 
-        //click to show delete dialog
-        myHolder.messageLAyout.setOnClickListener(new View.OnClickListener() {
+        //long click to show delete dialog
+        myHolder.messageLAyout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 //show delete confirm dialog
                 AlertDialog.Builder builder = new AlertDialog.Builder(context) ;
                 builder.setTitle("Delete");
                 builder.setMessage("Delete this message?");
+
                 //delete button
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
@@ -120,6 +121,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
                 //create show dialog
                 builder.create().show();
 
+                return false;
             }
         });
 

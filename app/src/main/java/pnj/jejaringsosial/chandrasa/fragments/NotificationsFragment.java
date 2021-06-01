@@ -1,4 +1,4 @@
-package pnj.jejaringsosial.chandrasa;
+package pnj.jejaringsosial.chandrasa.fragments;
 
 import android.os.Bundle;
 
@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterNotification;
 import pnj.jejaringsosial.chandrasa.models.ModelNotification;
 

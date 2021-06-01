@@ -16,12 +16,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.internal.api.FirebaseNoSignedInUserException;
 
 import java.util.HashMap;
 
 import pnj.jejaringsosial.chandrasa.MainActivity;
-import pnj.jejaringsosial.chandrasa.NotificationsFragment;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.notifications.Token;
 
