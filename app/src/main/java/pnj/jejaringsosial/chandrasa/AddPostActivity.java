@@ -49,8 +49,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
-import pnj.jejaringsosial.chandrasa.fragments.DashboardActivity;
-
 public class AddPostActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;

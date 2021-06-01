@@ -175,7 +175,6 @@ public class ChatListFragment extends Fragment {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        setHasOptionsMenu(true); //show menu option
         super.onCreate(savedInstanceState);
     }
 

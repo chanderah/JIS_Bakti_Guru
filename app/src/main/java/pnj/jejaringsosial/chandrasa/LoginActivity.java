@@ -26,8 +26,6 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.HashMap;
 import java.util.Objects;
 
-import pnj.jejaringsosial.chandrasa.fragments.DashboardActivity;
-
 public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 100;

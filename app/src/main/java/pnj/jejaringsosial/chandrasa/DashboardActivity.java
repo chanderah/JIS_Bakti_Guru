@@ -1,4 +1,4 @@
-package pnj.jejaringsosial.chandrasa.fragments;
+package pnj.jejaringsosial.chandrasa;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -9,7 +9,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.PopupMenu;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,10 +20,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.security.acl.Group;
 import java.util.HashMap;
 
-import pnj.jejaringsosial.chandrasa.MainActivity;
-import pnj.jejaringsosial.chandrasa.R;
+import pnj.jejaringsosial.chandrasa.fragments.ChatListFragment;
+import pnj.jejaringsosial.chandrasa.fragments.GroupChatsFragment;
+import pnj.jejaringsosial.chandrasa.fragments.HomeFragment;
+import pnj.jejaringsosial.chandrasa.fragments.NotificationsFragment;
+import pnj.jejaringsosial.chandrasa.fragments.ProfileFragment;
+import pnj.jejaringsosial.chandrasa.fragments.UsersFragment;
 import pnj.jejaringsosial.chandrasa.notifications.Token;
 
 public class  DashboardActivity extends AppCompatActivity {
@@ -28,6 +36,8 @@ public class  DashboardActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ActionBar actionBar;
     String mUID;
+
+    private BottomNavigationView navigationView;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference usersDbRef;
@@ -50,7 +60,7 @@ public class  DashboardActivity extends AppCompatActivity {
         usersDbRef = firebaseDatabase.getReference("Users");
 
         //nav
-        BottomNavigationView navigationView = findViewById(R.id.navigation);
+        navigationView = findViewById(R.id.navigation);
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
 
         //home fragment transaction default
@@ -161,17 +171,47 @@ public class  DashboardActivity extends AppCompatActivity {
                             ft4.replace(R.id.content, fragment4, "");
                             ft4.commit();
 
-                        case R.id.nav_notification:
-                            actionBar.setTitle("Notifications");
-                            NotificationsFragment fragment5 = new NotificationsFragment();
-                            FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
-                            ft5.replace(R.id.content, fragment5, "");
-                            ft5.commit();
+                        case R.id.nav_more:
+                            showMoreOptions();
                             return true;
                     }
 
                     return false;
                 }
             };
+
+    private void showMoreOptions() {
+        //popup menu to show more options
+        PopupMenu popupMenu = new PopupMenu(this, navigationView, Gravity.END);
+        //items to show
+        popupMenu.getMenu().add(Menu.NONE,0,0,"Notifications");
+        popupMenu.getMenu().add(Menu.NONE,1,0,"Group Chats");
+
+        //menu clicks
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+                if (id == 0) {
+                    //notif clicked
+                    actionBar.setTitle("Notifications");
+                    NotificationsFragment fragment5 = new NotificationsFragment();
+                    FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
+                    ft5.replace(R.id.content, fragment5, "");
+                    ft5.commit();
+                }
+                else if (id == 1) {
+                    //groupchats clicked
+                    actionBar.setTitle("Group Chats");
+                    GroupChatsFragment fragment6 = new GroupChatsFragment();
+                    FragmentTransaction ft6 = getSupportFragmentManager().beginTransaction();
+                    ft6.replace(R.id.content, fragment6, "");
+                    ft6.commit();
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
+    }
 
 }

@@ -30,8 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Objects;
 
-import pnj.jejaringsosial.chandrasa.fragments.DashboardActivity;
-
 public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 100;

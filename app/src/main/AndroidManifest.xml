@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ThemeApp">
-        <activity android:name=".PostDetailActivity"></activity>
+        <activity android:name=".GroupChatActivity"></activity>
+        <activity android:name=".PostDetailActivity" />
         <activity android:name=".GroupCreateActivity" />
         <activity android:name=".AddVideoActivity" />
         <activity android:name=".VideosActivity" />
@@ -27,7 +28,7 @@
             android:name=".ChatActivity"
             android:theme="@style/ThemeAppNo" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".fragments.DashboardActivity">
+        <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

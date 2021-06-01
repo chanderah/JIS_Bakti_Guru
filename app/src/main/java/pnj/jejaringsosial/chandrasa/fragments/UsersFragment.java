@@ -247,6 +247,4 @@ public class UsersFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-
-
 }
