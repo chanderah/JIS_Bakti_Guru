@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Locale;
 
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
+import pnj.jejaringsosial.chandrasa.PostDetailActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.UserProfileActivity;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
@@ -90,6 +91,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         String pImage = postList.get(i).getpImage();
         String pTimeStamp = postList.get(i).getpTime();
         String pLikes = postList.get(i).getpLikes(); //total likes
+        String pComments = postList.get(i).getpComments(); //total comment
 
         //convert timestamp
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
@@ -102,6 +104,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         myHolder.pTitleTv.setText(pTitle);
         myHolder.pDescriptionTv.setText(pDesc);
         myHolder.pLikesTv.setText(pLikes + " Likes");
+        myHolder.pCommentsTv.setText(pComments +" Comments");
 
         //set like of each post
         setLikes(myHolder, pId);
@@ -172,8 +175,10 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         myHolder.commentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
-                Toast.makeText(context, "Comment", Toast.LENGTH_SHORT).show();
+                //start postdetailactivity
+                Intent intent = new Intent(context, PostDetailActivity.class);
+                intent.putExtra("postId", pId); //get detail post with this id
+                context.startActivity(intent);
             }
         });
         myHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
@@ -258,6 +263,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
 
         }
+        popupMenu.getMenu().add(Menu.NONE,2,0,"View Detail");
+
         //add items
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
@@ -273,6 +280,13 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                     Intent intent = new Intent(context, AddPostActivity.class);
                     intent.putExtra("key", "editPost");
                     intent.putExtra("editPostId", pId);
+                    context.startActivity(intent);
+                }
+
+                else if (id==2){
+                    //start postdetailactivity
+                    Intent intent = new Intent(context, PostDetailActivity.class);
+                    intent.putExtra("postId", pId); //get detail post with this id
                     context.startActivity(intent);
                 }
                 return false;
@@ -333,7 +347,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
         //views from row post xml
         ImageView uPictureIv, pImageIv;
-        TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv;
+        TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv;
         ImageButton moreBtn;
         Button likeBtn, commentBtn, shareBtn;
         LinearLayout profileLayout;
@@ -354,6 +368,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             commentBtn = itemView.findViewById(R.id.commentBtn);
             shareBtn = itemView.findViewById(R.id.shareBtn);
             profileLayout = itemView.findViewById(R.id.profileLayout);
+            pCommentsTv = itemView.findViewById(R.id.pCommentsTv);
 
         }
     }

@@ -71,11 +71,15 @@ public class UsersFragment extends Fragment {
             swiperefreshlayout.setRefreshing(false);
         });
 
+        //layout recycler view
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+
         //init recyclerview
         recyclerView = view.findViewById(R.id.users_recyclerView);
+
         //set properties
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         //init userlist
         userList = new ArrayList<>() ;
