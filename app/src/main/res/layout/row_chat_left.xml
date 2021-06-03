@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:id="@+id/messageLayout">
+    android:id="@+id/messageLayout"
+    android:background="@color/colorPrimaryDark">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,7 +52,6 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="23:31 - Wed, May 5"
-            android:textColor="@color/black"
             android:textSize="10sp"
             android:paddingStart="60dp"
             android:paddingBottom="5dp"

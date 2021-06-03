@@ -13,16 +13,14 @@
         android:id="@+id/groupIconIv"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        app:civ_border_color="@color/black"
+        app:civ_border_color="@color/colorSilver"
         app:civ_border_width="2dp"
-        android:src="@drawable/ic_group_primary"
-        app:civ_circle_background_color="@color/colorWhite" />
+        android:src="@drawable/ic_add_image" />
 
     <EditText
         android:id="@+id/groupTitleEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
         android:layout_below="@id/groupIconIv"
         android:layout_marginTop="10dp"
         android:padding="10dp"
@@ -35,7 +33,6 @@
         android:inputType="textMultiLine|textCapSentences"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
         android:layout_below="@id/groupTitleEt"
         android:layout_marginTop="10dp"
         android:padding="10dp"

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1EDED"
     tools:context=".ChatActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -75,23 +74,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
         android:layout_above="@id/chatLayout"
-        android:nestedScrollingEnabled="false"/>
+        android:nestedScrollingEnabled="false"
+        android:background="@color/colorPrimaryDark"
+        />
 
     <LinearLayout
         android:id="@+id/chatLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorWhite"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/colorPrimaryDark"
+        >
 
         <EditText
             android:id="@+id/messageEt"
             android:layout_weight="1"
-            android:background="@null"
             android:hint="Type a message..."
-            android:textColorHint="@color/colorGrey"
+            android:textColorHint="@color/colorSilver"
             android:padding="15dp"
             android:inputType="textCapSentences|textMultiLine"
             android:layout_width="wrap_content"
@@ -99,11 +100,11 @@
 
         <ImageButton
             android:id="@+id/sendBtn"
-            android:background="@null"
-            android:src="@drawable/ic_send"
+            android:src="@drawable/ic_send_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:paddingRight="5dp"/>
+            android:paddingRight="5dp"
+            android:background="@null"/>
 
     </LinearLayout>
 

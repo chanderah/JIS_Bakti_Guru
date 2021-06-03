@@ -114,7 +114,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
                 //incase error
-                Toast.makeText(getActivity(), ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "You are logged out...", Toast.LENGTH_SHORT).show();
             }
         });
     }

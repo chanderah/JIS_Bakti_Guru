@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/colorWhite"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp"
-    app:contentPadding="3dp">
+    app:contentPadding="3dp"
+    app:cardBackgroundColor="@color/colorPrimaryDark">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -30,22 +30,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name"
-                android:textSize="18sp"
-                android:textColor="@color/colorBlack"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/notificationTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Notification"
-                android:textColor="@color/colorBlack"/>
+                android:text="Notification"/>
 
             <TextView
                 android:id="@+id/timeTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Time"
-                android:textColor="@color/colorBlack"/>
+                android:text="Time"/>
 
         </LinearLayout>
 
