@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -71,7 +72,7 @@ public class AddPostActivity extends AppCompatActivity {
     //views
     EditText titleEt, descriptionEt;
     ImageView imageIv;
-    Button uploadBtn;
+    FloatingActionButton uploadBtn;
 
     //user info
     String name, email, uid, dp;
@@ -120,14 +121,12 @@ public class AddPostActivity extends AppCompatActivity {
         if (isUpdateKey.equals("editPost")) {
             //update
             actionBar.setTitle("Update Post");
-            uploadBtn.setText("Update");
             loadPostData(editPostId);
         }
         else {
             //add
 
             actionBar.setTitle("Add New Post");
-            uploadBtn.setText("Upload");
         }
 
 

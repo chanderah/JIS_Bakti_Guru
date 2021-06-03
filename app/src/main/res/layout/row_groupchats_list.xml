@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/colorWhite"
     app:contentPadding="3dp"
     android:layout_marginTop="1dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/groupIconIv"
@@ -25,8 +25,7 @@
             android:layout_marginLeft="4dp"
             android:text="Group Title"
             android:layout_toEndOf="@+id/groupIconIv"
-            android:textSize="18sp"
-            android:textColor="@color/black"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:id="@+id/nameTv"
@@ -35,8 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:text="Sender Name"
-            android:textColor="@color/black"/>
+            android:text="Sender Name"/>
 
         <TextView
             android:layout_width="wrap_content"

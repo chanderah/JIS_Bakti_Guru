@@ -19,12 +19,14 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="unlabeled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/menu_nav">
+        android:background="@color/colorPrimaryDark"
+        app:menu="@menu/menu_nav"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        >
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 

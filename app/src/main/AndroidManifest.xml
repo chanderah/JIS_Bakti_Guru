@@ -23,7 +23,7 @@
         <activity android:name=".AddVideoActivity" />
         <activity android:name=".VideosActivity" />
         <activity android:name=".UserProfileActivity" />
-        <activity android:name=".AddPostActivity" />
+        <activity android:name=".AddPostActivity" android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ChatActivity"
             android:theme="@style/ThemeAppNo" />

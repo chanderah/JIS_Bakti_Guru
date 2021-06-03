@@ -55,6 +55,7 @@ public class GroupChatsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_group_chats, container, false);
 
+
         groupsRv = view.findViewById(R.id.groupsRv);
 
         firebaseAuth = FirebaseAuth.getInstance();
