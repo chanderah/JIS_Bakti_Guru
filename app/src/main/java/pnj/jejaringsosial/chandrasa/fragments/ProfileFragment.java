@@ -242,8 +242,6 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
-                Toast.makeText(getActivity(), ""+databaseError.getMessage(), Toast.LENGTH_SHORT).show();
-
             }
         });
 
