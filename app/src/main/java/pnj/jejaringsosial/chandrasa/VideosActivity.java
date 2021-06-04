@@ -80,7 +80,7 @@ public class VideosActivity extends AppCompatActivity {
 
         checkUserStatus();
 
-        photosFab = findViewById(R.id.videosFab);
+        photosFab = findViewById(R.id.photosFab);
         photosFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
