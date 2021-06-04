@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
+        android:layout_above="@id/navigation"
         android:src="@drawable/ic_add_white"
         android:tintMode="@color/colorWhite"/>
 
@@ -21,10 +21,37 @@
         android:id="@+id/videosRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/navigation"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/row_video"
         android:nestedScrollingEnabled="false"
         app:stackFromEnd="true"
         app:reverseLayout="true"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        app:labelVisibilityMode="unlabeled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimaryDark"
+        app:menu="@menu/menu_nav"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        >
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <TextView
+        android:id="@+id/photosFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:text="PHOTOS"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:rotation="-90"
+        android:padding="10dp"
+        android:background="@color/colorPrimary"/>
+
 
 </RelativeLayout>

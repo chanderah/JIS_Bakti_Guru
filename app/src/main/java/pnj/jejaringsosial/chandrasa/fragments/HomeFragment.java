@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,8 +36,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
+import pnj.jejaringsosial.chandrasa.AddVideoActivity;
 import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
+import pnj.jejaringsosial.chandrasa.VideosActivity;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterPosts;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
 
@@ -49,6 +52,8 @@ public class HomeFragment extends Fragment {
     List<ModelPost> postList;
     AdapterPosts adapterPosts;
     SwipeRefreshLayout swiperefreshlayout;
+
+    TextView videosFab;
 
     public HomeFragment() {
 
@@ -72,6 +77,8 @@ public class HomeFragment extends Fragment {
             swiperefreshlayout.setRefreshing(false);
         });
 
+
+
         //recycler view and its properties
         recyclerView = view.findViewById(R.id.postsRecyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -87,6 +94,18 @@ public class HomeFragment extends Fragment {
         postList = new ArrayList<>();
 
         loadPosts();
+
+
+        videosFab = view.findViewById(R.id.videosFab);
+        videosFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), VideosActivity.class));
+                getActivity().finish();
+            }
+        });
+
+
 
         return view;
     }

@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,6 +50,7 @@ public class UsersFragment extends Fragment {
 
     FirebaseAuth firebaseAuth;
 
+
     public UsersFragment() {
         // Required empty public constructor
     }
@@ -71,6 +73,7 @@ public class UsersFragment extends Fragment {
             swiperefreshlayout.setRefreshing(false);
         });
 
+
         //layout recycler view
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
@@ -87,8 +90,12 @@ public class UsersFragment extends Fragment {
         //getAll users
         getAllUsers();
 
+
+
         return view;
     }
+
+
 
     private void getAllUsers() {
         //get current user

@@ -1,6 +1,7 @@
 package pnj.jejaringsosial.chandrasa;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +35,10 @@ public class VideosActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
 
+    TextView photosFab;
+
+    ActionBar actionBar;
+
     //array list
     private ArrayList<ModelVideo> videoArrayList;
 
@@ -46,8 +52,12 @@ public class VideosActivity extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
-        //actionbar title
-        setTitle("Videos");
+        actionBar = getSupportActionBar();
+        actionBar.setTitle("Videos");
+
+        //enable back button
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -70,6 +80,14 @@ public class VideosActivity extends AppCompatActivity {
 
         checkUserStatus();
 
+        photosFab = findViewById(R.id.videosFab);
+        photosFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(VideosActivity.this, DashboardActivity.class));
+                finish();
+            }
+        });
     }
 
     private void checkUserStatus() {
@@ -112,5 +130,11 @@ public class VideosActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed(); //goto previous activity
+        return super.onSupportNavigateUp();
     }
 }
