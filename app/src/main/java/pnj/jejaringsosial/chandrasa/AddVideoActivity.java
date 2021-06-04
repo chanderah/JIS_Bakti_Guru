@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -29,8 +30,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -43,6 +50,13 @@ public class AddVideoActivity extends AppCompatActivity {
 
     //actionbar
     private ActionBar actionBar;
+
+    FirebaseAuth firebaseAuth;
+    DatabaseReference userDbRef;
+
+    //user info
+    String name, email, uid, dp;
+
     //ui view
     EditText titleEt;
     VideoView videoView;
@@ -57,6 +71,7 @@ public class AddVideoActivity extends AppCompatActivity {
 
     private Uri videoUri = null; //uri picked video
     private String title;
+    private String description;
 
     private ProgressDialog progressDialog;
 
@@ -64,6 +79,11 @@ public class AddVideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_video);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        checkUserStatus();
 
         //init actionbar
         actionBar = getSupportActionBar();
@@ -101,7 +121,7 @@ public class AddVideoActivity extends AppCompatActivity {
                 }
                 else {
                     //upload video to firebase
-                    uploadVideoFirebase();
+                    uploadVideoFirebase(title, description);
                 }
             }
         });
@@ -113,20 +133,65 @@ public class AddVideoActivity extends AppCompatActivity {
                 videoPickDialog();
             }
         });
+
+        //get info current user to include in post
+        userDbRef = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = userDbRef.orderByChild("email").equalTo(email);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    name = ""+ ds.child("name").getValue();
+                    email = ""+ ds.child("email").getValue();
+                    dp = ""+ ds.child("image").getValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
-    private void uploadVideoFirebase() {
+    @Override
+    protected void onStart() {
+        checkUserStatus();
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkUserStatus();
+    }
+
+    private void checkUserStatus() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null){
+            //signed user stay here
+            email = user.getEmail();
+            uid = user.getUid();
+        }
+        else {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+    }
+
+    private void uploadVideoFirebase(String title, String description) {
         //show pd
+        progressDialog.setMessage("Uploading video...");
         progressDialog.show();
 
         //timestamp
-        String timestamp = ""+ System.currentTimeMillis();
+        String pTimestamps = ""+ System.currentTimeMillis();
 
         //file path and name in firebase
-        String filePathAndName = "Videos/" + "video_" + timestamp;
+        String filePathAndName = "Videos/" + "video_" + pTimestamps;
 
         //storage ref
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference(filePathAndName);
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(filePathAndName);
         //upload video
         storageReference.putFile(videoUri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -141,13 +206,20 @@ public class AddVideoActivity extends AppCompatActivity {
 
                             //video details to db
                             HashMap<String, Object> hashMap = new HashMap<>();
-                            hashMap.put("id", "" + timestamp);
-                            hashMap.put("title", title);
-                            hashMap.put("timestamp", "" + timestamp);
+                            hashMap.put("uid", uid);
+                            hashMap.put("uDp", dp);
+                            hashMap.put("uName", name);
+                            hashMap.put("uEmail", email);
+                            hashMap.put("pId", "" + pTimestamps);
+                            hashMap.put("pDesc", description);
+                            hashMap.put("pTitle", title);
+                            hashMap.put("pTime", "" + pTimestamps);
+                            hashMap.put("pLikes", "0");
+                            hashMap.put("pComments", "0");
                             hashMap.put("videoUrl", "" + downloadUri);
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
-                            reference.child(timestamp)
+                            reference.child(pTimestamps)
                                     .setValue(hashMap)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -155,6 +227,8 @@ public class AddVideoActivity extends AppCompatActivity {
                                             //video detail uploaded to db
                                             progressDialog.dismiss();
                                             Toast.makeText(AddVideoActivity.this, "Video uploaded...", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(AddVideoActivity.this, VideosActivity.class));
+                                            finish();
                                         }
                                     })
                                     .addOnFailureListener(new OnFailureListener() {

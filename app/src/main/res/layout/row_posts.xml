@@ -60,13 +60,34 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/pImageIv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_coverimg" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/pImageIv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_coverimg" />
+
+            <TextView
+                android:id="@+id/uploadedBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/hover"
+                android:text="This image is uploaded by: "
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textSize="8sp"
+                android:layout_alignParentRight="true"/>
+
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/pTitleTv"
@@ -147,6 +168,7 @@
                 android:background="@color/colorWhite"/>
 
         </LinearLayout>
+
 
     </LinearLayout>
 

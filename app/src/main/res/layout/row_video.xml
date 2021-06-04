@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/colorBlack"
     android:layout_height="match_parent">
@@ -11,38 +12,87 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"/>
 
-    <TextView
-        android:id="@+id/titleTv"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="sans-serif-condensed"
-        android:shadowColor="@color/colorBlack"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="2"
-        android:layout_above="@id/timeTv"
-        android:text="Video title"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"/>
+        android:paddingTop="5dp"
+        android:orientation="vertical"
+        android:background="@color/hover"
+        android:layout_alignParentBottom="true">
 
-    <TextView
-        android:id="@+id/timeTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:shadowRadius="2"
-        android:shadowDy="1"
-        android:shadowDx="1"
-        android:shadowColor="@color/colorBlack"
-        android:textColor="@color/colorWhite"
-        android:text="dd/MM/yyyy hh:mm"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/uPictureIv"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_default_img"
+                />
+
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/uPictureIv"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Chandra SA"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                />
+
+            <TextView
+                android:id="@+id/titleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/uPictureIv"
+                android:layout_below="@id/nameTv"
+                android:paddingBottom="2dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Video title"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"/>
+
+            <TextView
+                android:id="@+id/timeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/uPictureIv"
+                android:layout_below="@id/titleTv"
+                android:fontFamily="sans-serif-condensed"
+                android:text="dd/MM/yyyy hh:mm"
+                android:textColor="@color/colorWhite"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="5dp"/>
+
+
+        </RelativeLayout>
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@color/colorSilver"/>
+
+    <TextView
+        android:id="@+id/uploadedBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/hover"
+        android:text="This video is uploaded by: "
+        android:padding="5dp"
+        android:textStyle="bold"
+        android:textSize="12sp"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

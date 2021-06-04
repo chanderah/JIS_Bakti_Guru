@@ -65,7 +65,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
     //views
     ImageView uPictureIv, pImageIv;
-    TextView uNameTv, pTimeTiv, pTitletv, pDescriptionTv, pLikesTv, pCommentsTv;
+    TextView uNameTv, pTimeTiv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy;
     ImageButton moreBtn;
     Button likeBtn, shareBtn;
     LinearLayout profileLayout;
@@ -103,7 +103,7 @@ public class PostDetailActivity extends AppCompatActivity {
         pImageIv = findViewById(R.id.pImageIv);
         uNameTv = findViewById(R.id.uNameTv);
         pTimeTiv = findViewById(R.id.pTimeTiv);
-        pTitletv = findViewById(R.id.pTitleTv);
+        pTitleTv = findViewById(R.id.pTitleTv);
         pDescriptionTv = findViewById(R.id.pDescriptionTv);
         pLikesTv = findViewById(R.id.pLikesTv);
         pCommentsTv = findViewById(R.id.pCommentsTv);
@@ -112,6 +112,7 @@ public class PostDetailActivity extends AppCompatActivity {
         shareBtn = findViewById(R.id.shareBtn);
         profileLayout = findViewById(R.id.profileLayout);
         recyclerView = findViewById(R.id.recyclerViewComment);
+        uploadedBy = findViewById(R.id.uploadedBy);
 
         commentEt = findViewById(R.id.commentEt);
         cAvatarIv = findViewById(R.id.cAvatarIv);
@@ -450,7 +451,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     String pTime = DateFormat.format("dd/MM/yy hh:mm aa", calendar).toString();
 
                     //set data
-                    pTitletv.setText(pTitle);
+                    pTitleTv.setText(pTitle);
                     pDescriptionTv.setText(pDesc);
                     pLikesTv.setText(pLikes + "Likes");
                     pTimeTiv.setText(pTime);

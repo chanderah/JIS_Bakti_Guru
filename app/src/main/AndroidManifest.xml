@@ -21,7 +21,15 @@
         <activity android:name=".PostDetailActivity" />
         <activity android:name=".GroupCreateActivity" />
         <activity android:name=".AddVideoActivity" />
-        <activity android:name=".VideosActivity" />
+        <activity android:name=".VideosActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".AddPostActivity" android:windowSoftInputMode="adjustResize"/>
         <activity
@@ -29,11 +37,7 @@
             android:theme="@style/ThemeAppNo" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".DashboardActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
