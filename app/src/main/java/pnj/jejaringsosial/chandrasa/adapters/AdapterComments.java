@@ -72,9 +72,24 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         String pTime = DateFormat.format("dd/MM/yy hh:mm aa", calendar).toString();
 
         //set data
-        myHolder.nameTv.setText(name);
         myHolder.commentTv.setText(comment);
         myHolder.timeTv.setText(pTime);
+
+        //uploadedBy
+        if (name.equals("")){
+            try {
+                myHolder.emailTv.setText(email);
+                myHolder.emailTv.setVisibility(View.VISIBLE);
+                myHolder.nameTv.setVisibility(View.GONE);
+            }
+            catch (Exception e) {
+            }
+        }
+        else {
+            myHolder.nameTv.setText(name);
+            myHolder.nameTv.setVisibility(View.VISIBLE);
+            myHolder.emailTv.setVisibility(View.GONE);
+        }
 
         //set user dp
         try {
@@ -147,7 +162,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
 
         //declare xml views comment
         ImageView avatarIv;
-        TextView nameTv, commentTv, timeTv;
+        TextView nameTv, commentTv, timeTv, emailTv;
 
         public MyHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -155,6 +170,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
             nameTv = itemView.findViewById(R.id.nameTv);
             commentTv = itemView.findViewById(R.id.commentTv);
             timeTv = itemView.findViewById(R.id.timeTv);
+            emailTv = itemView.findViewById(R.id.emailTv);
         }
 
     }

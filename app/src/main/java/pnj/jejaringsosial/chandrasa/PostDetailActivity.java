@@ -55,7 +55,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
 
     //get detail of user post
-    String hisUid, myUid, myEmail, myName, myDp, postId, pLikes, hisDp, hisName, pImage;
+    String hisUid, myUid, myEmail, myName, myDp, postId, pLikes, hisDp, hisName, pImage, hisEmail;
 
     boolean mProcessComment = false;
     boolean mProcessLike = false;
@@ -65,7 +65,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
     //views
     ImageView uPictureIv, pImageIv;
-    TextView uNameTv, pTimeTiv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy;
+    TextView uNameTv, pTimeTiv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, emailTv;
     ImageButton moreBtn;
     Button likeBtn, shareBtn;
     LinearLayout profileLayout;
@@ -113,6 +113,7 @@ public class PostDetailActivity extends AppCompatActivity {
         profileLayout = findViewById(R.id.profileLayout);
         recyclerView = findViewById(R.id.recyclerViewComment);
         uploadedBy = findViewById(R.id.uploadedBy);
+        emailTv = findViewById(R.id.emailTv);
 
         commentEt = findViewById(R.id.commentEt);
         cAvatarIv = findViewById(R.id.cAvatarIv);
@@ -406,15 +407,15 @@ public class PostDetailActivity extends AppCompatActivity {
                     myName = ""+ds.child("name").getValue();
                     myDp = ""+ds.child("image").getValue();
 
-                    //set data
+                    //set dp
                     try {
                         //set img
                         Picasso.get().load(myDp).placeholder(R.drawable.ic_default_img).into(cAvatarIv);
                     }
                     catch (Exception e){
-                        Picasso.get().load(R.drawable.ic_default_img).into(cAvatarIv);
 
                     }
+
                 }
 
             }
@@ -441,7 +442,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     String pImage = ""+ds.child("pImage").getValue();
                     hisDp = ""+ds.child("uDp").getValue();
                     hisUid = ""+ds.child("uid").getValue();
-                    String uEmail = ""+ds.child("uEmail").getValue();
+                    hisEmail = ""+ds.child("uEmail").getValue();
                     hisName = ""+ds.child("uName").getValue();
                     String commentCount = ""+ds.child("pComments").getValue();
 
@@ -457,21 +458,30 @@ public class PostDetailActivity extends AppCompatActivity {
                     pTimeTiv.setText(pTime);
                     pCommentsTv.setText(commentCount +" Comments");
 
-                    uNameTv.setText(hisName);
-
-                    //set post image
-                    if (pImage.equals("noImage")) {
-                        pImageIv.setVisibility(View.GONE);
-                    }
-                    else {
-                        pImageIv.setVisibility(View.VISIBLE);
-
+                    //uploadedBy
+                    if (hisName.equals("")){
                         try {
-                            Picasso.get().load(pImage).into(pImageIv);
+                            emailTv.setText(hisEmail);
+                            emailTv.setVisibility(View.VISIBLE);
+                            uNameTv.setVisibility(View.GONE);
+                            uploadedBy.setText("This image is uploaded by "+ hisEmail);
                         }
                         catch (Exception e) {
-
                         }
+                    }
+                    else {
+                        uNameTv.setText(hisName);
+                        uNameTv.setVisibility(View.VISIBLE);
+                        emailTv.setVisibility(View.GONE);
+                        uploadedBy.setText("This image is uploaded by "+ hisName);
+                    }
+
+                    //set post image
+                    try {
+                        Picasso.get().load(pImage).into(pImageIv);
+                    }
+                    catch (Exception e) {
+
                     }
 
                     //set user img in comment part
@@ -479,7 +489,6 @@ public class PostDetailActivity extends AppCompatActivity {
                         Picasso.get().load(hisDp).placeholder(R.drawable.ic_default_img).into(uPictureIv);
                     }
                     catch (Exception e) {
-                        Picasso.get().load(R.drawable.ic_default_img).into(uPictureIv);
                     }
                 }
             }

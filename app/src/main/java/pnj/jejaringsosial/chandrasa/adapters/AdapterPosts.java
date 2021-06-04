@@ -99,7 +99,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         String pTime = DateFormat.format("dd/MM/yy hh:mm aa", calendar).toString();
 
         //set data
-        myHolder.uNameTv.setText(uName);
         myHolder.pTimeTv.setText(pTime);
         myHolder.pTitleTv.setText(pTitle);
         myHolder.pDescriptionTv.setText(pDesc);
@@ -117,20 +116,35 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
         }
 
-        //set post image
-        if (pImage.equals("noImage")) {
-            myHolder.pImageIv.setVisibility(View.GONE);
-        }
-        else {
-            myHolder.pImageIv.setVisibility(View.VISIBLE);
-
+        if (uName.equals("")){
             try {
-                Picasso.get().load(pImage).into(myHolder.pImageIv);
+                myHolder.uEmailTv.setText(uEmail);
+                myHolder.uEmailTv.setVisibility(View.VISIBLE);
+                myHolder.uNameTv.setVisibility(View.GONE);
+                myHolder.uploadedBy.setText("This image is uploaded by "+ uEmail);
+
             }
             catch (Exception e) {
-
             }
         }
+        else {
+            myHolder.uNameTv.setText(uName);
+            myHolder.uNameTv.setVisibility(View.VISIBLE);
+            myHolder.uEmailTv.setVisibility(View.GONE);
+
+            myHolder.uploadedBy.setText("This image is uploaded by "+ uName);
+            myHolder.uploadedBy.setVisibility(View.VISIBLE);
+        }
+
+
+        //set post image
+        try {
+            Picasso.get().load(pImage).into(myHolder.pImageIv);
+            }
+        catch (Exception e) {
+
+            }
+
 
         //handle btn click
         myHolder.moreBtn.setOnClickListener(v -> {
@@ -347,7 +361,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
         //views from row post xml
         ImageView uPictureIv, pImageIv;
-        TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv;
+        TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, uEmailTv;
         ImageButton moreBtn;
         Button likeBtn, commentBtn, shareBtn;
         LinearLayout profileLayout;
@@ -369,6 +383,9 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             shareBtn = itemView.findViewById(R.id.shareBtn);
             profileLayout = itemView.findViewById(R.id.profileLayout);
             pCommentsTv = itemView.findViewById(R.id.pCommentsTv);
+            uploadedBy = itemView.findViewById(R.id.uploadedBy);
+            uEmailTv = itemView.findViewById(R.id.uEmailTv);
+
 
         }
     }

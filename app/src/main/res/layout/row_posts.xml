@@ -20,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/uPictureIv"
@@ -33,12 +34,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp">
                 <TextView
                     android:id="@+id/uNameTv"
                     android:text="Name"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/uEmailTv"
+                    android:text="Email"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -79,11 +90,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@color/hover"
-                android:text="This image is uploaded by: "
+                android:text="This"
                 android:padding="5dp"
                 android:textStyle="bold"
                 android:textSize="8sp"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignEnd="@id/pImageIv"
+                />
 
 
         </RelativeLayout>

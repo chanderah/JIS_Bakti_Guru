@@ -104,8 +104,20 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
         //set data
         holder.nameTv.setText(uName);
         holder.titleTv.setText(pTitle);
-        holder.uploadedBy.setText("This video is uploaded by "+ uName);
         setVideoUrl(modelVideo.get(i), holder);
+
+        //uploadedBy
+        if (uName.equals("")){
+            try {
+                holder.uploadedBy.setText("This video is uploaded by "+ uEmail);
+
+            }
+            catch (Exception e) {
+            }
+        }
+        else {
+            holder.uploadedBy.setText("This video is uploaded by "+ uName);
+        }
 
         //set user dp
         try {

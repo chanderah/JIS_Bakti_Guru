@@ -19,37 +19,50 @@
             android:id="@+id/avatarIv"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
+            android:layout_centerVertical="true"
             android:src="@drawable/ic_default_img"/>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/nameTv"
-            android:layout_toRightOf="@id/avatarIv"
-            android:text="Chandra SA"
-            android:textColor="@color/colorWhite"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/avatarIv">
 
-        <TextView
-            android:id="@+id/commentTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nameTv"
-            android:layout_toEndOf="@id/avatarIv"
-            android:text="This is comment"
-            android:textColor="@color/colorWhite"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nameTv"
+                android:text=".."
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/timeTv"
-            android:text="12/09/1998"
-            android:layout_below="@id/commentTv"
-            android:layout_toEndOf="@id/avatarIv"
-            android:textColor="@color/colorWhite"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailTv"
+                android:text=".."
+                android:textColor="@color/colorWhite"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/commentTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=".."
+                android:textColor="@color/colorWhite"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/timeTv"
+                android:text="12/09/1998"
+                android:textColor="@color/colorWhite"
+                />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
