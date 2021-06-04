@@ -327,9 +327,10 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                                     ds.getRef().removeValue(); //remove values matched pid
+
                                 }
                                 //deleted 
-                                Toast.makeText(context, "Deleted successfully.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Deleted successfully...", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override

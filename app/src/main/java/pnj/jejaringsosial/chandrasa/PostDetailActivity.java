@@ -243,9 +243,11 @@ public class PostDetailActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                                     ds.getRef().removeValue(); //remove values matched pid
+                                    loadPostInfo();
                                 }
                                 //deleted
-                                Toast.makeText(PostDetailActivity.this, "Deleted successfully.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PostDetailActivity.this, "Deleted successfully...", Toast.LENGTH_SHORT).show();
+
                             }
 
                             @Override
