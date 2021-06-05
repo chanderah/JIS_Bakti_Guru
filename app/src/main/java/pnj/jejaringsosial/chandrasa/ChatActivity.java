@@ -91,9 +91,9 @@ public class ChatActivity extends AppCompatActivity {
 
 
     //notif
-    RequestQueue requestQueue;
+    private RequestQueue requestQueue;
 
-    boolean notify = false;
+    private boolean notify = false;
 
 
     @Override
@@ -357,7 +357,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     Token token = ds.getValue(Token.class);
-                    Data data = new Data(myUid, name+" : "+message, "New Message", hisUid, R.drawable.ic_default_img);
+                    Data data = new Data(myUid, name + ": " + message, "New Message", hisUid, R.drawable.ic_default_img);
 
                     Sender sender = new Sender(data, token.getToken());
 
@@ -383,7 +383,7 @@ public class ChatActivity extends AppCompatActivity {
                                 //put params
                                 Map<String, String> headers = new HashMap<>();
                                 headers.put("Content-Type", "application/json");
-                                headers.put("Authorization", "key=AAAAECobNuE:APA91bEQI8dOUsEm_wbOyqYUguUdnZP8KIBxPiodU2pUjKsX9OYsnOc5Vo7fkwAWOvE_k_i1_0hyYLqxdeJAOCt2jTfLQ6Z2z125oHfLhDudjmzFVeAL7C3GQ_zkj8fPnr987EOZ5Xzf");
+                                headers.put("Authorization", "key=AAAAECobNuE:APA91bF9X2yQTyrME0doharJ9tFxS4vDFp_BO7O-Qr_BLU7VT0TBSqAMcZ83AqyR2LKycHgqZ5w2SeSKAoi6kWQ7gRhornTCmB-GO_-SipMTSvEUCQSQmahopLVV1HwYY2IR-bCdp5eM");
 
                                 return headers;
                             }
