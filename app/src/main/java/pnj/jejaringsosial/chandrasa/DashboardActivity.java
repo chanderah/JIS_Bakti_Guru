@@ -19,6 +19,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
+
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.security.acl.Group;
 import java.util.HashMap;
@@ -72,6 +86,18 @@ public class  DashboardActivity extends AppCompatActivity {
 
         checkUserStatus();
 
+        updateToken();
+    }
+    
+
+    private void updateToken() {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
+        String tokenRefresh = FirebaseInstanceId.getInstance().getToken();
+        Token token = new Token(tokenRefresh);
+        ref.child(user.getUid()).setValue(token);
+
     }
 
     @Override
@@ -79,12 +105,6 @@ public class  DashboardActivity extends AppCompatActivity {
         checkUserStatus();
         checkOnlineStatus("online");
         super.onResume();
-    }
-
-    public void updateToken(String token){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Tokens");
-        Token mToken = new Token(token);
-        ref.child(mUID).setValue(mToken);
     }
 
     private void checkUserStatus() {
