@@ -330,8 +330,8 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         DatabaseReference chatRef2  = FirebaseDatabase.getInstance().getReference("Chatlist")
-                .child(myUid)
-                .child(hisUid);
+                .child(hisUid)
+                .child(myUid);
         chatRef2.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {

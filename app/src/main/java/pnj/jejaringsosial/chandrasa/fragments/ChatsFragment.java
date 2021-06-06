@@ -32,14 +32,14 @@ import java.util.List;
 import pnj.jejaringsosial.chandrasa.GroupCreateActivity;
 import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
-import pnj.jejaringsosial.chandrasa.adapters.AdapterChatlist;
+import pnj.jejaringsosial.chandrasa.adapters.AdapterChats;
 import pnj.jejaringsosial.chandrasa.models.ModelChat;
 import pnj.jejaringsosial.chandrasa.models.ModelChatlist;
 import pnj.jejaringsosial.chandrasa.models.ModelUser;
 
-public class ChatListFragment extends Fragment {
+public class ChatsFragment extends Fragment {
 
-    public ChatListFragment() {
+    public ChatsFragment() {
         // Required empty public constructor
     }
 
@@ -49,7 +49,7 @@ public class ChatListFragment extends Fragment {
     List<ModelUser> userList;
     DatabaseReference reference;
     FirebaseUser currentUser;
-    AdapterChatlist adapterChatlist;
+    AdapterChats adapterChats;
 
     SwipeRefreshLayout swiperefreshlayout;
 
@@ -58,7 +58,7 @@ public class ChatListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_chats, container, false);
 
         //init firebase
         firebaseAuth = FirebaseAuth.getInstance();
@@ -108,9 +108,9 @@ public class ChatListFragment extends Fragment {
                         }
                     }
                     //adapter
-                    adapterChatlist = new AdapterChatlist(getContext(), userList);
+                    adapterChats = new AdapterChats(getContext(), userList);
                     //set adapter
-                    recyclerView.setAdapter(adapterChatlist);
+                    recyclerView.setAdapter(adapterChats);
                     //set last message
                     for (int i=0; i<userList.size(); i++) {
                         lastMessage(userList.get(i).getUid());
@@ -150,8 +150,8 @@ public class ChatListFragment extends Fragment {
 
                     }
                 }
-                adapterChatlist.setLastMessageMap(userId, theLastMessage);
-                adapterChatlist.notifyDataSetChanged();
+                adapterChats.setLastMessageMap(userId, theLastMessage);
+                adapterChats.notifyDataSetChanged();
 
             }
 

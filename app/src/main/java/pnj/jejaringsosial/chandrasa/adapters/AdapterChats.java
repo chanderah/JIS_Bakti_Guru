@@ -18,12 +18,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.List;
 
-import kotlin.reflect.KVisibility;
 import pnj.jejaringsosial.chandrasa.ChatActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.models.ModelUser;
 
-public class AdapterChatlist extends RecyclerView.Adapter<AdapterChatlist.MyHolder> {
+public class AdapterChats extends RecyclerView.Adapter<AdapterChats.MyHolder> {
 
     Context context;
     List<ModelUser> userList; //get user info
@@ -31,7 +30,7 @@ public class AdapterChatlist extends RecyclerView.Adapter<AdapterChatlist.MyHold
 
     //constructor
 
-    public AdapterChatlist(Context context, List<ModelUser> userList) {
+    public AdapterChats(Context context, List<ModelUser> userList) {
         this.context = context;
         this.userList = userList;
         lastMessageMap = new HashMap<>();
@@ -42,7 +41,7 @@ public class AdapterChatlist extends RecyclerView.Adapter<AdapterChatlist.MyHold
     @Override
     public MyHolder onCreateViewHolder(@NonNull @NotNull ViewGroup viewGroup, int i) {
         //inflate layout  row chatlist xml
-        View view = LayoutInflater.from(context).inflate(R.layout.row_chatlist, viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_chats, viewGroup, false);
 
         return new MyHolder(view);
     }
@@ -69,17 +68,17 @@ public class AdapterChatlist extends RecyclerView.Adapter<AdapterChatlist.MyHold
 
         }
         catch (Exception e){
-            Picasso.get().load(R.drawable.ic_default_img).into(myHolder.profileIv);
 
         }
         //online status
         if (userList.get(i).getOnlineStatus().equals("online")){
             //online
             myHolder.onlineStatusIv.setImageResource(R.drawable.circle_online);
+            myHolder.onlineStatusIv.setVisibility(View.VISIBLE);
         }
         else {
             //offline
-            myHolder.onlineStatusIv.setImageResource(R.drawable.circle_offline);
+            myHolder.onlineStatusIv.setVisibility(View.GONE);
         }
 
         //handle click user in chatlist

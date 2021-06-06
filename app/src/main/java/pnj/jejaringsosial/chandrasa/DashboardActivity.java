@@ -22,22 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
-
-import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.security.acl.Group;
 import java.util.HashMap;
 
-import pnj.jejaringsosial.chandrasa.fragments.ChatListFragment;
+import pnj.jejaringsosial.chandrasa.fragments.ChatsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.GroupChatsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.HomeFragment;
 import pnj.jejaringsosial.chandrasa.fragments.NotificationsFragment;
@@ -186,7 +173,7 @@ public class  DashboardActivity extends AppCompatActivity {
                             return true;
                         case R.id.nav_chat:
                             actionBar.setTitle("Chats");
-                            ChatListFragment fragment4 = new ChatListFragment();
+                            ChatsFragment fragment4 = new ChatsFragment();
                             FragmentTransaction ft4 = getSupportFragmentManager().beginTransaction();
                             ft4.replace(R.id.content, fragment4, "");
                             ft4.commit();
