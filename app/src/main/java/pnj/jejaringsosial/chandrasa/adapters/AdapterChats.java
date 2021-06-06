@@ -50,12 +50,27 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.MyHolder> {
     public void onBindViewHolder(@NonNull @NotNull MyHolder myHolder, int i) {
         //get data
         String hisUid = userList.get(i).getUid();
-        String userImage = userList.get(i).getImage();
-        String userName = userList.get(i).getName();
+        String hisDp = userList.get(i).getImage();
+        String hisName = userList.get(i).getName();
+        String hisEmail = userList.get(i).getEmail();
         String lastMessage = lastMessageMap.get(hisUid);
 
         //set data
-        myHolder.nameTv.setText(userName);
+        if (hisName.equals("")){
+            try {
+                myHolder.emailTv.setText(hisEmail);
+                myHolder.emailTv.setVisibility(View.VISIBLE);
+                myHolder.nameTv.setVisibility(View.GONE);
+            }
+            catch (Exception e) {
+            }
+        }
+        else {
+            myHolder.nameTv.setText(hisName);
+            myHolder.nameTv.setVisibility(View.VISIBLE);
+            myHolder.emailTv.setVisibility(View.GONE);
+        }
+
         if (lastMessage==null || lastMessage.equals("default")){
             myHolder.lastMessageTv.setVisibility(View.GONE);
         }
@@ -64,7 +79,7 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.MyHolder> {
             myHolder.lastMessageTv.setText(lastMessage);
         }
         try{
-            Picasso.get().load(userImage).placeholder(R.drawable.ic_default_img).into(myHolder.profileIv);
+            Picasso.get().load(hisDp).placeholder(R.drawable.ic_default_img).into(myHolder.profileIv);
 
         }
         catch (Exception e){
@@ -105,7 +120,7 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.MyHolder> {
     class MyHolder extends RecyclerView.ViewHolder{
         //views row chatlist xml
         ImageView profileIv, onlineStatusIv;
-        TextView nameTv, lastMessageTv;
+        TextView nameTv, lastMessageTv, emailTv;
 
         public MyHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -115,6 +130,7 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.MyHolder> {
             onlineStatusIv = itemView.findViewById(R.id.onlineStatusIv);
             nameTv = itemView.findViewById(R.id.nameTv);
             lastMessageTv = itemView.findViewById(R.id.lastMessageTv);
+            emailTv = itemView.findViewById(R.id.emailTv);
         }
     }
 }
