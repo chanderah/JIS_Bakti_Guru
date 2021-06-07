@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_sender"
+    android:layout_marginStart="200dp"
+    android:layout_marginTop="10dp"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:id="@+id/groupChatSender"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp">
+
+        <TextView
+            android:id="@+id/nameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/messageTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameTv"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="10dp"
+            android:text="(message)"
+            android:textColor="@color/colorBlack"/>
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/timeTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="23:31 - Wed, May 5"
+        android:textSize="10sp"
+        android:textColor="@color/black"
+        android:layout_below="@id/groupChatSender"
+        android:layout_alignParentStart="true"
+        android:paddingStart="5dp"/>
+
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package pnj.jejaringsosial.chandrasa.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import pnj.jejaringsosial.chandrasa.GroupChatActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.models.ModelGroupChats;
 
@@ -43,7 +45,7 @@ public class AdapterGroupChats extends RecyclerView.Adapter<AdapterGroupChats.Ho
     public void onBindViewHolder(@NonNull @NotNull HolderGroupChatList holder, int position) {
         //get data
         ModelGroupChats model = groupChatLists.get(position);
-        String groupId = model.getGroupId();
+        final String groupId = model.getGroupId();
         String groupIcon = model.getGroupIcon();
         String groupTitle = model.getGroupTitle();
 
@@ -60,6 +62,10 @@ public class AdapterGroupChats extends RecyclerView.Adapter<AdapterGroupChats.Ho
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //open groupchat
+                Intent intent = new Intent(context, GroupChatActivity.class);
+                intent.putExtra("groupId", groupId);
+                context.startActivity(intent);
 
             }
         });

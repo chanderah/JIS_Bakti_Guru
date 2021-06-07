@@ -22,21 +22,18 @@
             app:stackFromEnd="true"
             app:reverseLayout="true"/>
 
-        <TextView
-            android:id="@+id/photosFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:text="PHOTOS"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"
-            android:rotation="-90"
-            android:padding="10dp"
-            android:background="@color/colorPrimary"/>
-
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-
+    <TextView
+        android:id="@+id/photosFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:text="PHOTOS"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite"
+        android:rotation="-90"
+        android:padding="10dp"
+        android:background="@color/colorPrimary"/>
 </RelativeLayout>

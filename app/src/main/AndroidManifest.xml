@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/ThemeApp"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".GroupChatActivity"/>
+        <activity android:name=".GroupChatActivity"
+            android:theme="@style/ThemeAppNo"/>
         <activity android:name=".PostDetailActivity" />
         <activity android:name=".GroupCreateActivity" />
         <activity android:name=".AddVideoActivity" />
