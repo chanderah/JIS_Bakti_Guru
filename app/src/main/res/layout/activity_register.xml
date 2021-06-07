@@ -13,7 +13,10 @@
         android:textAlignment="center"
         android:gravity="center_horizontal"
         android:text="Register"
-        android:textSize="25sp"/>
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        android:layout_above="@id/emailTIL"
+        android:paddingBottom="50dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -55,7 +58,8 @@
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_register_white"
         android:drawableLeft="@drawable/ic_register_white"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/haveAccountTv"
@@ -64,6 +68,6 @@
         android:text="Already have an account? Login"
         android:textAlignment="center"
         android:layout_below="@id/register_btn"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="10dp"/>
 
 </RelativeLayout>

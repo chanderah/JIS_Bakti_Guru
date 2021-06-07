@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,8 +35,8 @@ import java.util.ArrayList;
 import pnj.jejaringsosial.chandrasa.GroupCreateActivity;
 import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
-import pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList;
-import pnj.jejaringsosial.chandrasa.models.ModelGroupChatList;
+import pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChats;
+import pnj.jejaringsosial.chandrasa.models.ModelGroupChats;
 
 public class GroupChatsFragment extends Fragment {
 
@@ -42,8 +44,8 @@ public class GroupChatsFragment extends Fragment {
 
     private FirebaseAuth firebaseAuth;
 
-    private ArrayList<ModelGroupChatList> groupChatLists;
-    private AdapterGroupChatList adapterGroupChatList;
+    private ArrayList<ModelGroupChats> groupChatLists;
+    private AdapterGroupChats adapterGroupChats;
 
     public GroupChatsFragment() {
         // Required empty public constructor
@@ -62,6 +64,15 @@ public class GroupChatsFragment extends Fragment {
 
         loadGroupChatsList();
 
+        //swipe refresh
+        SwipeRefreshLayout swiperefreshlayout;
+        swiperefreshlayout = view.findViewById(R.id.swiperefreshLayout);
+        swiperefreshlayout.setOnRefreshListener(() -> {
+            Toast.makeText(getActivity(), "Refresh running...", Toast.LENGTH_SHORT).show();
+            loadGroupChatsList();
+            swiperefreshlayout.setRefreshing(false);
+        });
+
         return view;
     }
 
@@ -76,13 +87,13 @@ public class GroupChatsFragment extends Fragment {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     //if current user uid exist then show
                     if (ds.child("Participants").child(firebaseAuth.getUid()).exists()){
-                        ModelGroupChatList model = ds.getValue(ModelGroupChatList.class);
+                        ModelGroupChats model = ds.getValue(ModelGroupChats.class);
                         groupChatLists.add(model);
 
                     }
                 }
-                adapterGroupChatList = new AdapterGroupChatList(getActivity(), groupChatLists);
-                groupsRv.setAdapter(adapterGroupChatList);
+                adapterGroupChats = new AdapterGroupChats(getActivity(), groupChatLists);
+                groupsRv.setAdapter(adapterGroupChats);
 
             }
 
@@ -107,13 +118,13 @@ public class GroupChatsFragment extends Fragment {
                     if (ds.child("Participants").child(firebaseAuth.getUid()).exists()) {
                         //search by group title
                         if (ds.child("groupTitle").toString().toLowerCase().contains(query.toLowerCase())) {
-                            ModelGroupChatList model = ds.getValue(ModelGroupChatList.class);
+                            ModelGroupChats model = ds.getValue(ModelGroupChats.class);
                             groupChatLists.add(model);
                         }
                     }
                 }
-                adapterGroupChatList = new AdapterGroupChatList(getActivity(), groupChatLists);
-                groupsRv.setAdapter(adapterGroupChatList);
+                adapterGroupChats = new AdapterGroupChats(getActivity(), groupChatLists);
+                groupsRv.setAdapter(adapterGroupChats);
 
             }
 
@@ -138,6 +149,7 @@ public class GroupChatsFragment extends Fragment {
 
         //hide addpost from this fragment
         menu.findItem(R.id.action_add_post).setVisible(false);
+        menu.findItem(R.id.action_add_video).setVisible(false);
 
         //searchview
         MenuItem item = menu.findItem(R.id.action_search);

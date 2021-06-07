@@ -51,7 +51,6 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     List<ModelPost> postList;
     AdapterPosts adapterPosts;
-    SwipeRefreshLayout swiperefreshlayout;
 
     TextView videosFab;
 
@@ -70,6 +69,7 @@ public class HomeFragment extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
         //swipe refresh
+        SwipeRefreshLayout swiperefreshlayout;
         swiperefreshlayout = view.findViewById(R.id.swiperefreshLayout);
         swiperefreshlayout.setOnRefreshListener(() -> {
             Toast.makeText(getActivity(), "Refresh running...", Toast.LENGTH_SHORT).show();
@@ -94,7 +94,6 @@ public class HomeFragment extends Fragment {
         postList = new ArrayList<>();
 
         loadPosts();
-
 
         videosFab = view.findViewById(R.id.videosFab);
         videosFab.setOnClickListener(new View.OnClickListener() {
@@ -132,8 +131,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
-                //incase error
-                Toast.makeText(getActivity(), "You are logged out...", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -197,6 +195,8 @@ public class HomeFragment extends Fragment {
 
         //hide option
         menu.findItem(R.id.action_create_group).setVisible(false);
+        menu.findItem(R.id.action_add_video).setVisible(false);
+
 
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);

@@ -67,7 +67,7 @@ public class PostDetailActivity extends AppCompatActivity {
     ImageView uPictureIv, pImageIv;
     TextView uNameTv, pTimeTiv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, emailTv;
     ImageButton moreBtn;
-    Button likeBtn, shareBtn;
+    Button likeBtn;
     LinearLayout profileLayout;
     RecyclerView recyclerView;
 
@@ -109,7 +109,6 @@ public class PostDetailActivity extends AppCompatActivity {
         pCommentsTv = findViewById(R.id.pCommentsTv);
         moreBtn = findViewById(R.id.moreBtn);
         likeBtn = findViewById(R.id.likeBtn);
-        shareBtn = findViewById(R.id.shareBtn);
         profileLayout = findViewById(R.id.profileLayout);
         recyclerView = findViewById(R.id.recyclerViewComment);
         uploadedBy = findViewById(R.id.uploadedBy);
@@ -128,7 +127,6 @@ public class PostDetailActivity extends AppCompatActivity {
         setLikes();
 
         loadComments();
-
 
         //set subtitle actionbar
         actionBar.setSubtitle(myEmail);
@@ -165,7 +163,7 @@ public class PostDetailActivity extends AppCompatActivity {
         //init comments list
         commentList = new ArrayList<>();
 
-        //path post get cmmnt
+        //path post get comment
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts").child(postId).child("Comments");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -197,10 +195,13 @@ public class PostDetailActivity extends AppCompatActivity {
 
         if (hisUid.equals(myUid)){
             //add items menu
-            popupMenu.getMenu().add(Menu.NONE, 0, 0, "Delete");
-            popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
-
+            popupMenu.getMenu().add(Menu.NONE, 0, 0, "Edit");
+            popupMenu.getMenu().add(Menu.NONE, 1, 0, "Delete");
         }
+        else {
+            moreBtn.setVisibility(View.GONE);
+        }
+
 
         //add items
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -208,16 +209,16 @@ public class PostDetailActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 if (id==0) {
-                    //delete clicked
-                    beginDelete();
-                }
-                else if (id==1) {
                     //edit clicked
-                    //start AddpostActivity key "editPost" id post clicked
+                    //start AddPostActivity key "editPost" id post clicked
                     Intent intent = new Intent(PostDetailActivity.this, AddPostActivity.class);
                     intent.putExtra("key", "editPost");
                     intent.putExtra("editPostId", postId);
                     startActivity(intent);
+                }
+                else if (id==1) {
+                    //delete clicked
+                    beginDelete();
                 }
 
                 return false;
@@ -456,7 +457,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     //set data
                     pTitleTv.setText(pTitle);
                     pDescriptionTv.setText(pDesc);
-                    pLikesTv.setText(pLikes + "Likes");
+                    pLikesTv.setText(pLikes + " Likes");
                     pTimeTiv.setText(pTime);
                     pCommentsTv.setText(commentCount +" Comments");
 
@@ -558,6 +559,8 @@ public class PostDetailActivity extends AppCompatActivity {
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_create_group).setVisible(false);
+        menu.findItem(R.id.action_add_video).setVisible(false);
+
 
         return super.onCreateOptionsMenu(menu);
     }

@@ -13,7 +13,10 @@
         android:textAlignment="center"
         android:gravity="center_horizontal"
         android:text="Login"
-        android:textSize="25sp"/>
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        android:layout_above="@id/emailTIL"
+        android:paddingBottom="50dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -53,7 +56,8 @@
         android:layout_below="@id/passwordTIL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/nothave_accountTv"
@@ -62,5 +66,5 @@
         android:text="Don't have an account? Register"
         android:textAlignment="center"
         android:layout_below="@id/login_btn"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="10dp"/>
 </RelativeLayout>

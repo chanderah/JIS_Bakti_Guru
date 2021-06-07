@@ -17,14 +17,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 import pnj.jejaringsosial.chandrasa.R;
-import pnj.jejaringsosial.chandrasa.models.ModelGroupChatList;
+import pnj.jejaringsosial.chandrasa.models.ModelGroupChats;
 
-public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatList.HolderGroupChatList> {
+public class AdapterGroupChats extends RecyclerView.Adapter<AdapterGroupChats.HolderGroupChatList> {
 
     private Context context;
-    private ArrayList<ModelGroupChatList> groupChatLists;
+    private ArrayList<ModelGroupChats> groupChatLists;
 
-    public AdapterGroupChatList(Context context, ArrayList<ModelGroupChatList> groupChatLists) {
+    public AdapterGroupChats(Context context, ArrayList<ModelGroupChats> groupChatLists) {
         this.context = context;
         this.groupChatLists = groupChatLists;
     }
@@ -35,14 +35,14 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
     public HolderGroupChatList onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
 
         //inflate layout
-        View view = LayoutInflater.from(context).inflate(R.layout.row_groupchats_list, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_groupchatlist, parent, false);
         return new HolderGroupChatList(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull HolderGroupChatList holder, int position) {
         //get data
-        ModelGroupChatList model = groupChatLists.get(position);
+        ModelGroupChats model = groupChatLists.get(position);
         String groupId = model.getGroupId();
         String groupIcon = model.getGroupIcon();
         String groupTitle = model.getGroupTitle();

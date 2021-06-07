@@ -16,8 +16,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/ThemeApp">
-        <activity android:name=".GroupChatActivity"></activity>
+        android:theme="@style/ThemeApp"
+        android:windowSoftInputMode="adjustResize">
+        <activity android:name=".GroupChatActivity"/>
         <activity android:name=".PostDetailActivity" />
         <activity android:name=".GroupCreateActivity" />
         <activity android:name=".AddVideoActivity" />
@@ -26,7 +27,7 @@
 
         </activity>
         <activity android:name=".UserProfileActivity" />
-        <activity android:name=".AddPostActivity" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".AddPostActivity" />
         <activity
             android:name=".ChatActivity"
             android:theme="@style/ThemeAppNo" />

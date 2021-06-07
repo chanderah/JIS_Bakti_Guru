@@ -249,6 +249,7 @@ public class UserProfileActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_create_group).setVisible(false);
+        menu.findItem(R.id.action_add_video).setVisible(false);
 
         MenuItem item = menu.findItem(R.id.action_search);
 

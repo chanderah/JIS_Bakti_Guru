@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
     android:padding="10dp"
     tools:context=".AddVideoActivity">
 
@@ -13,38 +12,41 @@
         android:id="@+id/videoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <ImageView
+        android:id="@+id/pickVideoIv"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_video_white"
+        app:layout_constraintBottom_toTopOf="@+id/titleEt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/titleEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:hint="Enter title"
+        android:background="@color/colorPrimaryDark"
+        android:hint="Enter title..."
+        android:textColorHint="@color/colorSilver"
         android:inputType="textPersonName|textCapSentences"
         android:padding="10dp"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/uploadVideoBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/pickVideoFab"
+        android:id="@+id/uploadVideoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/titleEt"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        android:src="@drawable/ic_video_white"
-        android:tintMode="@color/colorWhite" />
+        android:src="@drawable/ic_done_white"/>
 
-    <Button
-        android:id="@+id/uploadVideoBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="Upload Video"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

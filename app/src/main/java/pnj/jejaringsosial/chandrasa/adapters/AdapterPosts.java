@@ -195,13 +195,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                 context.startActivity(intent);
             }
         });
-        myHolder.shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //
-                Toast.makeText(context, "Share", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         myHolder.profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,11 +266,11 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
         if (uid.equals(myUid)){
             //add items menu
-            popupMenu.getMenu().add(Menu.NONE, 0, 0, "Delete");
             popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
-
+            popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
         }
-        popupMenu.getMenu().add(Menu.NONE,2,0,"View Detail");
+        popupMenu.getMenu().add(Menu.NONE, 0, 0, "View Detail");
+
 
         //add items
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -285,8 +278,10 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             public boolean onMenuItemClick(MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 if (id==0) {
-                    //delete clicked
-                    beginDelete(pId, pImage);
+                    //start postdetailactivity
+                    Intent intent = new Intent(context, PostDetailActivity.class);
+                    intent.putExtra("postId", pId); //get detail post with this id
+                    context.startActivity(intent);
                 }
                 else if (id==1) {
                     //edit clicked
@@ -295,13 +290,12 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                     intent.putExtra("key", "editPost");
                     intent.putExtra("editPostId", pId);
                     context.startActivity(intent);
+
                 }
 
                 else if (id==2){
-                    //start postdetailactivity
-                    Intent intent = new Intent(context, PostDetailActivity.class);
-                    intent.putExtra("postId", pId); //get detail post with this id
-                    context.startActivity(intent);
+                    //delete clicked
+                    beginDelete(pId, pImage);
                 }
                 return false;
             }
@@ -364,7 +358,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         ImageView uPictureIv, pImageIv;
         TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, uEmailTv;
         ImageButton moreBtn;
-        Button likeBtn, commentBtn, shareBtn;
+        Button likeBtn, commentBtn;
         LinearLayout profileLayout;
 
         public MyHolder(@NonNull @NotNull View itemView) {
@@ -381,7 +375,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             moreBtn = itemView.findViewById(R.id.moreBtn);
             likeBtn = itemView.findViewById(R.id.likeBtn);
             commentBtn = itemView.findViewById(R.id.commentBtn);
-            shareBtn = itemView.findViewById(R.id.shareBtn);
             profileLayout = itemView.findViewById(R.id.profileLayout);
             pCommentsTv = itemView.findViewById(R.id.pCommentsTv);
             uploadedBy = itemView.findViewById(R.id.uploadedBy);

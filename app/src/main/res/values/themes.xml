@@ -3,13 +3,15 @@
     <style name="ThemeApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/colorWhite</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/colorPrimary</item>
-        <item name="colorSecondaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="colorSecondary">@color/colorPrimaryDark</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorOnSecondary">@color/colorWhite</item>
+        <item name="hintTextColor">@color/colorSilver</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogCustom</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
@@ -19,7 +21,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
-        <item name="colorOnPrimary">@color/colorWhite</item>
+        <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/colorPrimary</item>
         <item name="colorSecondaryVariant">@color/colorPrimaryDark</item>
@@ -30,6 +32,15 @@
     </style>
 
     <style name="ThemeApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="ThemeApp.PopupOverlay" parent="Theme.AppCompat.Light" />
+    <style name="ThemeApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
 
+    <style name="AlertDialogCustom" parent="android:Theme.Material.Light.Dialog.Alert">
+        <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorPrimary">@color/colorWhite</item>
+        <item name="android:textColorAlertDialogListItem">@color/colorWhite</item>
+        <item name="android:listDividerAlertDialog">@color/black</item>
+        <item name="android:colorPrimary">#00397F</item>
+        <item name="android:colorAccent">@color/colorSilver</item>
+    </style>
 </resources>

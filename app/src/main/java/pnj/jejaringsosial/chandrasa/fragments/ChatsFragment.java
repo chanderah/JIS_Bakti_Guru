@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +33,7 @@ import java.util.List;
 import pnj.jejaringsosial.chandrasa.GroupCreateActivity;
 import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
+import pnj.jejaringsosial.chandrasa.VideosActivity;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterChats;
 import pnj.jejaringsosial.chandrasa.models.ModelChat;
 import pnj.jejaringsosial.chandrasa.models.ModelChatlist;
@@ -87,7 +89,13 @@ public class ChatsFragment extends Fragment {
         });
 
         //swipe refresh
+        SwipeRefreshLayout swiperefreshlayout;
         swiperefreshlayout = view.findViewById(R.id.swiperefreshLayout);
+        swiperefreshlayout.setOnRefreshListener(() -> {
+            Toast.makeText(getActivity(), "Refresh running...", Toast.LENGTH_SHORT).show();
+            loadChats();
+            swiperefreshlayout.setRefreshing(false);
+        });
 
         return view;
     }
@@ -186,6 +194,7 @@ public class ChatsFragment extends Fragment {
 
         //hide addpost from this fragment
         menu.findItem(R.id.action_add_post).setVisible(false);
+        menu.findItem(R.id.action_add_video).setVisible(false);
 
         super.onCreateOptionsMenu(menu, inflater);
     }

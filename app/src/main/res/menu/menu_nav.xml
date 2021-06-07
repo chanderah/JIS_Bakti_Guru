@@ -9,7 +9,7 @@
         android:title="Users"
         android:icon="@drawable/ic_users_black"/>
 
-    <item android:id="@+id/nav_chat"
+    <item android:id="@+id/nav_chats"
         android:title="Chats"
         android:icon="@drawable/ic_chat_black"/>
     

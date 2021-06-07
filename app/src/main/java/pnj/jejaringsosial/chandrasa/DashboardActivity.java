@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -73,7 +74,6 @@ public class  DashboardActivity extends AppCompatActivity {
 
         checkUserStatus();
 
-        updateToken();
     }
     
 
@@ -107,10 +107,12 @@ public class  DashboardActivity extends AppCompatActivity {
             editor.apply();
 
             //update token
+            updateToken();
         }
         else {
             startActivity(new Intent(DashboardActivity.this, MainActivity.class));
             finish();
+            Toast.makeText(this, "Your session expired. Please login...", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -171,12 +173,14 @@ public class  DashboardActivity extends AppCompatActivity {
                             ft3.replace(R.id.content, fragment3, "");
                             ft3.commit();
                             return true;
-                        case R.id.nav_chat:
+
+                        case R.id.nav_chats:
                             actionBar.setTitle("Chats");
                             ChatsFragment fragment4 = new ChatsFragment();
                             FragmentTransaction ft4 = getSupportFragmentManager().beginTransaction();
                             ft4.replace(R.id.content, fragment4, "");
                             ft4.commit();
+                            return true;
 
                         case R.id.nav_more:
                             showMoreOptions();
@@ -191,8 +195,9 @@ public class  DashboardActivity extends AppCompatActivity {
         //popup menu to show more options
         PopupMenu popupMenu = new PopupMenu(this, navigationView, Gravity.END);
         //items to show
-        popupMenu.getMenu().add(Menu.NONE,0,0,"Notifications");
         popupMenu.getMenu().add(Menu.NONE,1,0,"Group Chats");
+        popupMenu.getMenu().add(Menu.NONE,0,0,"Notifications");
+
 
         //menu clicks
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {

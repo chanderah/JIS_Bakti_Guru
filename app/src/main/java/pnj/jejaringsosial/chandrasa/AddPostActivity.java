@@ -92,7 +92,7 @@ public class AddPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_post);
 
         actionBar = getSupportActionBar();
-        actionBar.setTitle("Add New Post");
+        actionBar.setTitle("Add New Photo");
 
         //enable back button
         actionBar.setDisplayShowHomeEnabled(true);
@@ -126,7 +126,7 @@ public class AddPostActivity extends AppCompatActivity {
         else {
             //add
 
-            actionBar.setTitle("Add New Post");
+            actionBar.setTitle("Add New Photo");
         }
 
 
@@ -227,6 +227,7 @@ public class AddPostActivity extends AppCompatActivity {
                                         public void onSuccess(Void aVoid) {
                                             pd.dismiss();
                                             Toast.makeText(AddPostActivity.this, "Updated...", Toast.LENGTH_SHORT).show();
+                                            finish();
 
                                         }
                                     })
@@ -267,14 +268,12 @@ public class AddPostActivity extends AppCompatActivity {
                     descriptionEt.setText(editDesc);
 
                     //set image
-                    if (!editImage.equals("noImage")) {
-                        try {
-                            Picasso.get().load(editImage).into(imageIv);
-                            imageIv.setClickable(false);
-                        }
-                        catch (Exception e) {
+                    try {
+                        Picasso.get().load(editImage).into(imageIv);
+                        imageIv.setClickable(false);
+                    }
+                    catch (Exception e) {
 
-                        }
                     }
                 }
             }
@@ -283,7 +282,7 @@ public class AddPostActivity extends AppCompatActivity {
             public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
 
             }
-        });;
+        });
     }
 
     private void uploadData(String title, String description) {
@@ -533,7 +532,16 @@ public class AddPostActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //get item id
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            firebaseAuth.signOut();
+            checkUserStatus();
+        }
 
+        if (id == R.id.action_add_video) {
+            startActivity(new Intent(AddPostActivity.this, AddVideoActivity.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 

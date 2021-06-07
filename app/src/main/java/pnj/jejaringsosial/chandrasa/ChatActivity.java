@@ -115,8 +115,6 @@ public class ChatActivity extends AppCompatActivity {
         messageEt = findViewById(R.id.messageEt) ;
         sendBtn = findViewById(R.id.sendBtn) ;
 
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         //init actionbar
         actionBar = getSupportActionBar();
         //add back btn
@@ -131,11 +129,11 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        //create api service
-
-
         Intent intent = getIntent();
         hisUid = intent.getStringExtra("hisUid");
+
+        //API
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         firebaseAuth = firebaseAuth.getInstance();
 
@@ -216,7 +214,6 @@ public class ChatActivity extends AppCompatActivity {
         readMessages();
 
         seenMessage();
-
     }
 
     @Override
@@ -357,7 +354,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     Token token = ds.getValue(Token.class);
-                    Data data = new Data(myUid, name + ": " + message, "New Message", hisUid, R.drawable.ic_default_img);
+                    Data data = new Data(myUid, name + ": " + message, "New Message", hisUid, R.mipmap.ic_launcher_foreground);
 
                     Sender sender = new Sender(data, token.getToken());
 
@@ -461,6 +458,8 @@ public class ChatActivity extends AppCompatActivity {
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_create_group).setVisible(false);
+        menu.findItem(R.id.action_add_video).setVisible(false);
+
         return super.onCreateOptionsMenu(menu);
     }
 

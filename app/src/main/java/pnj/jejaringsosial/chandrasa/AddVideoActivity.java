@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -59,9 +60,9 @@ public class AddVideoActivity extends AppCompatActivity {
 
     //ui view
     EditText titleEt;
+    ImageView pickVideoIv;
     VideoView videoView;
-    Button uploadVideoBtn;
-    FloatingActionButton pickVideoFab;
+    FloatingActionButton uploadVideoBtn;
 
     private static final int VIDEO_PICK_GALLERY_CODE = 100;
     private static final int VIDEO_PICK_CAMERA_CODE = 101;
@@ -97,7 +98,7 @@ public class AddVideoActivity extends AppCompatActivity {
         titleEt = findViewById(R.id.titleEt);
         videoView = findViewById(R.id.videoView);
         uploadVideoBtn = findViewById(R.id.uploadVideoBtn);
-        pickVideoFab = findViewById(R.id.pickVideoFab);
+        pickVideoIv = findViewById(R.id.pickVideoIv);
 
         //setup progress dialog
         progressDialog = new ProgressDialog(this);
@@ -126,10 +127,11 @@ public class AddVideoActivity extends AppCompatActivity {
             }
         });
 
-        //handle click, pick video from camera / gallery
-        pickVideoFab.setOnClickListener(new View.OnClickListener() {
+        //get image from cam/gallery on click
+        videoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //show image pick dialog
                 videoPickDialog();
             }
         });
@@ -152,6 +154,8 @@ public class AddVideoActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     @Override
@@ -312,6 +316,7 @@ public class AddVideoActivity extends AppCompatActivity {
     private void setVideoToVideoView(){
         MediaController mediaController = new MediaController(this);
         mediaController.setAnchorView(videoView);
+        pickVideoIv.setVisibility(View.GONE);
 
         //set media controller to vv
         videoView.setMediaController(mediaController);
