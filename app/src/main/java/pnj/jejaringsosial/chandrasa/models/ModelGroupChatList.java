@@ -1,13 +1,13 @@
 package pnj.jejaringsosial.chandrasa.models;
 
-public class ModelGroupChats {
+public class ModelGroupChatList {
 
     String groupId, groupTitle, groupDescription, groupIcon, timestamp, createdBy;
 
-    public ModelGroupChats() {
+    public ModelGroupChatList() {
     }
 
-    public ModelGroupChats(String groupId, String groupTitle, String groupDescription, String groupIcon, String timestamp, String createdBy) {
+    public ModelGroupChatList(String groupId, String groupTitle, String groupDescription, String groupIcon, String timestamp, String createdBy) {
         this.groupId = groupId;
         this.groupTitle = groupTitle;
         this.groupDescription = groupDescription;

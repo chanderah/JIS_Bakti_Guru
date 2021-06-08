@@ -39,6 +39,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
+import pnj.jejaringsosial.chandrasa.fragments.GroupChatsFragment;
+
 public class GroupCreateActivity extends AppCompatActivity {
 
     //perms constants
@@ -202,6 +204,8 @@ public class GroupCreateActivity extends AppCompatActivity {
                                         //participant added
                                         progressDialog.dismiss();
                                         Toast.makeText(GroupCreateActivity.this, "Group created...", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(GroupCreateActivity.this, GroupChatsFragment.class));
+                                        finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {

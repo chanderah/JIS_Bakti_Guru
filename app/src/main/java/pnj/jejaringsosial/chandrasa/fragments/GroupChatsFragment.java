@@ -35,8 +35,8 @@ import java.util.ArrayList;
 import pnj.jejaringsosial.chandrasa.GroupCreateActivity;
 import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
-import pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChats;
-import pnj.jejaringsosial.chandrasa.models.ModelGroupChats;
+import pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList;
+import pnj.jejaringsosial.chandrasa.models.ModelGroupChatList;
 
 public class GroupChatsFragment extends Fragment {
 
@@ -44,8 +44,8 @@ public class GroupChatsFragment extends Fragment {
 
     private FirebaseAuth firebaseAuth;
 
-    private ArrayList<ModelGroupChats> groupChatLists;
-    private AdapterGroupChats adapterGroupChats;
+    private ArrayList<ModelGroupChatList> groupChatLists;
+    private AdapterGroupChatList adapterGroupChatList;
 
     public GroupChatsFragment() {
         // Required empty public constructor
@@ -87,13 +87,13 @@ public class GroupChatsFragment extends Fragment {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     //if current user uid exist then show
                     if (ds.child("Participants").child(firebaseAuth.getUid()).exists()){
-                        ModelGroupChats model = ds.getValue(ModelGroupChats.class);
+                        ModelGroupChatList model = ds.getValue(ModelGroupChatList.class);
                         groupChatLists.add(model);
 
                     }
                 }
-                adapterGroupChats = new AdapterGroupChats(getActivity(), groupChatLists);
-                groupsRv.setAdapter(adapterGroupChats);
+                adapterGroupChatList = new AdapterGroupChatList(getActivity(), groupChatLists);
+                groupsRv.setAdapter(adapterGroupChatList);
 
             }
 
@@ -118,13 +118,13 @@ public class GroupChatsFragment extends Fragment {
                     if (ds.child("Participants").child(firebaseAuth.getUid()).exists()) {
                         //search by group title
                         if (ds.child("groupTitle").toString().toLowerCase().contains(query.toLowerCase())) {
-                            ModelGroupChats model = ds.getValue(ModelGroupChats.class);
+                            ModelGroupChatList model = ds.getValue(ModelGroupChatList.class);
                             groupChatLists.add(model);
                         }
                     }
                 }
-                adapterGroupChats = new AdapterGroupChats(getActivity(), groupChatLists);
-                groupsRv.setAdapter(adapterGroupChats);
+                adapterGroupChatList = new AdapterGroupChatList(getActivity(), groupChatLists);
+                groupsRv.setAdapter(adapterGroupChatList);
 
             }
 

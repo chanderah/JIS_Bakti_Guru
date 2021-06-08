@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -71,6 +72,7 @@ public class NotificationsFragment extends Fragment {
     private void getAllNotifications() {
         notificationsList = new ArrayList<>();
 
+        final FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.child(firebaseAuth.getUid()).child("Notifications")
                 .addValueEventListener(new ValueEventListener() {
@@ -80,9 +82,10 @@ public class NotificationsFragment extends Fragment {
                         for (DataSnapshot ds: dataSnapshot.getChildren()){
                             //get data
                             ModelNotification model = ds.getValue(ModelNotification.class);
-
-                            //add to list
-                            notificationsList.add(model);
+                            //get all users except current user
+                            if (!model.getsUid().equals(fUser.getUid())){
+                                notificationsList.add(model);
+                            }
                         }
                         //adapter
                         adapterNotification = new AdapterNotification(getActivity(), notificationsList);
