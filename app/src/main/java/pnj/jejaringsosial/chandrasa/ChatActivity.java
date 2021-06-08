@@ -16,6 +16,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -171,8 +172,20 @@ public class ChatActivity extends AppCompatActivity {
                     }
 
                     //set data
-                    nameTv.setText(name);
-                    emailTv.setText(email);
+                    if (name.equals("")){
+                        try {
+                            emailTv.setText(email);
+                            emailTv.setVisibility(View.VISIBLE);
+                            nameTv.setVisibility(View.GONE);
+                        }
+                        catch (Exception e) {
+                        }
+                    }
+                    else {
+                        nameTv.setText(name);
+                        nameTv.setVisibility(View.VISIBLE);
+                        emailTv.setVisibility(View.GONE);
+                    }
 
                     try {
                         //image received, set to iv toolbar
@@ -457,6 +470,7 @@ public class ChatActivity extends AppCompatActivity {
         //hide searchview, add post
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_add_post).setVisible(false);
+        menu.findItem(R.id.action_add_participant_group).setVisible(false);
         menu.findItem(R.id.action_create_group).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
 

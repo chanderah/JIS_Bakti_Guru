@@ -53,14 +53,38 @@ public class GroupAddParticipantActivity extends AppCompatActivity {
         groupId = getIntent().getStringExtra("groupId");
 
         loadGroupInfo();
-        getAllUsers();
     }
 
     private void getAllUsers() {
         //init list
         userList = new ArrayList<>();
         //load users from db
-        DatabaseReference
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                userList.clear();
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    ModelUser modelUser = ds.getValue(ModelUser.class);
+
+                    //get all users except currently signed in
+                    if (!firebaseAuth.getUid().equals(modelUser.getUid())) {
+                        //not my uid
+                        userList.add(modelUser);
+                    }
+                }
+                //setup adapter
+                adapterParticipantAdd = new AdapterParticipantAdd(GroupAddParticipantActivity.this,
+                        userList,""+groupId,""+myGroupRole);
+                //set adapter to rV
+                usersRv.setAdapter(adapterParticipantAdd);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void loadGroupInfo() {
@@ -77,6 +101,7 @@ public class GroupAddParticipantActivity extends AppCompatActivity {
                     String groupIcon = ""+ds.child("groupIcon").getValue();
                     String createdBy = ""+ds.child("groupIcon").getValue();
                     String timestamp = ""+ds.child("groupIcon").getValue();
+
                     actionBar.setTitle("Add Participants");
 
                     ref1.child(groupId).child("Participants").child(firebaseAuth.getUid())
@@ -85,7 +110,9 @@ public class GroupAddParticipantActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.exists()){
                                         myGroupRole = ""+dataSnapshot.child("role").getValue();
-                                        actionBar.setTitle(groupTitle + "("+myGroupRole+")");
+                                        actionBar.setTitle(groupTitle + " ("+myGroupRole+")");
+
+                                        getAllUsers();
                                     }
                                 }
 

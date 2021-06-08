@@ -93,8 +93,8 @@ public class AdapterParticipantAdd extends RecyclerView.Adapter<AdapterParticipa
 
                                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                     builder.setTitle("Choose Option");
-                                    if (myGroupRole.equals("creator")){
-                                        if (hisPreviousRole.equals("admin")){
+                                    if (myGroupRole.equals("Creator")){
+                                        if (hisPreviousRole.equals("Admin")){
                                             //im creator, he is admin
                                             options = new String[]{"Remove Admin", "Remove User"};
                                             builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -112,7 +112,7 @@ public class AdapterParticipantAdd extends RecyclerView.Adapter<AdapterParticipa
                                                 }
                                             }).show();
                                         }
-                                        else if (hisPreviousRole.equals("participant")){
+                                        else if (hisPreviousRole.equals("Participant")){
                                             //im creator, he is participant
                                             options = new String[]{"Make Admin", "Remove User"};
                                             builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -131,13 +131,13 @@ public class AdapterParticipantAdd extends RecyclerView.Adapter<AdapterParticipa
                                             }).show();
                                         }
                                     }
-                                    else if (myGroupRole.equals("admin")) {
-                                        if (hisPreviousRole.equals("creator")){
+                                    else if (myGroupRole.equals("Admin")) {
+                                        if (hisPreviousRole.equals("Creator")){
                                             //im admin, he is creator
                                             Toast.makeText(context, "Creator of group...", Toast.LENGTH_SHORT).show();
 
                                         }
-                                        else if (hisPreviousRole.equals("admin")){
+                                        else if (hisPreviousRole.equals("Admin")){
                                             //im admin, he is admin too
                                             options = new String[]{"Remove Admin", "Remove User"};
                                             builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -155,7 +155,7 @@ public class AdapterParticipantAdd extends RecyclerView.Adapter<AdapterParticipa
                                                 }
                                             }).show();
                                         }
-                                        else if (hisPreviousRole.equals("participant")){
+                                        else if (hisPreviousRole.equals("Participant")){
                                             //im admin, he is participant
                                             options = new String[]{"Make Admin", "Remove User"};
                                             builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -213,7 +213,7 @@ public class AdapterParticipantAdd extends RecyclerView.Adapter<AdapterParticipa
         String timestamp = ""+System.currentTimeMillis();
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("uid", modelUser.getUid());
-        hashMap.put("role", "participant");
+        hashMap.put("role", "Participant");
         hashMap.put("timestamp", ""+timestamp);
         //add that user in group>groupid>participants
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
@@ -236,7 +236,7 @@ public class AdapterParticipantAdd extends RecyclerView.Adapter<AdapterParticipa
     private void makeAdmin(ModelUser modelUser) {
         //setup data - change role to admin
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("role", "admin");
+        hashMap.put("role", "Admin");
         //update role in db
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Groups");
         reference.child(groupId).child("Participants").child(modelUser.getUid()).updateChildren(hashMap)
@@ -280,7 +280,7 @@ public class AdapterParticipantAdd extends RecyclerView.Adapter<AdapterParticipa
     private void removeAdmin(ModelUser modelUser) {
         //setup data - remove admin - change
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("role", "participant");
+        hashMap.put("role", "Participant");
         //update role in db
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Groups");
         reference.child(groupId).child("Participants").child(modelUser.getUid()).updateChildren(hashMap)

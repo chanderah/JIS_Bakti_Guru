@@ -1,6 +1,7 @@
 package pnj.jejaringsosial.chandrasa;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +42,9 @@ public class GroupChatActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
 
-    private String groupId, myGroupRole;
+    private String groupId, myGroupRole="";
+
+    private ActionBar actionBar;
 
     private Toolbar toolbar;
     private ImageView groupIconIv;
@@ -67,11 +71,21 @@ public class GroupChatActivity extends AppCompatActivity {
         sendBtn = findViewById(R.id.sendBtn);
         chatRv = findViewById(R.id.chatRv);
 
+        setSupportActionBar(toolbar);
+
+        //init actionbar
+        actionBar = getSupportActionBar();
+        //add back btn
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
         //get id clicked group
         Intent intent = getIntent();
         groupId = intent.getStringExtra("groupId");
 
         firebaseAuth = FirebaseAuth.getInstance();
+        checkUserStatus();
         loadGroupInfo();
         loadGroupMessages();
         loadMyGroupRole();
@@ -91,7 +105,24 @@ public class GroupChatActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    private void checkUserStatus() {
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user != null){
+            //signed user stay here
+            user.getUid(); //current user id
+        }
+        else {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 
     private void loadMyGroupRole() {
@@ -120,7 +151,7 @@ public class GroupChatActivity extends AppCompatActivity {
         groupChatList = new ArrayList<>();
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
-        ref.child(groupId).child("messages").addValueEventListener(new ValueEventListener() {
+        ref.child(groupId).child("Messages").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                 groupChatList.clear();
@@ -152,7 +183,7 @@ public class GroupChatActivity extends AppCompatActivity {
 
         //add in db
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
-        ref.child(groupId).child("messages").child("timestamp")
+        ref.child(groupId).child("Messages").child(timestamp)
                 .setValue(hashMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -203,17 +234,17 @@ public class GroupChatActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_create_group).setVisible(false);
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
-        menu.findItem(R.id.action_logout).setVisible(false);
 
-        if (myGroupRole.equals("creator") || myGroupRole.equals("admin")){
+        if (myGroupRole.equals("Creator") || myGroupRole.equals("Admin")){
             //im admin/creator, show add person option
-            menu.findItem(R.id.action_add_participant_group).setVisible(false);
+            menu.findItem(R.id.action_add_participant_group).setVisible(true);
         }
         else {
-            menu.findItem(R.id.action_add_participant_group).setVisible(true);
+            menu.findItem(R.id.action_add_participant_group).setVisible(false);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -221,10 +252,15 @@ public class GroupChatActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == (R.id.action_add_participant_group)) {
+        if (id == R.id.action_add_participant_group) {
             Intent intent = new Intent(this, GroupAddParticipantActivity.class);
             intent.putExtra("groupId", groupId);
             startActivity(intent);
+        }
+
+        if (id == R.id.action_logout) {
+            firebaseAuth.signOut();
+            checkUserStatus();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -46,6 +46,7 @@
             android:paddingRight="15dp"
             android:text="23:31 - Wed, May 5"
             android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/messageTv" />
 

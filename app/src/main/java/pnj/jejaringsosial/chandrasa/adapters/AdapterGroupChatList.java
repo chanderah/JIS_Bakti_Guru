@@ -90,7 +90,7 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
     private void loadLastMessage(ModelGroupChatList model, HolderGroupChatList holder) {
         //get last msg from group
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Groups");
-        ref.child(model.getGroupId()).child("messages").limitToLast(1) //get last item(msg) from that child
+        ref.child(model.getGroupId()).child("Messages").limitToLast(1) //get last item(msg) from that child
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {

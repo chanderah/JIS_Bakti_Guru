@@ -196,6 +196,8 @@ public class HomeFragment extends Fragment {
         //hide option
         menu.findItem(R.id.action_create_group).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
+        menu.findItem(R.id.action_add_participant_group).setVisible(false);
+
 
 
         MenuItem item = menu.findItem(R.id.action_search);

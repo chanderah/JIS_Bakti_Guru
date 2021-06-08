@@ -80,7 +80,6 @@ public class AdapterChats extends RecyclerView.Adapter<AdapterChats.MyHolder> {
         }
         try{
             Picasso.get().load(hisDp).placeholder(R.drawable.ic_default_img).into(myHolder.profileIv);
-
         }
         catch (Exception e){
 

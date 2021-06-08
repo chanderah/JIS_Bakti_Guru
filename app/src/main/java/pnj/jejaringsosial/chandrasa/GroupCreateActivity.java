@@ -192,7 +192,7 @@ public class GroupCreateActivity extends AppCompatActivity {
                         //setup member info (add current user in group participant list)
                         HashMap<String, String> hashMap1 = new HashMap<>();
                         hashMap1.put("uid", firebaseAuth.getUid());
-                        hashMap1.put("role", "creator");
+                        hashMap1.put("role", "Creator");
                         hashMap1.put("timestamp", g_timestamp);
 
                         DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("Groups");
@@ -204,7 +204,6 @@ public class GroupCreateActivity extends AppCompatActivity {
                                         //participant added
                                         progressDialog.dismiss();
                                         Toast.makeText(GroupCreateActivity.this, "Group created...", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(GroupCreateActivity.this, GroupChatsFragment.class));
                                         finish();
                                     }
                                 })

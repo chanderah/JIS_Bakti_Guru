@@ -150,7 +150,8 @@ public class VideosActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed(); //goto previous activity
+        startActivity(new Intent(VideosActivity.this, DashboardActivity.class));
+        finish();
         return super.onSupportNavigateUp();
     }
 
@@ -243,6 +244,7 @@ public class VideosActivity extends AppCompatActivity {
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_create_group).setVisible(false);
+        menu.findItem(R.id.action_add_participant_group).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_sender"
-    android:layout_marginStart="200dp"
-    android:layout_marginTop="10dp"
-    android:padding="10dp">
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:background="@color/colorPrimaryDark">
 
-    <RelativeLayout
-        android:id="@+id/groupChatSender"
-        android:layout_alignParentEnd="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileIv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_default_img"
+            app:civ_border_color="@null"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/nameTv"
@@ -22,31 +27,41 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:visibility="gone"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/colorPrimary"
-            android:textStyle="bold"/>
+            android:layout_marginEnd="15dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/messageTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/nameTv"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginStart="10dp"
-            android:text="(message)"
-            android:textColor="@color/colorBlack"/>
+            android:background="@drawable/bg_sender"
+            android:minWidth="65dp"
+            android:maxWidth="380dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="22dp"
+            android:text="A Message"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
-    <TextView
-        android:id="@+id/timeTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="23:31 - Wed, May 5"
-        android:textSize="10sp"
-        android:textColor="@color/black"
-        android:layout_below="@id/groupChatSender"
-        android:layout_alignParentStart="true"
-        android:paddingStart="5dp"/>
+        <TextView
+            android:id="@+id/timeTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="15dp"
+            android:text="23:31 - Wed, May 5"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/messageTv" />
 
-</RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
