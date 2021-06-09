@@ -36,7 +36,7 @@
                 android:id="@+id/groupTitleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Group Title"
+                android:text=""
                 android:textSize="18sp"/>
 
             <TextView
@@ -44,13 +44,13 @@
                 android:layout_below="@id/groupTitleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sender Name"/>
+                android:text=""/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/messageTv"
-                android:text="(The Message)"
+                android:text=""
                 android:layout_toEndOf="@id/nameTv"
                 android:layout_alignBottom="@id/nameTv"
                 android:layout_marginStart="5dp"
@@ -62,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/timeTv"
-            android:text="Time"
+            android:text=""
             android:layout_below="@id/groupNameIdentifier"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="5dp"

@@ -1,14 +1,20 @@
 package pnj.jejaringsosial.chandrasa.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.text.format.DateFormat;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +37,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import pnj.jejaringsosial.chandrasa.AddPostActivity;
+import pnj.jejaringsosial.chandrasa.AddVideoActivity;
+import pnj.jejaringsosial.chandrasa.PostDetailActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.models.ModelVideo;
 
@@ -40,7 +49,7 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
     //context
     private Context context;
     //array list
-    private ArrayList<ModelVideo> modelVideo;
+    private ArrayList<ModelVideo> videoArrayList;
 
     String myUid;
 
@@ -53,11 +62,8 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
     //constructor
     public AdapterVideo(Context context, ArrayList<ModelVideo> videoArrayList) {
         this.context = context;
-        this.modelVideo = videoArrayList;
+        this.videoArrayList = videoArrayList;
         myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        likesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
-        postsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
 
     }
 
@@ -76,17 +82,18 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
         //Get, format, handle click
 
         //get data
+        ModelVideo modelVideo = videoArrayList.get(i);
 
-        String uid = modelVideo.get(i).getUid();
-        String pTitle = modelVideo.get(i).getpTitle();
-        String pTimeStamps = modelVideo.get(i).getpTime();
-        String videoUrl = modelVideo.get(i).getVideoUrl();
-        String uEmail = modelVideo.get(i).getuEmail();
-        String uName = modelVideo.get(i).getuName();
-        String uDp = modelVideo.get(i).getuDp();
-        String pId = modelVideo.get(i).getpId();
-        String pLikes = modelVideo.get(i).getpLikes(); //total likes
-        String pComments = modelVideo.get(i).getpComments(); //total comment
+        String uid = modelVideo.getUid();
+        String pTitle = modelVideo.getpTitle();
+        String pTimeStamps = modelVideo.getpTime();
+        String videoUrl = modelVideo.getVideoUrl();
+        String uEmail = modelVideo.getuEmail();
+        String uName = modelVideo.getuName();
+        String uDp = modelVideo.getuDp();
+        String pId = modelVideo.getpId();
+        String pLikes = modelVideo.getpLikes(); //total likes
+        String pComments = modelVideo.getpComments(); //total comment
 
         //convert timestamp
         Calendar calendar = Calendar.getInstance();
@@ -99,17 +106,17 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
         //set data
         holder.titleTv.setText(pTitle);
         holder.timeTv.setText(formattedDateTime);
-        setVideoUrl(modelVideo.get(i), holder);
+        setVideoUrl(modelVideo, holder, pId);
 
         //set data
-        holder.nameTv.setText(uName);
         holder.titleTv.setText(pTitle);
-        setVideoUrl(modelVideo.get(i), holder);
 
         //uploadedBy
         if (uName.equals("")){
             try {
                 holder.uploadedBy.setText("This video is uploaded by "+ uEmail);
+                holder.nameTv.setText(uEmail);
+
 
             }
             catch (Exception e) {
@@ -117,6 +124,7 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
         }
         else {
             holder.uploadedBy.setText("This video is uploaded by "+ uName);
+            holder.nameTv.setText(uName);
         }
 
         //set user dp
@@ -126,12 +134,13 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
         catch (Exception e) {
             Picasso.get().load(R.drawable.ic_default_img).into(holder.uPictureIv);
         }
+
     }
-    
+
     private void deleteVideo(ModelVideo modelVideo) {
         final String videoId = modelVideo.getpId();
         String videoUrl = modelVideo.getVideoUrl();
-        
+
         //delete from firebase storage
         StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(videoUrl);
         reference.delete()
@@ -146,13 +155,13 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(context, "Video deleted...", Toast.LENGTH_SHORT).show();
-                                        
+
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull @NotNull Exception e) {
-                                        Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     }
@@ -160,12 +169,13 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull @NotNull Exception e) {
-                        
+
                     }
                 });
+
     }
 
-    private void setVideoUrl(ModelVideo modelVideo, HolderVideo holder) {
+    private void setVideoUrl(ModelVideo modelVideo, HolderVideo holder, String pId) {
         //get video url
         String videoUrl = modelVideo.getVideoUrl();
 
@@ -209,11 +219,56 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
 
             }
         });
+
+        //handle more btn click
+        holder.moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(context, holder.moreBtn, Gravity.CENTER);
+
+                String uid = modelVideo.getUid();
+                if (uid.equals(myUid)){
+                    //add items menu
+                    popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
+                    popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
+                }
+
+                else {
+                    holder.moreBtn.setVisibility(View.GONE);
+                }
+
+                //add items
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        int id = menuItem.getItemId();
+                        if (id==1) {
+                            //edit clicked
+                            //start AddpostActivity key "editPost" id post clicked
+                            Intent intent = new Intent(context, AddVideoActivity.class);
+                            intent.putExtra("key", "editPost");
+                            intent.putExtra("editPostId", pId);
+                            context.startActivity(intent);
+                        }
+                        else if (id==2) {
+                            deleteVideo(modelVideo);
+                        }
+
+                        return false;
+                    }
+                });
+                //show menu
+                popupMenu.show();
+            }
+
+
+        });
+
     }
 
     @Override
     public int getItemCount() {
-        return modelVideo.size(); // return size of list
+        return videoArrayList.size(); // return size of list
     }
 
     //View holder class
@@ -224,6 +279,7 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
         TextView titleTv, timeTv, nameTv, uploadedBy;
         ImageView uPictureIv;;
         ProgressBar progressBar;
+        ImageButton moreBtn;
 
         public HolderVideo(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -236,6 +292,7 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
             timeTv = itemView.findViewById(R.id.timeTv);
             progressBar = itemView.findViewById(R.id.progressBar);
             uploadedBy = itemView.findViewById(R.id.uploadedBy);
+            moreBtn = itemView.findViewById(R.id.moreBtn);
 
         }
     }

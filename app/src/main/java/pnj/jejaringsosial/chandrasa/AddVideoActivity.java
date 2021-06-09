@@ -19,6 +19,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,9 +44,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 public class AddVideoActivity extends AppCompatActivity {
@@ -57,6 +61,9 @@ public class AddVideoActivity extends AppCompatActivity {
 
     //user info
     String name, email, uid, dp;
+
+    //info post edited
+    String editTitle, editVideo;
 
     //ui view
     EditText titleEt;
@@ -100,6 +107,22 @@ public class AddVideoActivity extends AppCompatActivity {
         uploadVideoBtn = findViewById(R.id.uploadVideoBtn);
         pickVideoIv = findViewById(R.id.pickVideoIv);
 
+        //get data through intent from previous activity adapter
+        Intent intent = getIntent();
+        String isUpdateKey = ""+intent.getStringExtra("key");
+        String editPostId = ""+intent.getStringExtra("editPostId");
+        //validate update post
+        if (isUpdateKey.equals("editPost")) {
+            //update
+            actionBar.setTitle("Update Post");
+            loadPostData(editPostId);
+        }
+        else {
+            //add
+
+            actionBar.setTitle("Add New Video");
+        }
+
         //setup progress dialog
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please wait");
@@ -116,13 +139,26 @@ public class AddVideoActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(title)){
                     Toast.makeText(AddVideoActivity.this, "Please enter a caption...", Toast.LENGTH_SHORT).show();
                 }
-                else if (videoUri==null){
-                    //video is not picked
-                    Toast.makeText(AddVideoActivity.this, "Pick a video first...", Toast.LENGTH_SHORT).show();
+
+                if (isUpdateKey.equals("editPost")) {
+                    actionBar.setTitle("Update Post");
+                    beginUpdate(title, description, editPostId);
                 }
+
                 else {
-                    //upload video to firebase
-                    uploadVideoFirebase(title, description);
+                    //show pd
+                    progressDialog.setMessage("Uploading video...");
+                    progressDialog.show();
+
+                    if (videoUri==null){
+                        //video is not picked
+                        Toast.makeText(AddVideoActivity.this, "Pick a video first...", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else {
+                        //upload video to firebase
+                        uploadVideoFirebase(title, description);
+                    }
                 }
             }
         });
@@ -158,6 +194,93 @@ public class AddVideoActivity extends AppCompatActivity {
 
     }
 
+    private void beginUpdate(String title, String description, String editPostId) {
+        progressDialog.setMessage("Updating Post...");
+        progressDialog.show();
+        updateWithCurrentVideo(title, description, editPostId);
+    }
+
+    private void updateWithCurrentVideo(String title, String description, String editPostId) {
+        String pTimestamps = ""+ System.currentTimeMillis();
+        String filePathAndName = "Videos/" + "video_" + pTimestamps;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] data = baos.toByteArray();
+
+        //storage ref
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(filePathAndName);
+        //upload video
+        storageReference.putBytes(data)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        //put postinfo
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("pTitle", title);
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
+                        reference.child(editPostId)
+                                .updateChildren(hashMap)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        progressDialog.dismiss();
+                                        Toast.makeText(AddVideoActivity.this, "Updated...", Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(AddVideoActivity.this, VideosActivity.class));
+                                        finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull @NotNull Exception e) {
+                                        //fail
+                                        progressDialog.dismiss();
+                                        Toast.makeText(AddVideoActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        //failed upload to storage
+                        progressDialog.dismiss();
+                        Toast.makeText(AddVideoActivity.this, ""+e.getMessage() , Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void loadPostData(String editPostId) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
+        //get detail post using id post
+        Query fquery = reference.orderByChild("pId").equalTo(editPostId);
+        fquery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    //get data
+                    editTitle = ""+ds.child("pTitle").getValue();
+                    editVideo = ""+ds.child("videoUrl").getValue();
+
+                    //set data to views
+                    titleEt.setText(editTitle);
+
+                    //set video view
+                    try {
+                        setVideoToVideoView();
+                    }
+                    catch (Exception e) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     protected void onStart() {
         checkUserStatus();
@@ -184,16 +307,10 @@ public class AddVideoActivity extends AppCompatActivity {
     }
 
     private void uploadVideoFirebase(String title, String description) {
-        //show pd
-        progressDialog.setMessage("Uploading video...");
-        progressDialog.show();
-
         //timestamp
         String pTimestamps = ""+ System.currentTimeMillis();
-
         //file path and name in firebase
         String filePathAndName = "Videos/" + "video_" + pTimestamps;
-
         //storage ref
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(filePathAndName);
         //upload video
@@ -207,8 +324,7 @@ public class AddVideoActivity extends AppCompatActivity {
                         Uri downloadUri = uriTask.getResult();
                         if (uriTask.isSuccessful()){
                             //url uploaded video received
-
-                            //video details to db
+                            //upload video details to db
                             HashMap<String, Object> hashMap = new HashMap<>();
                             hashMap.put("uid", uid);
                             hashMap.put("uDp", dp);
@@ -375,5 +491,32 @@ public class AddVideoActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //hide searchview, add post
+        menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.action_create_group).setVisible(false);
+        menu.findItem(R.id.action_add_participant_group).setVisible(false);
+        menu.findItem(R.id.action_add_video).setVisible(false);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //get item id
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            firebaseAuth.signOut();
+            checkUserStatus();
+        }
+
+        if (id == R.id.action_add_post) {
+            startActivity(new Intent(AddVideoActivity.this, AddPostActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
