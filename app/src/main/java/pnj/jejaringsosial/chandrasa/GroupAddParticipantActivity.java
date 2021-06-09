@@ -130,4 +130,11 @@ public class GroupAddParticipantActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }

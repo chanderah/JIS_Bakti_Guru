@@ -57,7 +57,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:text="Video title"
                 android:textColor="@color/colorWhite"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:layout_marginStart="10dp"/>
 
             <TextView

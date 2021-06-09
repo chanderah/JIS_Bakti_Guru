@@ -61,7 +61,7 @@
         android:layout_height="wrap_content"
         android:text="23:31 - Wed, May 5"
         android:textSize="10sp"
-        android:paddingStart="20dp"
+        android:paddingStart="15dp"
         android:paddingTop="20dp"
         android:paddingBottom="5dp"
         android:layout_toEndOf="@id/profileIv"
