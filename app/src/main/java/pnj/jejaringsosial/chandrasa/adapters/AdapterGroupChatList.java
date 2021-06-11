@@ -110,7 +110,7 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
 
                             holder.timeTv.setText(dateTime);
                             if (messageType.equals("image")){
-                                holder.messageTv.setText("Sent a photo");
+                                holder.messageTv.setText("sent a photo");
                             }
                             else {
                                 holder.messageTv.setText(message);

@@ -155,7 +155,7 @@ public class ChatsFragment extends Fragment {
                             chat.getReceiver().equals(userId) &&
                             chat.getSender().equals(currentUser.getUid())) {
                                 if (chat.getType().equals("image")) {
-                                    theLastMessage = "Sent a photo";
+                                    theLastMessage = "sent a photo";
                                 }
                                 else {
                                     theLastMessage = chat.getMessage();
