@@ -29,4 +29,9 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_add_participant"/>
 
+    <item android:id="@+id/action_groupinfo"
+        android:title="Group Info"
+        android:visible="false"
+        app:showAsAction="always" />
+
 </menu>

@@ -505,6 +505,7 @@ public class GroupChatActivity extends AppCompatActivity {
         menu.findItem(R.id.action_create_group).setVisible(false);
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
+        menu.findItem(R.id.action_groupinfo).setVisible(true);
 
         if (myGroupRole.equals("Creator") || myGroupRole.equals("Admin")){
             //im admin/creator, show add person option
@@ -528,6 +529,12 @@ public class GroupChatActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
             firebaseAuth.signOut();
             checkUserStatus();
+        }
+
+        if (id == R.id.action_groupinfo) {
+            Intent intent = new Intent(this, GroupInfoActivity.class) ;
+            intent.putExtra("groupId", groupId);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
