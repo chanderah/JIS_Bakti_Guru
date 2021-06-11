@@ -27,19 +27,17 @@
         android:minWidth="115dp"
         android:background="@drawable/bg_receiver"
         android:layout_toEndOf="@id/profileIv"
-        android:paddingStart="20dp"
-        android:paddingEnd="0dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp"
-        android:layout_marginEnd="50dp">
+        android:layout_marginEnd="100dp"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/nameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Name"
-            android:layout_marginEnd="15dp"
-            android:paddingBottom="2dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="2dp"
+            android:text="Chandra Sukmagalih Arifin"
             android:textSize="12sp"
             android:textStyle="bold"
             android:textColor="@color/black"/>
@@ -48,11 +46,27 @@
             android:id="@+id/messageTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:layout_marginStart="15dp"
             android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:text=""
+            android:visibility="gone"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_below="@id/nameTv"/>
+
+        <ImageView
+            android:id="@+id/messageIv"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/default_coverimg"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:padding="5dp"
+            android:background="@color/colorWhite"/>
 
     </RelativeLayout>
 
@@ -63,11 +77,11 @@
         android:text="23:31 - Wed, May 5"
         android:textSize="10sp"
         android:paddingStart="15dp"
-        android:paddingTop="20dp"
+        android:paddingTop="25dp"
         android:paddingBottom="5dp"
         android:layout_toEndOf="@id/profileIv"
         android:layout_below="@id/chatContent"
-        />
+        tools:ignore="RtlSymmetry" />
 
 
 

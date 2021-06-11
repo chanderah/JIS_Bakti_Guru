@@ -487,7 +487,9 @@ public class ChatActivity extends AppCompatActivity {
         notify = true;
 
         ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please wait");
         progressDialog.setMessage("Sending image...");
+        progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
 
         String timeStamp = ""+System.currentTimeMillis();
@@ -496,7 +498,7 @@ public class ChatActivity extends AppCompatActivity {
         //get bitmap from image uri
         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), image_rui);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 30, baos);
         byte[] data = baos.toByteArray(); //conv image to bytes
         StorageReference ref = FirebaseStorage.getInstance().getReference().child(fileNameAndPath);
         ref.putBytes(data)
@@ -691,13 +693,11 @@ public class ChatActivity extends AppCompatActivity {
                     if (cameraAccepted && storageAccepted) {
                         //both permission granted
                         pickFromCamera();
-
                     }
                     else {
                         //permission granted
                         Toast.makeText(this, "Camera & Storage permissions are required...", Toast.LENGTH_SHORT).show();
                     }
-
                 }
                 else {
                 }
@@ -709,7 +709,6 @@ public class ChatActivity extends AppCompatActivity {
                     if (storageAccepted) {
                         //storage permission granted
                         pickFromGallery();
-
                     }
                     else {
                         //permission granted
@@ -717,9 +716,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 }
                 else {
-
                 }
-
             }
             break;
         }

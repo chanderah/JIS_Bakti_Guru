@@ -62,6 +62,8 @@
             android:id="@+id/timeTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:translationY="-5dp"
+
             android:layout_weight="1"
             android:paddingEnd="20dp"
             android:text="23:31 - Wed, May 5"

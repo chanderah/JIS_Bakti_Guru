@@ -100,6 +100,7 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
                             String message = ""+ds.child("message").getValue();
                             String timestamp = ""+ds.child("timestamp").getValue();
                             String sender = ""+ds.child("sender").getValue();
+                            String messageType = ""+ds.child("type").getValue();
 
                             //convert timestamp
                             //convert timestamp to dd/mm/yy hh:mm am/pm
@@ -107,8 +108,13 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
                             cal.setTimeInMillis(Long.parseLong(timestamp));
                             String dateTime = DateFormat.format("HH:mm, MMM d", cal).toString();
 
-                            holder.messageTv.setText(message);
                             holder.timeTv.setText(dateTime);
+                            if (messageType.equals("image")){
+                                holder.messageTv.setText("Sent a photo");
+                            }
+                            else {
+                                holder.messageTv.setText(message);
+                            }
 
                             //get info of sender last msg
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
