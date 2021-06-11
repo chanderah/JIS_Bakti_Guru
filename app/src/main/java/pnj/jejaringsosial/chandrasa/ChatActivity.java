@@ -368,6 +368,7 @@ public class ChatActivity extends AppCompatActivity {
                         HashMap<String, Object> hasSeenHashMap = new HashMap<>();
                         hasSeenHashMap.put("isSeen", true);
                         ds.getRef().updateChildren(hasSeenHashMap);
+
                     }
                 }
             }
@@ -531,7 +532,7 @@ public class ChatActivity extends AppCompatActivity {
                                     ModelUser user = dataSnapshot.getValue(ModelUser.class);
 
                                     if (notify) {
-                                        senNotification(hisUid, user.getName(), "Sent you a photo...");
+                                        senNotification(hisUid, user.getName(), "sent you a photo");
                                     }
                                     notify = false;
                                 }
@@ -541,8 +542,27 @@ public class ChatActivity extends AppCompatActivity {
 
                                 }
                             });
+
+                            DatabaseReference chatRef2  = FirebaseDatabase.getInstance().getReference("Chatlist")
+                                    .child(hisUid)
+                                    .child(myUid);
+                            chatRef2.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                                    if (!dataSnapshot.exists()){
+                                        chatRef2.child("id").setValue(myUid);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+                                }
+                            });
                         }
                     }
+
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -715,11 +735,19 @@ public class ChatActivity extends AppCompatActivity {
                 image_rui = data.getData();
 
                 //set to iV
-                sendImageMessage(image_rui);
+                try {
+                    sendImageMessage(image_rui);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             else if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 //image picked from camera, get uri
-                sendImageMessage(image_rui);
+                try {
+                    sendImageMessage(image_rui);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
         }

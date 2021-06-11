@@ -33,14 +33,15 @@
                 android:id="@+id/messageTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 android:background="@drawable/bg_sender"
+                android:visibility="gone"
                 android:minWidth="65dp"
                 android:maxWidth="380dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="10dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="25dp"
+                android:layout_marginEnd="3dp"
                 android:text="His Message"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
@@ -52,7 +53,7 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/ic_image_black"
                 android:layout_margin="10dp"
-                android:padding="3dp"
+                android:padding="10dp"
                 android:background="#cbebfc"/>
 
         </LinearLayout>

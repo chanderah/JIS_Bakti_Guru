@@ -73,12 +73,28 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         //get data
         String message = chatList.get(i).getMessage();
         String timeStamp = chatList.get(i).getTimestamp();
-        //String isSeenTv = chatList.get(i).get
+        String type = chatList.get(i).getType();
+        boolean isSeen = chatList.get(i).isSeen();
+
 
         //convert timestamp to dd/mm/yy hh:mm am/pm
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Long.parseLong(timeStamp));
         String dateTime = DateFormat.format("HH:mm, MMM d", cal).toString();
+
+        if (type.equals("text")){
+            myHolder.messageTv.setVisibility(View.VISIBLE);
+            myHolder.messageIv.setVisibility(View.GONE);
+
+            myHolder.messageTv.setText(message);
+
+        }
+        else {
+            myHolder.messageTv.setVisibility(View.GONE);
+            myHolder.messageIv.setVisibility(View.VISIBLE);
+
+            Picasso.get().load(message).placeholder(R.drawable.ic_image_black).into(myHolder.messageIv);
+        }
         
 
         //set data
@@ -198,7 +214,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     class MyHolder extends RecyclerView.ViewHolder {
 
         //views
-        ImageView profileIv;
+        ImageView profileIv, messageIv;
         TextView messageTv, timeTv, isSeenTv;
         LinearLayout messageLAyout; //click listener delete
 
@@ -208,6 +224,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
             //init views
             profileIv = itemView.findViewById(R.id.profileIv);
             messageTv = itemView.findViewById(R.id.messageTv);
+            messageIv = itemView.findViewById(R.id.messageIv);
             timeTv = itemView.findViewById(R.id.timeTv);
             isSeenTv = itemView.findViewById(R.id.isSeenTv);
             messageLAyout = itemView.findViewById(R.id.messageLayout);

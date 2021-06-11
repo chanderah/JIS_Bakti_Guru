@@ -60,7 +60,7 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/ic_image_black"
                 android:layout_margin="10dp"
-                android:padding="3dp"
+                android:padding="10dp"
                 android:background="@color/colorWhite"/>
 
         </LinearLayout>

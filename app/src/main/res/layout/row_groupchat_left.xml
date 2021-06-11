@@ -29,8 +29,8 @@
         android:layout_toEndOf="@id/profileIv"
         android:paddingStart="20dp"
         android:paddingEnd="0dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="12dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
         android:layout_marginEnd="50dp">
 
         <TextView
@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:layout_marginEnd="15dp"
+            android:paddingBottom="2dp"
             android:textSize="12sp"
             android:textStyle="bold"
             android:textColor="@color/black"/>
