@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    >
 
     <TextView
         android:layout_width="match_parent"
@@ -23,7 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:id="@+id/emailTIL">
+        android:id="@+id/emailTIL"
+        app:hintTextColor="@color/colorSilver">
 
         <EditText
             android:id="@+id/emailEt"
@@ -40,7 +42,8 @@
         android:layout_centerVertical="true"
         android:id="@+id/passwordTIL"
         android:layout_below="@id/emailTIL"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:hintTextColor="@color/colorSilver">
         <EditText
             android:id="@+id/passwordEt"
             android:inputType="textPassword"

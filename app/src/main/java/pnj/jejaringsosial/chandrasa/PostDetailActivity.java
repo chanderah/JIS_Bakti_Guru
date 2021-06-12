@@ -80,7 +80,6 @@ public class PostDetailActivity extends AppCompatActivity {
     ImageView cAvatarIv;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

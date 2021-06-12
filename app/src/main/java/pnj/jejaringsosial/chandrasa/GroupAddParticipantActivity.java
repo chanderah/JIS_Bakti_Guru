@@ -99,8 +99,8 @@ public class GroupAddParticipantActivity extends AppCompatActivity {
                     String groupTitle = ""+ds.child("groupTitle").getValue();
                     String groupDescription = ""+ds.child("groupDescription").getValue();
                     String groupIcon = ""+ds.child("groupIcon").getValue();
-                    String createdBy = ""+ds.child("groupIcon").getValue();
-                    String timestamp = ""+ds.child("groupIcon").getValue();
+                    String createdBy = ""+ds.child("createdBy").getValue();
+                    String timestamp = ""+ds.child("timestamp").getValue();
 
                     actionBar.setTitle("Add Participants");
 

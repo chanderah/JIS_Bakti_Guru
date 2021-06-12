@@ -54,6 +54,7 @@
                 android:paddingBottom="10dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="22dp"
+                android:layout_marginBottom="5dp"
                 android:text="A Message"
                 android:textColor="@color/black"
                 android:textSize="16sp"
@@ -79,12 +80,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingEnd="15dp"
             android:translationY="-5dp"
+            android:paddingEnd="15dp"
             android:text="23:31 - Wed, May 5"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chatContent" />
+            app:layout_constraintTop_toBottomOf="@+id/chatContent"
+            tools:ignore="RtlSymmetry" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

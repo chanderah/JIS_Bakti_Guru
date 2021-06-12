@@ -1,7 +1,9 @@
 package pnj.jejaringsosial.chandrasa;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -47,8 +49,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //ActionBar actionBar = getSupportActionBar();
-        //actionBar.setTitle("Login");
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Welcome");
 
 // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions

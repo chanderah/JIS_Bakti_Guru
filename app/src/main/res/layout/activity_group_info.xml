@@ -27,15 +27,18 @@
                 android:id="@+id/groupDescTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+
                 android:text="Group description"
                 android:background="@color/hover"
                 android:padding="5dp"
-                android:layout_above="@id/createdByIv"/>
+                android:layout_above="@id/createdByTv"/>
 
             <TextView
-                android:id="@+id/createdByIv"
+                android:id="@+id/createdByTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:background="@color/hover"
                 android:text="Created by ... on dd/mm/yy"
                 android:padding="5dp"
@@ -45,6 +48,7 @@
 
         <TextView
             android:id="@+id/editGroupTv"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_edit_white"
@@ -58,6 +62,8 @@
             android:background="#eee"/>
         <TextView
             android:id="@+id/addParticipantTv"
+            android:gravity="center_vertical"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_add_participant"
@@ -73,6 +79,7 @@
             android:id="@+id/leaveGroupTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:drawableStart="@drawable/ic_exit"
             android:drawablePadding="10dp"
             android:layout_gravity="center_vertical"
@@ -86,6 +93,7 @@
             android:id="@+id/participantsTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:drawableStart="@drawable/ic_users"
             android:drawablePadding="10dp"
             android:layout_gravity="center_vertical"
@@ -101,7 +109,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_participant_add"/>
+            tools:listitem="@layout/row_participant_add"
+            app:reverseLayout="true"/>
 
     </LinearLayout>
 

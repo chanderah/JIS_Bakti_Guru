@@ -17,8 +17,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ThemeApp"
+
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".GroupInfoActivity"></activity>
+        <activity android:name=".GroupEditActivity"></activity>
+        <activity android:name=".GroupInfoActivity" />
         <activity android:name=".GroupAddParticipantActivity" />
         <activity
             android:name=".GroupChatActivity"

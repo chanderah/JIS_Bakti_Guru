@@ -88,7 +88,6 @@ public class AddVideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_video);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         firebaseAuth = FirebaseAuth.getInstance();
         checkUserStatus();
@@ -203,48 +202,28 @@ public class AddVideoActivity extends AppCompatActivity {
     private void updateWithCurrentVideo(String title, String description, String editPostId) {
         String pTimestamps = ""+ System.currentTimeMillis();
         String filePathAndName = "Videos/" + "video_" + pTimestamps;
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] data = baos.toByteArray();
 
-        //storage ref
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(filePathAndName);
-        //upload video
-        storageReference.putBytes(data)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("pTitle", title);
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
+        reference.child(editPostId)
+                .updateChildren(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        //put postinfo
-                        HashMap<String, Object> hashMap = new HashMap<>();
-                        hashMap.put("pTitle", title);
-
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
-                        reference.child(editPostId)
-                                .updateChildren(hashMap)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        progressDialog.dismiss();
-                                        Toast.makeText(AddVideoActivity.this, "Updated...", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(AddVideoActivity.this, VideosActivity.class));
-                                        finish();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull @NotNull Exception e) {
-                                        //fail
-                                        progressDialog.dismiss();
-                                        Toast.makeText(AddVideoActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                    public void onSuccess(Void aVoid) {
+                        progressDialog.dismiss();
+                        Toast.makeText(AddVideoActivity.this, "Updated...", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(AddVideoActivity.this, VideosActivity.class));
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull @NotNull Exception e) {
-                        //failed upload to storage
+                        //fail
                         progressDialog.dismiss();
-                        Toast.makeText(AddVideoActivity.this, ""+e.getMessage() , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddVideoActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -266,7 +245,22 @@ public class AddVideoActivity extends AppCompatActivity {
 
                     //set video view
                     try {
-                        setVideoToVideoView();
+                        MediaController mediaController = new MediaController(AddVideoActivity.this);
+                        mediaController.setAnchorView(videoView);
+                        pickVideoIv.setVisibility(View.GONE);
+
+                        //set media controller to vv
+                        videoView.setMediaController(mediaController);
+                        //set video uri
+                        videoView.setVideoURI(videoUri);
+                        videoView.requestFocus();
+                        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mediaPlayer) {
+                                videoView.start();
+                                mediaPlayer.setLooping(true);
+                            }
+                        });
                     }
                     catch (Exception e) {
 

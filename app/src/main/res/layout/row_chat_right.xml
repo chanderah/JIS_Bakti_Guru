@@ -41,7 +41,7 @@
                 android:paddingBottom="10dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="25dp"
-                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="5dp"
                 android:text="His Message"
                 android:textColor="@color/black"
                 android:textSize="16sp"/>
@@ -63,9 +63,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:translationY="-5dp"
-
             android:layout_weight="1"
-            android:paddingEnd="20dp"
+            android:paddingEnd="15dp"
             android:text="23:31 - Wed, May 5"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
