@@ -11,15 +11,12 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:translationX="-20dp"
-
-            >
+            android:translationX="-20dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/groupIconIv"
@@ -59,7 +56,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:background="@color/colorPrimaryDark"
         android:layout_alignParentBottom="true">
 
         <ImageButton

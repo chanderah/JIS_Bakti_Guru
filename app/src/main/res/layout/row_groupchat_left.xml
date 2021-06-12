@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:id="@+id/skk"
-    android:background="@color/colorPrimaryDark">
+    android:id="@+id/skk">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profileIv"
