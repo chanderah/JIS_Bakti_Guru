@@ -63,11 +63,19 @@
         android:layout_marginTop="20dp"/>
 
     <TextView
+        android:id="@+id/forgotPasswordTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:textAlignment="center"
+        android:layout_below="@id/login_btn"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
         android:id="@+id/nothave_accountTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Don't have an account? Register"
         android:textAlignment="center"
-        android:layout_below="@id/login_btn"
-        android:layout_marginTop="10dp"/>
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

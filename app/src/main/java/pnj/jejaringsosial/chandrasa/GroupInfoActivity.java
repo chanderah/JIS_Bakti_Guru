@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -122,8 +124,18 @@ public class GroupInfoActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
-                        })
-                        .show();
+                        }).create();
+
+                //create show dialog
+                AlertDialog ab = builder.create();
+                ab.show();
+
+                Button aaa = ab.getButton(DialogInterface.BUTTON_POSITIVE);
+                Button bbb = ab.getButton(DialogInterface.BUTTON_NEGATIVE);
+                aaa.setTextColor(Color.WHITE);
+                bbb.setTextColor(Color.WHITE);
+
+
             }
         });
 
@@ -259,7 +271,7 @@ public class GroupInfoActivity extends AppCompatActivity {
                                 addParticipantTv.setVisibility(View.VISIBLE);
                                 leaveGroupTv.setText("Leave Group");
                             }
-                            else if (myGroupRole.equals("Admin")){
+                            else if (myGroupRole.equals("Creator")){
                                 editGroupTv.setVisibility(View.VISIBLE);
                                 addParticipantTv.setVisibility(View.VISIBLE);
                                 leaveGroupTv.setText("Delete Group");
