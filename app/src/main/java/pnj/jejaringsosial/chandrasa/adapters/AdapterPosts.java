@@ -113,7 +113,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             Picasso.get().load(uDp).placeholder(R.drawable.ic_default_img).into(myHolder.uPictureIv);
         }
         catch (Exception e) {
-
+            myHolder.uPictureIv.setImageResource(R.drawable.ic_default_img);
         }
 
         if (uName.equals("")){
@@ -140,6 +140,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         //set post image
         try {
             Picasso.get().load(pImage).into(myHolder.pImageIv);
+            myHolder.progressBar.setVisibility(View.GONE);
             }
         catch (Exception e) {
 
@@ -360,6 +361,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         ImageButton moreBtn;
         Button likeBtn, commentBtn;
         LinearLayout profileLayout;
+        ProgressBar progressBar;
 
         public MyHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -379,6 +381,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             pCommentsTv = itemView.findViewById(R.id.pCommentsTv);
             uploadedBy = itemView.findViewById(R.id.uploadedBy);
             uEmailTv = itemView.findViewById(R.id.uEmailTv);
+            progressBar = itemView.findViewById(R.id.progressBarr);
 
 
         }

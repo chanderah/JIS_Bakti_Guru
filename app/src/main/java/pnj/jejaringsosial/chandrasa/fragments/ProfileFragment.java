@@ -548,6 +548,7 @@ public class ProfileFragment extends Fragment {
             }
             else {
                 Toast.makeText(getActivity(), "Please enter " + key, Toast.LENGTH_SHORT).show();
+                return;
             }
 
         });

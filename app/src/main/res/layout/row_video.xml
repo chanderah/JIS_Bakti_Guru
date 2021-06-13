@@ -103,5 +103,5 @@
         android:padding="5dp"
         android:textStyle="bold"
         android:textSize="12sp"
-        android:layout_alignParentRight="true"/>
+        android:layout_alignParentEnd="true"/>
 </RelativeLayout>

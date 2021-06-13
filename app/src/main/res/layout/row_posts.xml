@@ -26,7 +26,6 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/uPictureIv"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_default_img_white"
                 android:layout_width="50dp"
                 android:layout_height="50dp"/>
 
@@ -76,26 +75,50 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/pImageIv"
+            <RelativeLayout
+                android:id="@+id/imageOrVideoView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_coverimg" />
+                >
+
+                <ImageView
+                    android:id="@+id/pImageIv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="400dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_image_black" />
+
+                <VideoView
+                    android:id="@+id/videoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_centerVertical="true"
+                    android:visibility="gone"
+                    />
+
+                <ProgressBar
+                    android:id="@+id/progressBarr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:indeterminateTint="@color/colorSilver"/>
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/uploadedBy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
                 android:background="@color/hover"
                 android:text="This"
+                android:textAlignment="center"
+                android:gravity="center"
                 android:padding="5dp"
                 android:textStyle="bold"
                 android:textSize="8sp"
-                android:layout_alignEnd="@id/pImageIv"
+                android:layout_alignBottom="@id/imageOrVideoView"
+                android:layout_centerHorizontal="true"
                 />
 
 
@@ -144,6 +167,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_margin="5dp"
             android:background="#F5F0F0"/>
 
         <LinearLayout
