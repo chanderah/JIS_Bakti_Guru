@@ -229,7 +229,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
                     catch (Exception e) {
                         //error getting pic, set default pic
-                        Picasso.get().load(R.drawable.ic_default_img_white).into(profileIv);
+                        profileIv.setImageResource(R.drawable.ic_default_img);
 
                     }
                 }
@@ -432,7 +432,7 @@ public class ChatActivity extends AppCompatActivity {
                 ModelUser user = dataSnapshot.getValue(ModelUser.class);
 
                 if (notify) {
-                    senNotification(hisUid, user.getName(), message);
+                    senNotification(hisUid, user.getName(), user.getEmail(), message);
                 }
                 notify = false;
             }
@@ -533,7 +533,7 @@ public class ChatActivity extends AppCompatActivity {
                                     ModelUser user = dataSnapshot.getValue(ModelUser.class);
 
                                     if (notify) {
-                                        senNotification(hisUid, user.getName(), "sent you a photo");
+                                        senNotification(hisUid, user.getName(), user.getEmail(), "sent you a photo");
                                     }
                                     notify = false;
                                 }
@@ -573,54 +573,100 @@ public class ChatActivity extends AppCompatActivity {
                 });
     }
 
-    private void senNotification(final String hisUid, String name, String message) {
+    private void senNotification(final String hisUid, String name, String email, String message) {
         DatabaseReference allTokens = FirebaseDatabase.getInstance().getReference("Tokens");
         Query query = allTokens.orderByKey().equalTo(hisUid);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                    Token token = ds.getValue(Token.class);
-                    Data data = new Data(myUid, name + ": " + message, "New Message", hisUid, R.mipmap.ic_launcher_foreground);
+                if (name.equals("")){
+                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                        Token token = ds.getValue(Token.class);
+                        Data data = new Data(myUid, email + ": " + message, "New Message", hisUid, R.mipmap.ic_launcher_foreground);
 
-                    Sender sender = new Sender(data, token.getToken());
+                        Sender sender = new Sender(data, token.getToken());
 
-                    //fcm jsom object request
-                    try {
-                        JSONObject senderJsonObj = new JSONObject(new Gson().toJson(sender));
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", senderJsonObj,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-                                        //response of request
-                                        Log.d("JSON_RESPONSE", "onResponse: "+response.toString());
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.d("JSON_RESPONSE", "onResponse: "+error.toString());
+                        //fcm jsom object request
+                        try {
+                            JSONObject senderJsonObj = new JSONObject(new Gson().toJson(sender));
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", senderJsonObj,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            //response of request
+                                            Log.d("JSON_RESPONSE", "onResponse: "+response.toString());
+                                        }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.d("JSON_RESPONSE", "onResponse: "+error.toString());
 
-                            }
-                        }) {
-                            @Override
-                            public Map<String, String> getHeaders() throws AuthFailureError {
-                                //put params
-                                Map<String, String> headers = new HashMap<>();
-                                headers.put("Content-Type", "application/json");
-                                headers.put("Authorization", "key=AAAAECobNuE:APA91bF9X2yQTyrME0doharJ9tFxS4vDFp_BO7O-Qr_BLU7VT0TBSqAMcZ83AqyR2LKycHgqZ5w2SeSKAoi6kWQ7gRhornTCmB-GO_-SipMTSvEUCQSQmahopLVV1HwYY2IR-bCdp5eM");
+                                }
+                            }) {
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    //put params
+                                    Map<String, String> headers = new HashMap<>();
+                                    headers.put("Content-Type", "application/json");
+                                    headers.put("Authorization", "key=AAAAECobNuE:APA91bF9X2yQTyrME0doharJ9tFxS4vDFp_BO7O-Qr_BLU7VT0TBSqAMcZ83AqyR2LKycHgqZ5w2SeSKAoi6kWQ7gRhornTCmB-GO_-SipMTSvEUCQSQmahopLVV1HwYY2IR-bCdp5eM");
 
-                                return headers;
-                            }
-                        };
+                                    return headers;
+                                }
+                            };
 
-                        requestQueue.add(jsonObjectRequest);
+                            requestQueue.add(jsonObjectRequest);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
 
                 }
+                else {
+                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                        Token token = ds.getValue(Token.class);
+                        Data data = new Data(myUid, name + ": " + message, "New Message", hisUid, R.mipmap.ic_launcher_foreground);
 
+                        Sender sender = new Sender(data, token.getToken());
+
+                        //fcm jsom object request
+                        try {
+                            JSONObject senderJsonObj = new JSONObject(new Gson().toJson(sender));
+                            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest("https://fcm.googleapis.com/fcm/send", senderJsonObj,
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            //response of request
+                                            Log.d("JSON_RESPONSE", "onResponse: "+response.toString());
+                                        }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.d("JSON_RESPONSE", "onResponse: "+error.toString());
+
+                                }
+                            }) {
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    //put params
+                                    Map<String, String> headers = new HashMap<>();
+                                    headers.put("Content-Type", "application/json");
+                                    headers.put("Authorization", "key=AAAAECobNuE:APA91bF9X2yQTyrME0doharJ9tFxS4vDFp_BO7O-Qr_BLU7VT0TBSqAMcZ83AqyR2LKycHgqZ5w2SeSKAoi6kWQ7gRhornTCmB-GO_-SipMTSvEUCQSQmahopLVV1HwYY2IR-bCdp5eM");
+
+                                    return headers;
+                                }
+                            };
+
+                            requestQueue.add(jsonObjectRequest);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }
             }
 
             @Override

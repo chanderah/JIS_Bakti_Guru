@@ -491,6 +491,8 @@ public class PostDetailActivity extends AppCompatActivity {
                         Picasso.get().load(hisDp).placeholder(R.drawable.ic_default_img).into(uPictureIv);
                     }
                     catch (Exception e) {
+                        uPictureIv.setImageResource(R.drawable.ic_default_img);
+
                     }
                 }
             }

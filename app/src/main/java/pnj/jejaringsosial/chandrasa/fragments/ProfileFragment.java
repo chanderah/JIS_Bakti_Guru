@@ -472,7 +472,7 @@ public class ProfileFragment extends Fragment {
 
                         });
 
-                //if user edit name, edit post name also
+                //if user edit name, edit post (photo) name also
                 if (key.equals("name")) {
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
                     Query query = ref.orderByChild("uid").equalTo(uid);
@@ -491,6 +491,25 @@ public class ProfileFragment extends Fragment {
 
                         }
                     });
+
+                    DatabaseReference videoRef = FirebaseDatabase.getInstance().getReference("Videos");
+                    Query queryVideo = videoRef.orderByChild("uid").equalTo(uid);
+                    queryVideo.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                                String child = ds.getKey();
+                                dataSnapshot.getRef().child(child).child("uName").setValue(value);
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+                        }
+                    });
+
 
                     //update name in current users comment
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -662,11 +681,29 @@ public class ProfileFragment extends Fragment {
                                     }
                                 });
 
-                        //if user edit name, edit post name also
+                        //if user edit photo, edit post photo also
                         if (profileOrCoverPhoto.equals("image")) {
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
                             Query query = ref.orderByChild("uid").equalTo(uid);
                             query.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                                        String child = ds.getKey();
+                                        dataSnapshot.getRef().child(child).child("uDp").setValue(downloadUri.toString());
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+                                }
+                            });
+
+                            DatabaseReference refVideo = FirebaseDatabase.getInstance().getReference("Videos");
+                            Query queryVideo = refVideo.orderByChild("uid").equalTo(uid);
+                            queryVideo.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                                     for (DataSnapshot ds : dataSnapshot.getChildren()) {

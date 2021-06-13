@@ -140,7 +140,8 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
             Picasso.get().load(uDp).placeholder(R.drawable.ic_default_img).into(holder.uPictureIv);
         }
         catch (Exception e) {
-            Picasso.get().load(R.drawable.ic_default_img).into(holder.uPictureIv);
+            holder.uPictureIv.setImageResource(R.drawable.ic_default_img);
+
         }
 
         //more btn click
