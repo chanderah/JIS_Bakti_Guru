@@ -77,6 +77,8 @@ public class VideosActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         //init view
@@ -105,6 +107,8 @@ public class VideosActivity extends AppCompatActivity {
             swiperefreshlayout.setRefreshing(false);
         });
     }
+
+
 
     private void checkUserStatus() {
         FirebaseUser user = firebaseAuth.getCurrentUser();

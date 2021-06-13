@@ -144,8 +144,6 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
 
         }
 
-        //more btn click
-
         //handle more btn click
         holder.moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
