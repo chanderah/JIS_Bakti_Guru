@@ -53,7 +53,6 @@ import pnj.jejaringsosial.chandrasa.models.ModelVideo;
 
 public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo> {
 
-
     //context
     private Context context;
     //array list
