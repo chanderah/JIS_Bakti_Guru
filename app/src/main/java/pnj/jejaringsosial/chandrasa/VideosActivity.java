@@ -148,13 +148,6 @@ public class VideosActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        startActivity(new Intent(VideosActivity.this, DashboardActivity.class));
-        finish();
-        return super.onSupportNavigateUp();
-    }
-
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -262,6 +255,13 @@ public class VideosActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        startActivity(new Intent(VideosActivity.this, DashboardActivity.class));
+        finish();
+        return super.onSupportNavigateUp();
     }
 
 }

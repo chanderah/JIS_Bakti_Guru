@@ -1,9 +1,13 @@
 package pnj.jejaringsosial.chandrasa.adapters;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.text.InputType;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -11,8 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
@@ -36,11 +42,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
 import pnj.jejaringsosial.chandrasa.AddVideoActivity;
 import pnj.jejaringsosial.chandrasa.PostDetailActivity;
 import pnj.jejaringsosial.chandrasa.R;
+import pnj.jejaringsosial.chandrasa.VideosActivity;
 import pnj.jejaringsosial.chandrasa.models.ModelVideo;
 
 public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo> {
@@ -56,6 +64,8 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
     private FirebaseAuth firebaseAuth;
     private DatabaseReference likesRef; //likes db
     private DatabaseReference postsRef; //ref post
+
+    ProgressDialog pd;
 
     boolean mProcessLike = false;
 
@@ -116,8 +126,6 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
             try {
                 holder.uploadedBy.setText("This video is uploaded by "+ uEmail);
                 holder.nameTv.setText(uEmail);
-
-
             }
             catch (Exception e) {
             }
@@ -135,6 +143,107 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
             Picasso.get().load(R.drawable.ic_default_img).into(holder.uPictureIv);
         }
 
+        //more btn click
+
+        //handle more btn click
+        holder.moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(context, holder.moreBtn, Gravity.CENTER);
+
+                String uid = modelVideo.getUid();
+                if (uid.equals(myUid)){
+                    //add items menu
+                    popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
+                    popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
+                }
+
+                else {
+                    holder.moreBtn.setVisibility(View.GONE);
+                }
+
+                //add items
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        int id = menuItem.getItemId();
+                        if (id==1) {
+                            showEditVideoDialog(pTitle, pId);
+                        }
+                        else if (id==2) {
+                            deleteVideo(modelVideo);
+                        }
+
+                        return false;
+                    }
+                });
+                //show menu
+                popupMenu.show();
+            }
+        });
+
+    }
+
+    private void showEditVideoDialog(String pTitle, String pId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Edit Post");
+
+        LinearLayout linearLayout = new LinearLayout(context);
+
+        EditText pTitleEt = new EditText(context);
+        pTitleEt.setText(pTitle);
+
+        pTitleEt.setMinEms(20);
+
+        linearLayout.addView(pTitleEt);
+        linearLayout.setPadding(10,10,10,10);
+
+        builder.setView(linearLayout);
+
+        final ProgressDialog pd = new ProgressDialog(context);
+        pd.setMessage("Updating...");
+
+        //buttons recover
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                pd.show();
+                String newPostTitle = pTitleEt.getText().toString().trim();
+                String pTimestamps = ""+ System.currentTimeMillis();
+                String filePathAndName = "Videos/" + "video_" + pTimestamps;
+
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("pTitle", newPostTitle);
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
+                reference.child(pId)
+                        .updateChildren(hashMap)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                pd.dismiss();
+                                Toast.makeText(context, "Updated...", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull @NotNull Exception e) {
+                                //fail
+                                Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        });
+            }
+        });
+        //buttons recover
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     private void deleteVideo(ModelVideo modelVideo) {
@@ -218,50 +327,6 @@ public class AdapterVideo extends RecyclerView.Adapter<AdapterVideo.HolderVideo>
                 mediaPlayer.start(); //restart video on complete
 
             }
-        });
-
-        //handle more btn click
-        holder.moreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popupMenu = new PopupMenu(context, holder.moreBtn, Gravity.CENTER);
-
-                String uid = modelVideo.getUid();
-                if (uid.equals(myUid)){
-                    //add items menu
-                    popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
-                    popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
-                }
-
-                else {
-                    holder.moreBtn.setVisibility(View.GONE);
-                }
-
-                //add items
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        int id = menuItem.getItemId();
-                        if (id==1) {
-                            //edit clicked
-                            //start AddpostActivity key "editPost" id post clicked
-                            Intent intent = new Intent(context, AddVideoActivity.class);
-                            intent.putExtra("key", "editPost");
-                            intent.putExtra("editPostId", pId);
-                            context.startActivity(intent);
-                        }
-                        else if (id==2) {
-                            deleteVideo(modelVideo);
-                        }
-
-                        return false;
-                    }
-                });
-                //show menu
-                popupMenu.show();
-            }
-
-
         });
 
     }

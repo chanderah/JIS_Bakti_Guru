@@ -139,11 +139,6 @@ public class AddVideoActivity extends AppCompatActivity {
                     Toast.makeText(AddVideoActivity.this, "Please enter a caption...", Toast.LENGTH_SHORT).show();
                 }
 
-                if (isUpdateKey.equals("editPost")) {
-                    actionBar.setTitle("Update Post");
-                    beginUpdate(title, description, editPostId);
-                }
-
                 else {
                     //show pd
                     progressDialog.setMessage("Uploading video...");
@@ -189,43 +184,6 @@ public class AddVideoActivity extends AppCompatActivity {
 
             }
         });
-
-
-    }
-
-    private void beginUpdate(String title, String description, String editPostId) {
-        progressDialog.setMessage("Updating Post...");
-        progressDialog.show();
-        updateWithCurrentVideo(title, description, editPostId);
-    }
-
-    private void updateWithCurrentVideo(String title, String description, String editPostId) {
-        String pTimestamps = ""+ System.currentTimeMillis();
-        String filePathAndName = "Videos/" + "video_" + pTimestamps;
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("pTitle", title);
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
-        reference.child(editPostId)
-                .updateChildren(hashMap)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        progressDialog.dismiss();
-                        Toast.makeText(AddVideoActivity.this, "Updated...", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(AddVideoActivity.this, VideosActivity.class));
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull @NotNull Exception e) {
-                        //fail
-                        progressDialog.dismiss();
-                        Toast.makeText(AddVideoActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
     private void loadPostData(String editPostId) {
@@ -482,12 +440,6 @@ public class AddVideoActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return super.onSupportNavigateUp();
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         //hide searchview, add post
@@ -512,5 +464,11 @@ public class AddVideoActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
     }
 }
