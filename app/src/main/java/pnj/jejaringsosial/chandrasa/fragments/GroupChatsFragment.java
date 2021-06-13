@@ -57,7 +57,6 @@ public class GroupChatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_group_chats, container, false);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         groupsRv = view.findViewById(R.id.groupsRv);
 
