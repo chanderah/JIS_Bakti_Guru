@@ -79,6 +79,7 @@ public class GroupEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_edit);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         actionBar = getSupportActionBar();
         actionBar.setTitle("Edit Group");

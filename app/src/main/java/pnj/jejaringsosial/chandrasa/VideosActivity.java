@@ -70,6 +70,7 @@ public class VideosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_videos);
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         actionBar = getSupportActionBar();
         actionBar.setTitle("Videos");
