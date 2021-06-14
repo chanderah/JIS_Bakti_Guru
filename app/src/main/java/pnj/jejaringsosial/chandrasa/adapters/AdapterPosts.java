@@ -61,6 +61,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     Context context;
     List<ModelPost> postList;
 
+    boolean paused = false;
+
     String myUid;
 
     private DatabaseReference likesRef; //likes db
@@ -337,21 +339,22 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             public void onPrepared(MediaPlayer mediaPlayer) {
                 myHolder.progressBar.setVisibility(View.GONE);
                 myHolder.playIv.setVisibility(View.VISIBLE);
-                myHolder.playIv.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        myHolder.playIv.setVisibility(View.GONE);
-                        mediaPlayer.start();
+            }
+        });
 
-                        myHolder.videoView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                mediaPlayer.pause();
-                                myHolder.playIv.setVisibility(View.VISIBLE);
-                            }
-                        });
-                    }
-                });
+        myHolder.videoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (paused) {
+                    myHolder.videoView.start();
+                    paused = false;
+                    myHolder.playIv.setVisibility(View.GONE);
+                }
+                else {
+                    myHolder.videoView.pause();
+                    paused = true;
+                    myHolder.playIv.setVisibility(View.VISIBLE);
+                }
             }
         });
 
@@ -360,11 +363,13 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             public boolean onInfo(MediaPlayer mp, int what, int extra) {
                 if (MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START == what) {
                     myHolder.progressBar.setVisibility(View.GONE);
+                    myHolder.progressBar.setVisibility(View.GONE);
                 }
                 if (MediaPlayer.MEDIA_INFO_BUFFERING_START == what) {
                     myHolder.progressBar.setVisibility(View.VISIBLE);
                 }
                 if (MediaPlayer.MEDIA_INFO_BUFFERING_END == what) {
+                    myHolder.progressBar.setVisibility(View.GONE);
                     myHolder.progressBar.setVisibility(View.GONE);
                 }
                 return false;

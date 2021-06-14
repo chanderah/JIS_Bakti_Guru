@@ -60,13 +60,12 @@ import pnj.jejaringsosial.chandrasa.models.ModelPost;
 
 public class PostDetailActivity extends AppCompatActivity {
 
-
-
     //get detail of user post
     String hisUid, myUid, myEmail, myName, myDp, postId, pLikes, hisDp, hisName, pImage, hisEmail, videoUrl, pTitle, pId;
 
     boolean mProcessComment = false;
     boolean mProcessLike = false;
+    boolean paused = false;
 
     //progress
     ProgressDialog pd;
@@ -646,35 +645,41 @@ public class PostDetailActivity extends AppCompatActivity {
                             public void onPrepared(MediaPlayer mediaPlayer) {
                                 progressBar.setVisibility(View.GONE);
                                 playIv.setVisibility(View.VISIBLE);
-                                playIv.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        playIv.setVisibility(View.GONE);
-                                        mediaPlayer.start();
-
-                                        videoView.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                mediaPlayer.pause();
-                                                playIv.setVisibility(View.VISIBLE);
-                                            }
-                                        });
-                                    }
-                                });
                             }
                         });
+
+                        videoView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (paused) {
+                                    videoView.start();
+                                    paused = false;
+                                    playIv.setVisibility(View.GONE);
+                                }
+                                else {
+                                    videoView.pause();
+                                    paused = true;
+                                    playIv.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+
 
                         videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
                             @Override
                             public boolean onInfo(MediaPlayer mp, int what, int extra) {
                                 if (MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START == what) {
                                     progressBar.setVisibility(View.GONE);
+                                    playIv.setVisibility(View.GONE);
+
                                 }
                                 if (MediaPlayer.MEDIA_INFO_BUFFERING_START == what) {
                                     progressBar.setVisibility(View.VISIBLE);
                                 }
                                 if (MediaPlayer.MEDIA_INFO_BUFFERING_END == what) {
                                     progressBar.setVisibility(View.GONE);
+                                    playIv.setVisibility(View.GONE);
+
                                 }
                                 return false;
                             }
