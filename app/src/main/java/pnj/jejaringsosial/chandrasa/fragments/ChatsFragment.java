@@ -34,7 +34,6 @@ import java.util.List;
 import pnj.jejaringsosial.chandrasa.GroupCreateActivity;
 import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
-import pnj.jejaringsosial.chandrasa.VideosActivity;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterChats;
 import pnj.jejaringsosial.chandrasa.models.ModelChat;
 import pnj.jejaringsosial.chandrasa.models.ModelChatlist;

@@ -105,6 +105,27 @@
                     android:layout_centerInParent="true"
                     android:indeterminateTint="@color/colorSilver"/>
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/playIv"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_play"
+                    app:civ_circle_background_color="@color/hover"
+                    android:visibility="gone"
+                    />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/stopIv"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_stop"
+                    app:civ_circle_background_color="@color/hover"
+                    android:visibility="gone"
+
+                    />
+
             </RelativeLayout>
 
             <TextView

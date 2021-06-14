@@ -44,7 +44,6 @@ import pnj.jejaringsosial.chandrasa.ChatActivity;
 import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.UserProfileActivity;
-import pnj.jejaringsosial.chandrasa.VideosActivity;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterPosts;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
 

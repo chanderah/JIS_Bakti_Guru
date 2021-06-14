@@ -492,6 +492,7 @@ public class AddPostActivity extends AppCompatActivity {
         menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.action_create_group).setVisible(false);
         menu.findItem(R.id.action_add_participant_group).setVisible(false);
+        menu.findItem(R.id.action_add_video).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 

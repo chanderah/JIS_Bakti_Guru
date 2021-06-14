@@ -599,9 +599,13 @@ public class PostDetailActivity extends AppCompatActivity {
                     pTimeTiv.setText(pTime);
                     pCommentsTv.setText(commentCount +" Comments");
 
-                    //uploadedBy
+                    //set post image/video
                     if (videoUrl==null){
+                        Picasso.get().load(pImage).into(pImageIv);
+                        progressBar.setVisibility(View.GONE);
+                        videoView.setVisibility(View.GONE);
                         if (hisName.equals("")){
+                            //no name, set email
                             try {
                                 emailTv.setText(hisEmail);
                                 emailTv.setVisibility(View.VISIBLE);
@@ -612,43 +616,16 @@ public class PostDetailActivity extends AppCompatActivity {
                             }
                         }
                         else {
+                            //have name, set name
                             uNameTv.setText(hisName);
                             uNameTv.setVisibility(View.VISIBLE);
                             emailTv.setVisibility(View.GONE);
                             uploadedBy.setText("This image is uploaded by "+ hisName);
                         }
                     }
-                    else {
-                        if (hisName.equals("")){
-                            try {
-                                emailTv.setText(hisEmail);
-                                emailTv.setVisibility(View.VISIBLE);
-                                uNameTv.setVisibility(View.GONE);
-                                uploadedBy.setText("This video is uploaded by "+ hisEmail);
-                            }
-                            catch (Exception e) {
-                            }
-                        }
-                        else {
-                            uNameTv.setText(hisName);
-                            uNameTv.setVisibility(View.VISIBLE);
-                            emailTv.setVisibility(View.GONE);
-                            uploadedBy.setText("This video is uploaded by "+ hisName);
-                        }
-                    }
 
-                    if (videoUrl==null) {
-                        //set post image
-                        try {
-                            Picasso.get().load(pImage).into(pImageIv);
-                            progressBar.setVisibility(View.GONE);
-                        }
-                        catch (Exception e) {
-
-                        }
-                    }
+                    //set post video
                     else {
-                        //set post video
                         pImageIv.setVisibility(View.GONE);
                         videoView.setVisibility(View.VISIBLE);
                         pDescriptionTv.setVisibility(View.GONE);
@@ -698,6 +675,24 @@ public class PostDetailActivity extends AppCompatActivity {
                                 videoView.seekTo(1);
                             }
                         });
+                        if (hisName.equals("")){
+                            //no name, set email
+                            try {
+                                emailTv.setText(hisEmail);
+                                emailTv.setVisibility(View.VISIBLE);
+                                uNameTv.setVisibility(View.GONE);
+                                uploadedBy.setText("This video is uploaded by "+ hisEmail);
+                            }
+                            catch (Exception e) {
+                            }
+                        }
+                        else {
+                            //have name, set name
+                            uNameTv.setText(hisName);
+                            uNameTv.setVisibility(View.VISIBLE);
+                            emailTv.setVisibility(View.GONE);
+                            uploadedBy.setText("This video is uploaded by "+ hisName);
+                        }
                     }
 
                     //set user img in comment part

@@ -299,7 +299,6 @@ public class AddVideoActivity extends AppCompatActivity {
                                             //video detail uploaded to db
                                             progressDialog.dismiss();
                                             Toast.makeText(AddVideoActivity.this, "Video uploaded...", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(AddVideoActivity.this, VideosActivity.class));
                                             finish();
                                         }
                                     })
@@ -387,7 +386,7 @@ public class AddVideoActivity extends AppCompatActivity {
         pickVideoIv.setVisibility(View.GONE);
 
         //set media controller to vv
-        videoView.setMediaController(mediaController);
+        //videoView.setMediaController(mediaController);
         //set video uri
         videoView.setVideoURI(videoUri);
         videoView.requestFocus();

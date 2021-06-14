@@ -55,7 +55,6 @@ import pnj.jejaringsosial.chandrasa.PostDetailActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.UserProfileActivity;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
-import pnj.jejaringsosial.chandrasa.models.ModelVideo;
 
 public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
@@ -127,42 +126,57 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             myHolder.uPictureIv.setImageResource(R.drawable.ic_default_img);
         }
 
-        if (uName.equals("")){
-            try {
-                myHolder.uEmailTv.setText(uEmail);
-                myHolder.uEmailTv.setVisibility(View.VISIBLE);
-                myHolder.uNameTv.setVisibility(View.GONE);
-                myHolder.uploadedBy.setText("This image is uploaded by "+ uEmail);
-
-            }
-            catch (Exception e) {
-            }
-        }
-        else {
-            myHolder.uNameTv.setText(uName);
-            myHolder.uNameTv.setVisibility(View.VISIBLE);
-            myHolder.uEmailTv.setVisibility(View.GONE);
-
-            myHolder.uploadedBy.setText("This image is uploaded by "+ uName);
-            myHolder.uploadedBy.setVisibility(View.VISIBLE);
-        }
-
         if (videoUrl==null) {
-            //set post image
-            try {
-                Picasso.get().load(pImage).into(myHolder.pImageIv);
-                myHolder.progressBar.setVisibility(View.GONE);
-            }
-            catch (Exception e) {
+            //this is image
+            Picasso.get().load(pImage).into(myHolder.pImageIv);
+            myHolder.progressBar.setVisibility(View.GONE);
+            myHolder.videoView.setVisibility(View.GONE);
+            if (uName.equals("")){
+                try {
+                    myHolder.uEmailTv.setText(uEmail);
+                    myHolder.uEmailTv.setVisibility(View.VISIBLE);
+                    myHolder.uNameTv.setVisibility(View.GONE);
+                    myHolder.uploadedBy.setText("This image is uploaded by "+ uEmail);
 
+                }
+                catch (Exception e) {
+                }
+            }
+            else {
+                myHolder.uNameTv.setText(uName);
+                myHolder.uNameTv.setVisibility(View.VISIBLE);
+                myHolder.uEmailTv.setVisibility(View.GONE);
+
+                myHolder.uploadedBy.setText("This image is uploaded by "+ uName);
+                myHolder.uploadedBy.setVisibility(View.VISIBLE);
             }
         }
         else {
             //set post video
             setVideoUrl(modelPost, myHolder, pId);
-            myHolder.pImageIv.setVisibility(View.GONE);
             myHolder.videoView.setVisibility(View.VISIBLE);
+            myHolder.pImageIv.setVisibility(View.GONE);
             myHolder.pDescriptionTv.setVisibility(View.GONE);
+
+            if (uName.equals("")){
+                try {
+                    myHolder.uEmailTv.setText(uEmail);
+                    myHolder.uEmailTv.setVisibility(View.VISIBLE);
+                    myHolder.uNameTv.setVisibility(View.GONE);
+                    myHolder.uploadedBy.setText("This video is uploaded by "+ uEmail);
+
+                }
+                catch (Exception e) {
+                }
+            }
+            else {
+                myHolder.uNameTv.setText(uName);
+                myHolder.uNameTv.setVisibility(View.VISIBLE);
+                myHolder.uEmailTv.setVisibility(View.GONE);
+
+                myHolder.uploadedBy.setText("This video is uploaded by "+ uName);
+                myHolder.uploadedBy.setVisibility(View.VISIBLE);
+            }
         }
 
 
@@ -563,7 +577,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     class MyHolder extends RecyclerView.ViewHolder {
 
         //views from row post xml
-        ImageView uPictureIv, pImageIv;
+        ImageView uPictureIv, pImageIv, playIv, stopIv;
         VideoView videoView;
         TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, uEmailTv;
         ImageButton moreBtn;
@@ -590,6 +604,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             uploadedBy = itemView.findViewById(R.id.uploadedBy);
             uEmailTv = itemView.findViewById(R.id.uEmailTv);
             progressBar = itemView.findViewById(R.id.progressBarr);
+            videoView = itemView.findViewById(R.id.pVideoView);
+            playIv = itemView.findViewById(R.id.pVideoView);
             videoView = itemView.findViewById(R.id.pVideoView);
 
         }
