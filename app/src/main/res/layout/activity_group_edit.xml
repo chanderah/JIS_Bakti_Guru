@@ -21,6 +21,7 @@
         android:id="@+id/groupTitleEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
         android:layout_below="@id/groupIconIv"
         android:layout_marginTop="10dp"
         android:padding="10dp"
