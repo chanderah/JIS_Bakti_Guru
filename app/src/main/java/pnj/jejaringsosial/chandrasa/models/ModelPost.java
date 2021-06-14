@@ -1,12 +1,12 @@
 package pnj.jejaringsosial.chandrasa.models;
 
 public class ModelPost {
-    String pId, pTitle, pDesc, pLikes, pComments, pImage, pTime, uid, uEmail, uDp, uName, videoUrl;
+    String pId, pTitle, pDesc, pLikes, pComments, pImage, pTime, uid, uEmail, uDp, uName, videoUrl, type;
 
     public ModelPost() {
     }
 
-    public ModelPost(String pId, String pTitle, String pDesc, String pLikes, String pComments, String pImage, String pTime, String uid, String uEmail, String uDp, String uName, String videoUrl) {
+    public ModelPost(String pId, String pTitle, String pDesc, String pLikes, String pComments, String pImage, String pTime, String uid, String uEmail, String uDp, String uName, String videoUrl, String type) {
         this.pId = pId;
         this.pTitle = pTitle;
         this.pDesc = pDesc;
@@ -19,6 +19,7 @@ public class ModelPost {
         this.uDp = uDp;
         this.uName = uName;
         this.videoUrl = videoUrl;
+        this.type = type;
     }
 
     public String getpId() {
@@ -115,5 +116,13 @@ public class ModelPost {
 
     public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

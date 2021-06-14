@@ -289,6 +289,8 @@ public class AddVideoActivity extends AppCompatActivity {
                             hashMap.put("pLikes", "0");
                             hashMap.put("pComments", "0");
                             hashMap.put("videoUrl", "" + downloadUri);
+                            hashMap.put("type", "video");
+
 
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
                             reference.child(pTimestamps)

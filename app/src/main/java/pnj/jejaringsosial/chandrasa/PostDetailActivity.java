@@ -293,7 +293,6 @@ public class PostDetailActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-
     private void loadComments() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         //set layout to rv
@@ -586,6 +585,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     hisName = ""+ds.child("uName").getValue();
                     String commentCount = ""+ds.child("pComments").getValue();
                     videoUrl = ""+ds.child("videoUrl").getValue();
+                    String type = "" + ds.child("type").getValue();
 
                     //convert timestamp
                     Calendar calendar = Calendar.getInstance(Locale.getDefault());
@@ -599,118 +599,24 @@ public class PostDetailActivity extends AppCompatActivity {
                     pTimeTiv.setText(pTime);
                     pCommentsTv.setText(commentCount +" Comments");
 
-                    //set post image/video
-                    if (videoUrl==null){
+                    if (type.equals("photo")) {
+                        //this is image
                         Picasso.get().load(pImage).into(pImageIv);
+                        pImageIv.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
-                        videoView.setVisibility(View.GONE);
-                        if (hisName.equals("")){
-                            //no name, set email
-                            try {
-                                emailTv.setText(hisEmail);
-                                emailTv.setVisibility(View.VISIBLE);
-                                uNameTv.setVisibility(View.GONE);
-                                uploadedBy.setText("This image is uploaded by "+ hisEmail);
-                            }
-                            catch (Exception e) {
-                            }
-                        }
-                        else {
-                            //have name, set name
-                            uNameTv.setText(hisName);
-                            uNameTv.setVisibility(View.VISIBLE);
-                            emailTv.setVisibility(View.GONE);
-                            uploadedBy.setText("This image is uploaded by "+ hisName);
-                        }
-                    }
 
-                    //set post video
+                        setPhotoNameOrEmailTv();
+                    }
                     else {
+                        //set post video
                         pImageIv.setVisibility(View.GONE);
                         videoView.setVisibility(View.VISIBLE);
                         pDescriptionTv.setVisibility(View.GONE);
 
-                        //media controller
-                        MediaController mediaController = new MediaController(PostDetailActivity.this);
-                        mediaController.setAnchorView(videoView);
-
-                        Uri videoUri = Uri.parse(videoUrl);
-                        //holder.videoView.setMediaController(mediaController);
-                        videoView.setVideoURI(videoUri);
-                        videoView.seekTo(1);
-
-                        videoView.requestFocus();
-                        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                            @Override
-                            public void onPrepared(MediaPlayer mediaPlayer) {
-                                progressBar.setVisibility(View.GONE);
-                                playIv.setVisibility(View.VISIBLE);
-                            }
-                        });
-
-                        videoView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                if (paused) {
-                                    videoView.start();
-                                    paused = false;
-                                    playIv.setVisibility(View.GONE);
-                                }
-                                else {
-                                    videoView.pause();
-                                    paused = true;
-                                    playIv.setVisibility(View.VISIBLE);
-                                }
-                            }
-                        });
-
-
-                        videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
-                            @Override
-                            public boolean onInfo(MediaPlayer mp, int what, int extra) {
-                                if (MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START == what) {
-                                    progressBar.setVisibility(View.GONE);
-                                    playIv.setVisibility(View.GONE);
-
-                                }
-                                if (MediaPlayer.MEDIA_INFO_BUFFERING_START == what) {
-                                    progressBar.setVisibility(View.VISIBLE);
-                                }
-                                if (MediaPlayer.MEDIA_INFO_BUFFERING_END == what) {
-                                    progressBar.setVisibility(View.GONE);
-                                    playIv.setVisibility(View.GONE);
-
-                                }
-                                return false;
-                            }
-                        });
-
-                        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer mediaPlayer) {
-                                playIv.setVisibility(View.VISIBLE);
-                                videoView.seekTo(1);
-                            }
-                        });
-                        if (hisName.equals("")){
-                            //no name, set email
-                            try {
-                                emailTv.setText(hisEmail);
-                                emailTv.setVisibility(View.VISIBLE);
-                                uNameTv.setVisibility(View.GONE);
-                                uploadedBy.setText("This video is uploaded by "+ hisEmail);
-                            }
-                            catch (Exception e) {
-                            }
-                        }
-                        else {
-                            //have name, set name
-                            uNameTv.setText(hisName);
-                            uNameTv.setVisibility(View.VISIBLE);
-                            emailTv.setVisibility(View.GONE);
-                            uploadedBy.setText("This video is uploaded by "+ hisName);
-                        }
+                        setVideoNameOrEmailTv();
+                        setVideoToView();
                     }
+
 
                     //set user img in comment part
                     try {
@@ -729,6 +635,105 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setVideoToView() {
+        //media controller
+        MediaController mediaController = new MediaController(PostDetailActivity.this);
+        mediaController.setAnchorView(videoView);
+
+        Uri videoUri = Uri.parse(videoUrl);
+        //holder.videoView.setMediaController(mediaController);
+        videoView.setVideoURI(videoUri);
+        videoView.seekTo(1);
+
+        videoView.requestFocus();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                progressBar.setVisibility(View.GONE);
+                playIv.setVisibility(View.VISIBLE);
+            }
+        });
+
+        videoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (paused) {
+                    videoView.start();
+                    paused = false;
+                    playIv.setVisibility(View.GONE);
+                }
+                else {
+                    videoView.pause();
+                    paused = true;
+                    playIv.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+
+        videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+            @Override
+            public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                if (MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START == what) {
+                    progressBar.setVisibility(View.GONE);
+                    playIv.setVisibility(View.GONE);
+
+                }
+                if (MediaPlayer.MEDIA_INFO_BUFFERING_START == what) {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+                if (MediaPlayer.MEDIA_INFO_BUFFERING_END == what) {
+                    progressBar.setVisibility(View.GONE);
+                    playIv.setVisibility(View.GONE);
+
+                }
+                return false;
+            }
+        });
+
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                playIv.setVisibility(View.VISIBLE);
+                videoView.seekTo(1);
+            }
+        });
+    }
+
+    private void setVideoNameOrEmailTv() {
+        if (hisName.equals("")){
+            //no name, set email
+            emailTv.setText(hisEmail);
+            emailTv.setVisibility(View.VISIBLE);
+            uNameTv.setVisibility(View.GONE);
+            uploadedBy.setText("This video is uploaded by "+ hisEmail);
+        }
+        else {
+            //have name, set name
+            uNameTv.setText(hisName);
+            uNameTv.setVisibility(View.VISIBLE);
+            emailTv.setVisibility(View.GONE);
+            uploadedBy.setText("This video is uploaded by "+ hisName);
+        }
+    }
+
+    private void setPhotoNameOrEmailTv() {
+        if (hisName.equals("")){
+            emailTv.setText(hisEmail);
+            emailTv.setVisibility(View.VISIBLE);
+            uNameTv.setVisibility(View.GONE);
+            uploadedBy.setText("This image is uploaded by "+ hisEmail);
+        }
+        else {
+            uNameTv.setText(hisName);
+            uNameTv.setVisibility(View.VISIBLE);
+            emailTv.setVisibility(View.GONE);
+
+            uploadedBy.setText("This image is uploaded by "+ hisName);
+            uploadedBy.setVisibility(View.VISIBLE);
+        }
     }
 
     private void checkUserStatus(){

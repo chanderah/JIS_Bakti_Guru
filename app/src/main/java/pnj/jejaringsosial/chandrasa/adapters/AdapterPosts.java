@@ -104,6 +104,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         String pLikes = modelPost.getpLikes(); //total likes
         String pComments = modelPost.getpComments(); //total comment
         String videoUrl = modelPost.getVideoUrl(); //total comment
+        String type = modelPost.getType(); //total comment
 
         //convert timestamp
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
@@ -128,7 +129,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             myHolder.uPictureIv.setImageResource(R.drawable.ic_default_img);
         }
 
-        if (videoUrl==null) {
+        if (type.equals("photo")) {
             //this is image
             Picasso.get().load(pImage).into(myHolder.pImageIv);
             myHolder.progressBar.setVisibility(View.GONE);

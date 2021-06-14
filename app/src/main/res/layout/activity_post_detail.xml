@@ -104,7 +104,9 @@
                                 android:layout_height="wrap_content"
                                 android:maxHeight="400dp"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/ic_image_black" />
+                                android:src="@drawable/ic_image_black"
+                                android:visibility="gone"
+                                />
 
                             <VideoView
                                 android:id="@+id/pVideoView"
