@@ -86,7 +86,7 @@ public class PostDetailActivity extends AppCompatActivity {
     //add comments view
     EditText commentEt;
     ImageButton sendBtn;
-    ImageView cAvatarIv;
+    ImageView cAvatarIv, playIv;
     VideoView videoView;
     ProgressBar progressBar;
 
@@ -125,6 +125,7 @@ public class PostDetailActivity extends AppCompatActivity {
         emailTv = findViewById(R.id.emailTv);
         videoView = findViewById(R.id.pVideoView);
         progressBar = findViewById(R.id.progressBarr);
+        playIv = findViewById(R.id.playIv);
 
         commentEt = findViewById(R.id.commentEt);
         cAvatarIv = findViewById(R.id.cAvatarIv);
@@ -644,10 +645,20 @@ public class PostDetailActivity extends AppCompatActivity {
                             @Override
                             public void onPrepared(MediaPlayer mediaPlayer) {
                                 progressBar.setVisibility(View.GONE);
-                                videoView.setOnClickListener(new View.OnClickListener() {
+                                playIv.setVisibility(View.VISIBLE);
+                                playIv.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
+                                        playIv.setVisibility(View.GONE);
                                         mediaPlayer.start();
+
+                                        videoView.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                mediaPlayer.pause();
+                                                playIv.setVisibility(View.VISIBLE);
+                                            }
+                                        });
                                     }
                                 });
                             }
@@ -672,6 +683,7 @@ public class PostDetailActivity extends AppCompatActivity {
                         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                             @Override
                             public void onCompletion(MediaPlayer mediaPlayer) {
+                                playIv.setVisibility(View.VISIBLE);
                                 videoView.seekTo(1);
                             }
                         });

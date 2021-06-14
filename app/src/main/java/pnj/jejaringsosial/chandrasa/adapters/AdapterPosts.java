@@ -336,10 +336,20 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             @Override
             public void onPrepared(MediaPlayer mediaPlayer) {
                 myHolder.progressBar.setVisibility(View.GONE);
-                myHolder.videoView.setOnClickListener(new View.OnClickListener() {
+                myHolder.playIv.setVisibility(View.VISIBLE);
+                myHolder.playIv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        myHolder.playIv.setVisibility(View.GONE);
                         mediaPlayer.start();
+
+                        myHolder.videoView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mediaPlayer.pause();
+                                myHolder.playIv.setVisibility(View.VISIBLE);
+                            }
+                        });
                     }
                 });
             }
@@ -364,6 +374,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         myHolder.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
+                myHolder.playIv.setVisibility(View.VISIBLE);
                 myHolder.videoView.seekTo(1);
             }
         });
@@ -577,7 +588,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     class MyHolder extends RecyclerView.ViewHolder {
 
         //views from row post xml
-        ImageView uPictureIv, pImageIv, playIv, stopIv;
+        ImageView uPictureIv, pImageIv, playIv;
         VideoView videoView;
         TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, uEmailTv;
         ImageButton moreBtn;
@@ -605,8 +616,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             uEmailTv = itemView.findViewById(R.id.uEmailTv);
             progressBar = itemView.findViewById(R.id.progressBarr);
             videoView = itemView.findViewById(R.id.pVideoView);
-            playIv = itemView.findViewById(R.id.pVideoView);
-            videoView = itemView.findViewById(R.id.pVideoView);
+            playIv = itemView.findViewById(R.id.playIv);
 
         }
     }
