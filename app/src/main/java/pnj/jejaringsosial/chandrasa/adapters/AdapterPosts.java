@@ -132,6 +132,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         if (type.equals("photo")) {
             //this is image
             Picasso.get().load(pImage).into(myHolder.pImageIv);
+            myHolder.pImageIv.setVisibility(View.VISIBLE);
             myHolder.progressBar.setVisibility(View.GONE);
             myHolder.videoView.setVisibility(View.GONE);
             if (uName.equals("")){
@@ -181,7 +182,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                 myHolder.uploadedBy.setVisibility(View.VISIBLE);
             }
         }
-
 
         //handle btn click
         myHolder.moreBtn.setOnClickListener(v -> {
@@ -335,13 +335,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         myHolder.videoView.seekTo(1);
 
         myHolder.videoView.requestFocus();
-        myHolder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                myHolder.progressBar.setVisibility(View.GONE);
-                myHolder.playIv.setVisibility(View.VISIBLE);
-            }
-        });
 
         myHolder.videoView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -356,6 +349,14 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                     paused = true;
                     myHolder.playIv.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+        myHolder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                myHolder.progressBar.setVisibility(View.GONE);
+                myHolder.playIv.setVisibility(View.VISIBLE);
             }
         });
 

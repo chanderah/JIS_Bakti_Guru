@@ -60,6 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Title"
+                android:inputType="textCapSentences"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorSilver"
                 android:minHeight="60dp"
