@@ -6,9 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -17,28 +15,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ThemeApp"
-
         android:windowSoftInputMode="adjustResize">
+
         <activity android:name=".GroupEditActivity"></activity>
         <activity android:name=".GroupInfoActivity" />
         <activity android:name=".GroupAddParticipantActivity" />
-        <activity
-            android:name=".GroupChatActivity"
-            android:theme="@style/ThemeAppNo" />
+        <activity android:name=".GroupChatActivity" android:theme="@style/ThemeAppNo" />
         <activity android:name=".PostDetailActivity" />
         <activity android:name=".GroupCreateActivity" />
-        <activity android:name=".AddVideoActivity" />
+        <activity android:name=".AddVideoActivity" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".VideosActivity" />
         <activity android:name=".UserProfileActivity" />
-        <activity android:name=".AddPostActivity" />
-        <activity
-            android:name=".ChatActivity"
-            android:theme="@style/ThemeAppNo" />
+        <activity android:name=".AddPostActivity" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".ChatActivity" android:theme="@style/ThemeAppNo" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -54,5 +47,4 @@
             </intent-filter>
         </service>
     </application>
-
 </manifest>

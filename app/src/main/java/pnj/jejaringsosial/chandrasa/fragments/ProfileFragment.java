@@ -67,6 +67,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
+import pnj.jejaringsosial.chandrasa.AddVideoActivity;
 import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterPosts;
@@ -327,7 +328,7 @@ public class ProfileFragment extends Fragment {
 
         String options[] = {"Edit Profile Picture", "Edit Cover Photo", "Edit Name", "Edit Phone", "Change Password"};
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Choose Action");
 
@@ -563,7 +564,7 @@ public class ProfileFragment extends Fragment {
 
         String options[] = {"Camera", "Gallery"};
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setTitle("Pick Image From");
 
@@ -820,8 +821,6 @@ public class ProfileFragment extends Fragment {
         menu.findItem(R.id.action_add_video).setVisible(false);
         menu.findItem(R.id.action_add_participant_group).setVisible(false);
 
-
-
         MenuItem item = menu.findItem(R.id.action_search);
 
         //searchview of searched user post
@@ -871,9 +870,25 @@ public class ProfileFragment extends Fragment {
         }
 
         if (id == R.id.action_add_post) {
-            startActivity(new Intent(getActivity(), AddPostActivity.class));
-        }
+            //show dialog
+            AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
+            builder.setItems(new String[]{"Add Photo", "Add Video"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which==0) {
+                        //Add Photo Dialog clicked
+                        startActivity(new Intent(getActivity(), AddPostActivity.class));
 
+                    }
+                    if (which==1) {
+                        //Add Video Dialog clicked
+                        startActivity(new Intent(getActivity(), AddVideoActivity.class));
+                    }
+
+                }
+            });
+            builder.create().show();
+        };
         return super.onOptionsItemSelected(item);
     }
 }

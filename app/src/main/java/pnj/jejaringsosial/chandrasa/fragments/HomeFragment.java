@@ -1,5 +1,7 @@
 package pnj.jejaringsosial.chandrasa.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -38,8 +40,10 @@ import java.util.List;
 
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
 import pnj.jejaringsosial.chandrasa.AddVideoActivity;
+import pnj.jejaringsosial.chandrasa.ChatActivity;
 import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
+import pnj.jejaringsosial.chandrasa.UserProfileActivity;
 import pnj.jejaringsosial.chandrasa.VideosActivity;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterPosts;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
@@ -53,8 +57,6 @@ public class HomeFragment extends Fragment {
     List<ModelPost> postList;
     AdapterPosts adapterPosts;
 
-    TextView videosFab;
-
     public HomeFragment() {
 
     }
@@ -65,7 +67,9 @@ public class HomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
         //init
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -95,17 +99,6 @@ public class HomeFragment extends Fragment {
         postList = new ArrayList<>();
 
         loadPosts();
-
-        videosFab = view.findViewById(R.id.videosFab);
-        videosFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), VideosActivity.class));
-                getActivity().finish();
-            }
-        });
-
-
 
         return view;
     }
@@ -244,10 +237,26 @@ public class HomeFragment extends Fragment {
                 }
 
                 if (id == R.id.action_add_post) {
-                    startActivity(new Intent(getActivity(), AddPostActivity.class));
-                }
 
+                    //show dialog
+                    AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
+                    builder.setItems(new String[]{"Add Photo", "Add Video"}, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (which==0) {
+                                //Add Photo Dialog clicked
+                                startActivity(new Intent(getActivity(), AddPostActivity.class));
 
+                            }
+                            if (which==1) {
+                                //Add Video Dialog clicked
+                                startActivity(new Intent(getActivity(), AddVideoActivity.class));
+                            }
+
+                        }
+                    });
+                    builder.create().show();
+                };
                 return super.onOptionsItemSelected(item);
             }
 

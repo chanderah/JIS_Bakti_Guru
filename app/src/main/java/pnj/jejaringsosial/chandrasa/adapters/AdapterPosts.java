@@ -1,8 +1,12 @@
 package pnj.jejaringsosial.chandrasa.adapters;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.IInterface;
 import android.text.format.DateFormat;
 import android.view.Gravity;
@@ -12,13 +16,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -48,6 +55,7 @@ import pnj.jejaringsosial.chandrasa.PostDetailActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.UserProfileActivity;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
+import pnj.jejaringsosial.chandrasa.models.ModelVideo;
 
 public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
@@ -80,18 +88,21 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
+        ModelPost modelPost = postList.get(i);
+
         //get data
-        String uid = postList.get(i).getUid();
-        String uEmail = postList.get(i).getuEmail();
-        String uName = postList.get(i).getuName();
-        String uDp = postList.get(i).getuDp();
-        String pId = postList.get(i).getpId();
-        String pTitle = postList.get(i).getpTitle();
-        String pDesc = postList.get(i).getpDesc();
-        String pImage = postList.get(i).getpImage();
-        String pTimeStamp = postList.get(i).getpTime();
-        String pLikes = postList.get(i).getpLikes(); //total likes
-        String pComments = postList.get(i).getpComments(); //total comment
+        String uid = modelPost.getUid();
+        String uEmail = modelPost.getuEmail();
+        String uName = modelPost.getuName();
+        String uDp = modelPost.getuDp();
+        String pId = modelPost.getpId();
+        String pTitle = modelPost.getpTitle();
+        String pDesc = modelPost.getpDesc();
+        String pImage = modelPost.getpImage();
+        String pTimeStamp = modelPost.getpTime();
+        String pLikes = modelPost.getpLikes(); //total likes
+        String pComments = modelPost.getpComments(); //total comment
+        String videoUrl = modelPost.getVideoUrl(); //total comment
 
         //convert timestamp
         Calendar calendar = Calendar.getInstance(Locale.getDefault());
@@ -136,20 +147,66 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             myHolder.uploadedBy.setVisibility(View.VISIBLE);
         }
 
-
-        //set post image
-        try {
-            Picasso.get().load(pImage).into(myHolder.pImageIv);
-            myHolder.progressBar.setVisibility(View.GONE);
+        if (videoUrl==null) {
+            //set post image
+            try {
+                Picasso.get().load(pImage).into(myHolder.pImageIv);
+                myHolder.progressBar.setVisibility(View.GONE);
             }
-        catch (Exception e) {
+            catch (Exception e) {
 
             }
+        }
+        else {
+            //set post video
+            setVideoUrl(modelPost, myHolder, pId);
+            myHolder.pImageIv.setVisibility(View.GONE);
+            myHolder.videoView.setVisibility(View.VISIBLE);
+            myHolder.pDescriptionTv.setVisibility(View.GONE);
+        }
 
 
         //handle btn click
         myHolder.moreBtn.setOnClickListener(v -> {
-            showMoreOptions(myHolder.moreBtn, uid, myUid, pId, pImage);
+            if (pImage==null){
+                PopupMenu popupMenu = new PopupMenu(context, myHolder.moreBtn, Gravity.CENTER);
+
+                if (uid.equals(myUid)){
+                    //add items menu
+                    popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
+                    popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
+                }
+
+                else {
+                    popupMenu.getMenu().add(Menu.NONE, 0, 0, "View Detail");
+                }
+
+                //add items
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        int id = menuItem.getItemId();
+                        if (id==1) {
+                            showEditVideoDialog(pTitle, pId);
+                        }
+                        if (id==2) {
+                            deleteVideo(modelPost);
+                        }
+                        if (id==0) {
+                            //start postdetailactivity
+                            Intent intent = new Intent(context, PostDetailActivity.class);
+                            intent.putExtra("postId", pId); //get detail post with this id
+                            context.startActivity(intent);                        }
+
+                        return false;
+                    }
+                });
+                //show menu
+                popupMenu.show();
+            }
+            else {
+                showMoreOptions(myHolder.moreBtn, uid, myUid, pId, pImage);
+            }
         });
         myHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,6 +264,157 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             }
         });
 
+    }
+
+    private void deleteVideo(ModelPost modelPost) {
+        final String videoId = modelPost.getpId();
+        String videoUrl = modelPost.getVideoUrl();
+
+        //delete from firebase storage
+        StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(videoUrl);
+        reference.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //deleted, now delete on firebase db
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
+                        databaseReference.child(videoId)
+                                .removeValue()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(context, "Video deleted...", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull @NotNull Exception e) {
+                                        Toast.makeText(context, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+
+                    }
+                });
+
+    }
+
+    private void setVideoUrl(ModelPost modelPost, MyHolder myHolder, String pId) {
+        //get video url
+        String videoUrl = modelPost.getVideoUrl();
+
+        //media controller
+        MediaController mediaController = new MediaController(context);
+        mediaController.setAnchorView(myHolder.videoView);
+
+        Uri videoUri = Uri.parse(videoUrl);
+        //holder.videoView.setMediaController(mediaController);
+        myHolder.videoView.setVideoURI(videoUri);
+        myHolder.videoView.seekTo(1);
+
+        myHolder.videoView.requestFocus();
+        myHolder.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                myHolder.progressBar.setVisibility(View.GONE);
+                myHolder.videoView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mediaPlayer.start();
+                    }
+                });
+            }
+        });
+
+        myHolder.videoView.setOnInfoListener(new MediaPlayer.OnInfoListener() {
+            @Override
+            public boolean onInfo(MediaPlayer mp, int what, int extra) {
+                if (MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START == what) {
+                    myHolder.progressBar.setVisibility(View.GONE);
+                }
+                if (MediaPlayer.MEDIA_INFO_BUFFERING_START == what) {
+                    myHolder.progressBar.setVisibility(View.VISIBLE);
+                }
+                if (MediaPlayer.MEDIA_INFO_BUFFERING_END == what) {
+                    myHolder.progressBar.setVisibility(View.GONE);
+                }
+                return false;
+            }
+        });
+
+        myHolder.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                myHolder.videoView.seekTo(1);
+            }
+        });
+
+    }
+
+    private void showEditVideoDialog(String pTitle, String pId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Edit Post");
+
+        LinearLayout linearLayout = new LinearLayout(context);
+
+        EditText pTitleEt = new EditText(context);
+        pTitleEt.setText(pTitle);
+
+        pTitleEt.setMinEms(20);
+
+        linearLayout.addView(pTitleEt);
+        linearLayout.setPadding(10,10,10,10);
+
+        builder.setView(linearLayout);
+
+        final ProgressDialog pd = new ProgressDialog(context);
+        pd.setMessage("Updating...");
+
+        //buttons recover
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                pd.show();
+                String newPostTitle = pTitleEt.getText().toString().trim();
+                String pTimestamps = ""+ System.currentTimeMillis();
+
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("pTitle", newPostTitle);
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+                reference.child(pId)
+                        .updateChildren(hashMap)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                pd.dismiss();
+                                Toast.makeText(context, "Updated...", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull @NotNull Exception e) {
+                                //fail
+                                Toast.makeText(context, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        });
+            }
+        });
+        //buttons recover
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     private void addToHisNotifications(String hisUid, String pId, String notification){
@@ -271,7 +479,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
         }
         popupMenu.getMenu().add(Menu.NONE, 0, 0, "View Detail");
-
 
         //add items
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -357,6 +564,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
         //views from row post xml
         ImageView uPictureIv, pImageIv;
+        VideoView videoView;
         TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, uEmailTv;
         ImageButton moreBtn;
         Button likeBtn, commentBtn;
@@ -382,7 +590,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             uploadedBy = itemView.findViewById(R.id.uploadedBy);
             uEmailTv = itemView.findViewById(R.id.uEmailTv);
             progressBar = itemView.findViewById(R.id.progressBarr);
-
+            videoView = itemView.findViewById(R.id.pVideoView);
 
         }
     }

@@ -64,8 +64,6 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
 
         //handle item click
         myHolder.itemView.setOnClickListener(v -> {
-
-
             //show dialog
             AlertDialog.Builder builder =  new AlertDialog.Builder(context);
             builder.setItems(new String[]{"Profile", "Chat"}, new DialogInterface.OnClickListener() {

@@ -187,7 +187,7 @@ public class AddVideoActivity extends AppCompatActivity {
     }
 
     private void loadPostData(String editPostId) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
         //get detail post using id post
         Query fquery = reference.orderByChild("pId").equalTo(editPostId);
         fquery.addValueEventListener(new ValueEventListener() {
@@ -262,7 +262,7 @@ public class AddVideoActivity extends AppCompatActivity {
         //timestamp
         String pTimestamps = ""+ System.currentTimeMillis();
         //file path and name in firebase
-        String filePathAndName = "Videos/" + "video_" + pTimestamps;
+        String filePathAndName = "Posts/" + "video_" + pTimestamps;
         //storage ref
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(filePathAndName);
         //upload video
@@ -290,7 +290,7 @@ public class AddVideoActivity extends AppCompatActivity {
                             hashMap.put("pComments", "0");
                             hashMap.put("videoUrl", "" + downloadUri);
 
-                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos");
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
                             reference.child(pTimestamps)
                                     .setValue(hashMap)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -447,6 +447,7 @@ public class AddVideoActivity extends AppCompatActivity {
         menu.findItem(R.id.action_create_group).setVisible(false);
         menu.findItem(R.id.action_add_participant_group).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
+        menu.findItem(R.id.action_add_post).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
 

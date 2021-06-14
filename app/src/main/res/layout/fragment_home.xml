@@ -30,17 +30,4 @@
 
     </FrameLayout>
 
-    <TextView
-        android:id="@+id/videosFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:text="VIDEOS"
-        android:textStyle="bold"
-        android:textColor="@color/colorWhite"
-        android:rotation="-90"
-        android:padding="10dp"
-        android:background="@color/colorPrimary"/>
-
 </RelativeLayout>

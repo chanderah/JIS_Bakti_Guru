@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
-        android:hint="Enter title..."
+        android:hint="Enter Title..."
         android:textColorHint="@color/colorSilver"
         android:inputType="textPersonName|textCapSentences"
         android:padding="10dp"
