@@ -92,7 +92,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
             Picasso.get().load(image).placeholder(R.drawable.ic_default_img).into(myHolder.avatarIv);
         }
         catch (Exception e) {
-
+            myHolder.avatarIv.setImageResource(R.drawable.ic_default_img);
         }
 
         //comment click listener
@@ -110,6 +110,8 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
                         public void onClick(DialogInterface dialog, int which) {
                             //delete comment
                             deleteComment(cid);
+                            dialog.dismiss();
+
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -140,7 +142,6 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
                 String comments = ""+ dataSnapshot.child("pComments").getValue();
                 int newCommentVal = Integer.parseInt(comments) - 1;
                 ref.child("pComments").setValue(""+newCommentVal);
-                commentList.clear();
             }
 
             @Override

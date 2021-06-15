@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -183,7 +184,7 @@ public class PostDetailActivity extends AppCompatActivity {
                             showEditVideoDialog(pTitle, pId);
                         }
                         if (id==2) {
-                            deleteVideo(pId, videoUrl);
+                            deleteVideo(postId, videoUrl);
                         }
                         return false;
                     }
@@ -197,7 +198,9 @@ public class PostDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void deleteVideo(String pId, String videoUrl) {
+
+
+    private void deleteVideo(String postId, String videoUrl) {
 
         //delete from firebase storage
         StorageReference reference = FirebaseStorage.getInstance().getReferenceFromUrl(videoUrl);
@@ -207,12 +210,13 @@ public class PostDetailActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         //deleted, now delete on firebase db
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Posts");
-                        databaseReference.child(pId)
+                        databaseReference.child(postId)
                                 .removeValue()
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         Toast.makeText(PostDetailActivity.this, "Video deleted...", Toast.LENGTH_SHORT).show();
+                                        finish();
 
                                     }
                                 })
@@ -230,6 +234,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
                     }
                 });
+
     }
 
     private void showEditVideoDialog(String pTitle, String pId) {
@@ -317,7 +322,8 @@ public class PostDetailActivity extends AppCompatActivity {
                     //set adapter
                     recyclerView.setAdapter(adapterComments);
 
-                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
+                    adapterComments.notifyDataSetChanged();
+
                 }
             }
 
@@ -384,6 +390,8 @@ public class PostDetailActivity extends AppCompatActivity {
                                 }
                                 //deleted
                                 Toast.makeText(PostDetailActivity.this, "Deleted successfully...", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(PostDetailActivity.this, DashboardActivity.class));
+                                finish();
                             }
 
                             @Override
@@ -585,6 +593,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     hisName = ""+ds.child("uName").getValue();
                     String commentCount = ""+ds.child("pComments").getValue();
                     videoUrl = ""+ds.child("videoUrl").getValue();
+                    pId = ""+ds.child("videoUrl").getValue();
                     String type = "" + ds.child("type").getValue();
 
                     //convert timestamp
@@ -597,7 +606,15 @@ public class PostDetailActivity extends AppCompatActivity {
                     pDescriptionTv.setText(pDesc);
                     pLikesTv.setText(pLikes + " Likes");
                     pTimeTiv.setText(pTime);
-                    pCommentsTv.setText(commentCount +" Comments");
+                    if (commentCount.equals("0")){
+                        commentList.clear();
+                        pCommentsTv.setText("0 Comments");
+
+                    }
+                    else {
+                        pCommentsTv.setText(commentCount +" Comments");
+                        loadComments();
+                    }
 
                     if (type.equals("photo")) {
                         //this is image

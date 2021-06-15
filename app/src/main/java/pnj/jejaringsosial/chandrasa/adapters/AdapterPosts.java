@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Locale;
 
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
+import pnj.jejaringsosial.chandrasa.DashboardActivity;
 import pnj.jejaringsosial.chandrasa.PostDetailActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.UserProfileActivity;
