@@ -189,26 +189,17 @@ public class ChatsFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    //menu inflate
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
         //inflate menu
         inflater.inflate(R.menu.menu_main, menu);
 
-        //hide addpost from this fragment
-        menu.findItem(R.id.action_add_post).setVisible(false);
+        //hide option
+        menu.findItem(R.id.action_create_group).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
         menu.findItem(R.id.action_add_participant_group).setVisible(false);
         menu.findItem(R.id.aboutApp).setVisible(true);
-
         super.onCreateOptionsMenu(menu, inflater);
     }
-
-
 
     //handle menu click
     @Override

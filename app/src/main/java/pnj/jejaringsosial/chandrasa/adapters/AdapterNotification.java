@@ -95,7 +95,15 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
                             model.setsImage(image);
 
                             //set data
-                            holder.nameTv.setText(name);
+                            if (name.equals("")){
+                                holder.emailTv.setText(email);
+                                holder.emailTv.setVisibility(View.VISIBLE);
+                            }
+                            else {
+                                holder.nameTv.setText(name);
+                                holder.nameTv.setVisibility(View.VISIBLE);
+                            }
+
 
                             try {
                                 Picasso.get().load(image).placeholder(R.drawable.ic_default_img).into(holder.avatarIv);
@@ -182,7 +190,7 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
 
         //declare view
         ImageView avatarIv;
-        TextView nameTv, notificationTv, timeTv;
+        TextView nameTv, notificationTv, timeTv, emailTv;
 
         public HolderNotification(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -190,6 +198,7 @@ public class AdapterNotification extends RecyclerView.Adapter<AdapterNotificatio
             //init view
             avatarIv = itemView.findViewById(R.id.avatarIv);
             nameTv = itemView.findViewById(R.id.nameTv);
+            emailTv = itemView.findViewById(R.id.emailTv);
             notificationTv = itemView.findViewById(R.id.notificationTv);
             timeTv = itemView.findViewById(R.id.timeTv);
             avatarIv = itemView.findViewById(R.id.avatarIv);
