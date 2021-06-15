@@ -62,7 +62,7 @@ import pnj.jejaringsosial.chandrasa.models.ModelPost;
 public class PostDetailActivity extends AppCompatActivity {
 
     //get detail of user post
-    String hisUid, myUid, myEmail, myName, myDp, postId, pLikes, hisDp, hisName, pImage, hisEmail, videoUrl, pTitle, pId;
+    String hisUid, myUid, myEmail, myName, myDp, postId, pLikes, hisDp, hisName, pImage, hisEmail, videoUrl, pTitle, pId, type;
 
     boolean mProcessComment = false;
     boolean mProcessLike = false;
@@ -134,7 +134,7 @@ public class PostDetailActivity extends AppCompatActivity {
         loadPostInfo();
 
         checkUserStatus();
-        
+
         loadUserInfo();
 
         setLikes();
@@ -160,44 +160,7 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
-        //handle btn click
-        moreBtn.setOnClickListener(v -> {
-            if (pImage==null){
-                PopupMenu popupMenu = new PopupMenu(this, moreBtn, Gravity.CENTER);
-
-                if (hisUid.equals(myUid)){
-                    //add items menu
-                    popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
-                    popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
-                }
-
-                else {
-                    popupMenu.getMenu().add(Menu.NONE, 0, 0, "View Detail");
-                }
-
-                //add items
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem menuItem) {
-                        int id = menuItem.getItemId();
-                        if (id==1) {
-                            showEditVideoDialog(pTitle, pId);
-                        }
-                        if (id==2) {
-                            deleteVideo(postId, videoUrl);
-                        }
-                        return false;
-                    }
-                });
-                //show menu
-                popupMenu.show();
-            }
-            else {
-                showMoreOptions(moreBtn, hisUid, myUid, pId, pImage);
-            }
-        });
     }
-
 
 
     private void deleteVideo(String postId, String videoUrl) {
@@ -237,7 +200,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
     }
 
-    private void showEditVideoDialog(String pTitle, String pId) {
+    private void showEditVideoDialog(String pTitle, String postId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Edit Post");
 
@@ -268,7 +231,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 hashMap.put("pTitle", newPostTitle);
 
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
-                reference.child(pId)
+                reference.child(postId)
                         .updateChildren(hashMap)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -334,14 +297,12 @@ public class PostDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void showMoreOptions(ImageButton moreBtn, String uid, String myUid, String pId, String pImage) {
+    private void showMoreOptions(ImageButton moreBtn, String uid, String myUid, String postId, String pImage) {
         PopupMenu popupMenu = new PopupMenu(this, moreBtn, Gravity.END);
 
-        if (uid.equals(myUid)){
-            //add items menu
-            popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
-            popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
-        }
+        //add items menu
+        popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
+        popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
 
         //add items
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -353,23 +314,24 @@ public class PostDetailActivity extends AppCompatActivity {
                     //start AddpostActivity key "editPost" id post clicked
                     Intent intent = new Intent(PostDetailActivity.this, AddPostActivity.class);
                     intent.putExtra("key", "editPost");
-                    intent.putExtra("editPostId", pId);
+                    intent.putExtra("editPostId", postId);
                     startActivity(intent);
 
                 }
 
                 else if (id==2){
                     //delete clicked
-                    beginDelete(pId, pImage);
+                    beginDelete(postId, pImage);
                 }
                 return false;
             }
         });
         //show menu
         popupMenu.show();
+
     }
 
-    private void beginDelete(final String pId, String pImage) {
+    private void beginDelete(final String postId, String pImage) {
 
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMessage("Deleting...");
@@ -380,7 +342,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void unused) {
                         //image deleted, now delete database
-                        Query fquery = FirebaseDatabase.getInstance().getReference("Posts").orderByChild("pId").equalTo(pId);
+                        Query fquery = FirebaseDatabase.getInstance().getReference("Posts").orderByChild("pId").equalTo(postId);
                         fquery.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
@@ -560,6 +522,7 @@ public class PostDetailActivity extends AppCompatActivity {
                         Picasso.get().load(myDp).placeholder(R.drawable.ic_default_img).into(cAvatarIv);
                     }
                     catch (Exception e){
+                        cAvatarIv.setImageResource(R.drawable.ic_default_img);
 
                     }
 
@@ -593,7 +556,6 @@ public class PostDetailActivity extends AppCompatActivity {
                     hisName = ""+ds.child("uName").getValue();
                     String commentCount = ""+ds.child("pComments").getValue();
                     videoUrl = ""+ds.child("videoUrl").getValue();
-                    pId = ""+ds.child("videoUrl").getValue();
                     String type = "" + ds.child("type").getValue();
 
                     //convert timestamp
@@ -623,6 +585,12 @@ public class PostDetailActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
 
                         setPhotoNameOrEmailTv();
+                        moreBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showMoreOptions(moreBtn, hisUid, myUid, postId, pImage);
+                            }
+                        });
                     }
                     else {
                         //set post video
@@ -632,6 +600,8 @@ public class PostDetailActivity extends AppCompatActivity {
 
                         setVideoNameOrEmailTv();
                         setVideoToView();
+                        setMoreBtnVideo();
+
                     }
 
 
@@ -652,6 +622,29 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setMoreBtnVideo() {
+        PopupMenu popupMenu = new PopupMenu(this, moreBtn, Gravity.CENTER);
+
+        popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
+        popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
+        //add items
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                if (id==1) {
+                    showEditVideoDialog(pTitle, postId);
+                }
+                if (id==2) {
+                    deleteVideo(postId, videoUrl);
+                }
+                return false;
+            }
+        });
+        //show menu
+        popupMenu.show();
     }
 
     private void setVideoToView() {
@@ -775,11 +768,11 @@ public class PostDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void addToHisNotifications(String hisUid, String pId, String notification){
+    private void addToHisNotifications(String hisUid, String postId, String notification){
         String timestamp = ""+System.currentTimeMillis();
 
         HashMap<Object, String> hashMap = new HashMap<>();
-        hashMap.put("pId", pId);
+        hashMap.put("pId", postId);
         hashMap.put("timestamp", timestamp);
         hashMap.put("pUid", hisUid);
         hashMap.put("notification", notification);
