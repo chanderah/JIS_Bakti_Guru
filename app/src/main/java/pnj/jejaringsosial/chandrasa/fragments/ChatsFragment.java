@@ -1,5 +1,6 @@
 package pnj.jejaringsosial.chandrasa.fragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -201,6 +203,7 @@ public class ChatsFragment extends Fragment {
         menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
         menu.findItem(R.id.action_add_participant_group).setVisible(false);
+        menu.findItem(R.id.aboutApp).setVisible(true);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -216,8 +219,25 @@ public class ChatsFragment extends Fragment {
             firebaseAuth.signOut();
             checkUserStatus();
         }
-        else if (id==R.id.action_create_group) {
+        if (id==R.id.action_create_group) {
             startActivity(new Intent(getActivity(), GroupCreateActivity.class));
+        }
+        if (id == R.id.aboutApp) {
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_about_app, null);
+            Button closeBtn = view.findViewById(R.id.closeBtn);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setView(view);
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+            closeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
         }
 
         return super.onOptionsItemSelected(item);

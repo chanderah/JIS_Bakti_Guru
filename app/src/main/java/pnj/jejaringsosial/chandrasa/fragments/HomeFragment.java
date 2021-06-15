@@ -22,6 +22,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -190,6 +192,7 @@ public class HomeFragment extends Fragment {
         menu.findItem(R.id.action_create_group).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
         menu.findItem(R.id.action_add_participant_group).setVisible(false);
+        menu.findItem(R.id.aboutApp).setVisible(true);
 
 
 
@@ -256,6 +259,24 @@ public class HomeFragment extends Fragment {
                     });
                     builder.create().show();
                 };
+
+                if (id == R.id.aboutApp) {
+                    View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_about_app, null);
+                    Button closeBtn = view.findViewById(R.id.closeBtn);
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setView(view);
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                    closeBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
                 return super.onOptionsItemSelected(item);
             }
 
