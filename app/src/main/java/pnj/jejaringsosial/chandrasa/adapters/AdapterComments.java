@@ -77,13 +77,9 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
 
         //uploadedBy
         if (name.equals("")){
-            try {
-                myHolder.emailTv.setText(email);
-                myHolder.emailTv.setVisibility(View.VISIBLE);
-                myHolder.nameTv.setVisibility(View.GONE);
-            }
-            catch (Exception e) {
-            }
+            myHolder.emailTv.setText(email);
+            myHolder.emailTv.setVisibility(View.VISIBLE);
+            myHolder.nameTv.setVisibility(View.GONE);
         }
         else {
             myHolder.nameTv.setText(name);
@@ -130,6 +126,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
 
             }
         });
+
     }
 
     private void deleteComment(String cid) {
@@ -143,6 +140,7 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
                 String comments = ""+ dataSnapshot.child("pComments").getValue();
                 int newCommentVal = Integer.parseInt(comments) - 1;
                 ref.child("pComments").setValue(""+newCommentVal);
+                commentList.clear();
             }
 
             @Override

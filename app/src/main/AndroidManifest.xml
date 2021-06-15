@@ -20,7 +20,7 @@
         <activity android:name=".GroupInfoActivity" />
         <activity android:name=".GroupAddParticipantActivity" />
         <activity android:name=".GroupChatActivity" android:theme="@style/ThemeAppNo" />
-        <activity android:name=".PostDetailActivity" />
+        <activity android:name=".PostDetailActivity" android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".GroupCreateActivity" />
         <activity android:name=".AddVideoActivity" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".UserProfileActivity" />

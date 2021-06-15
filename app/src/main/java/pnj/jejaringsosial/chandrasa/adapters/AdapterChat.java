@@ -156,7 +156,6 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         }
         else {
             myHolder.isSeenTv.setVisibility(View.GONE);
-
         }
     }
 

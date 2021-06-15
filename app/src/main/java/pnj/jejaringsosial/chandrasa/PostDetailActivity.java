@@ -312,12 +312,12 @@ public class PostDetailActivity extends AppCompatActivity {
 
                     commentList.add(modelComment);
 
-
-
                     //setup adapter
                     adapterComments = new AdapterComments(getApplicationContext(), commentList, myUid, postId);
                     //set adapter
                     recyclerView.setAdapter(adapterComments);
+
+                    recyclerView.smoothScrollToPosition(recyclerView.getAdapter().getItemCount());
                 }
             }
 

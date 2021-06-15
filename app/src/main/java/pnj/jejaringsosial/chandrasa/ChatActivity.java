@@ -209,13 +209,10 @@ public class ChatActivity extends AppCompatActivity {
 
                     //set data
                     if (name.equals("")){
-                        try {
-                            emailTv.setText(email);
-                            emailTv.setVisibility(View.VISIBLE);
-                            nameTv.setVisibility(View.GONE);
-                        }
-                        catch (Exception e) {
-                        }
+                        emailTv.setText(email);
+                        emailTv.setVisibility(View.VISIBLE);
+                        nameTv.setVisibility(View.GONE);
+
                     }
                     else {
                         nameTv.setText(name);
