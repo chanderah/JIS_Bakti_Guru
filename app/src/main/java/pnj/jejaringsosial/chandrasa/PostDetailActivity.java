@@ -161,6 +161,7 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
+
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -599,10 +600,8 @@ public class PostDetailActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
 
                         setPhotoNameOrEmailTv();
-                        moreBtnVideo.setVisibility(View.GONE);
 
                         if (hisUid.equals(myUid)){
-                            moreBtn.setVisibility(View.VISIBLE);
                         }
                         else {
 
@@ -614,13 +613,11 @@ public class PostDetailActivity extends AppCompatActivity {
                         videoView.setVisibility(View.VISIBLE);
                         pDescriptionTv.setVisibility(View.GONE);
 
-                        moreBtn.setVisibility(View.GONE);
 
                         setVideoNameOrEmailTv();
                         setVideoToView();
 
                         if (hisUid.equals(myUid)){
-                            moreBtnVideo.setVisibility(View.VISIBLE);
                         }
                         else {
 
