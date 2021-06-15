@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -280,7 +281,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                 context.startActivity(intent);
             }
         });
-
     }
 
     private void deleteVideo(ModelPost modelPost) {
@@ -334,7 +334,14 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         myHolder.videoView.setVideoURI(videoUri);
         myHolder.videoView.seekTo(1);
 
-        myHolder.videoView.requestFocus();
+        myHolder.playIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myHolder.videoView.start();
+                paused = false;
+                myHolder.playIv.setVisibility(View.GONE);
+            }
+        });
 
         myHolder.videoView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -343,6 +350,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                     myHolder.videoView.start();
                     paused = false;
                     myHolder.playIv.setVisibility(View.GONE);
+
                 }
                 else {
                     myHolder.videoView.pause();

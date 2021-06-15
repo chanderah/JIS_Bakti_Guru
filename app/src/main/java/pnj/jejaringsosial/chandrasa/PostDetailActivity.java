@@ -656,6 +656,15 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
 
+        playIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                videoView.start();
+                paused = false;
+                playIv.setVisibility(View.GONE);
+            }
+        });
+
         videoView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

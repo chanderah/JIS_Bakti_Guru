@@ -48,6 +48,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
     List<ModelChat> chatList;
     String imageUrl;
 
+    boolean seen = false;
+
     FirebaseUser fUser;
 
     public AdapterChat(Context context, List<ModelChat> chatList, String imageUrl) {
@@ -145,7 +147,7 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
 
         ///set seen/delivered status
         if (i==chatList.size()-1) {
-            if (chatList.get(i).isSeen()) {
+            if (isSeen) {
                 myHolder.isSeenTv.setText("Seen");
             }
             else {
