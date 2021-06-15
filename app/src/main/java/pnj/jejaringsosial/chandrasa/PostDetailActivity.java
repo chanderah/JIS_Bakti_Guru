@@ -160,7 +160,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 likePost();
             }
         });
-        
+
         moreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -649,7 +649,7 @@ public class PostDetailActivity extends AppCompatActivity {
     }
 
     private void setMoreBtnVideo() {
-        PopupMenu popupMenu = new PopupMenu(this, moreBtn, Gravity.CENTER);
+        PopupMenu popupMenu = new PopupMenu(this, moreBtn, Gravity.END);
 
         popupMenu.getMenu().add(Menu.NONE, 1, 0, "Edit");
         popupMenu.getMenu().add(Menu.NONE,2,0,"Delete");
