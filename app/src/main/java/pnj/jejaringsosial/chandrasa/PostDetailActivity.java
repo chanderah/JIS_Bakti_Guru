@@ -74,7 +74,7 @@ public class PostDetailActivity extends AppCompatActivity {
     //views
     ImageView uPictureIv, pImageIv;
     TextView uNameTv, pTimeTiv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, emailTv;
-    ImageButton moreBtn;
+    ImageButton moreBtn, moreBtnVideo;
     Button likeBtn;
     LinearLayout profileLayout;
     RecyclerView recyclerView;
@@ -118,6 +118,7 @@ public class PostDetailActivity extends AppCompatActivity {
         pLikesTv = findViewById(R.id.pLikesTv);
         pCommentsTv = findViewById(R.id.pCommentsTv);
         moreBtn = findViewById(R.id.moreBtn);
+        moreBtnVideo = findViewById(R.id.moreBtnVideo);
         likeBtn = findViewById(R.id.likeBtn);
         profileLayout = findViewById(R.id.profileLayout);
         recyclerView = findViewById(R.id.recyclerViewComment);
@@ -159,7 +160,20 @@ public class PostDetailActivity extends AppCompatActivity {
                 likePost();
             }
         });
+        
+        moreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMoreOptions(moreBtn, hisUid, myUid, postId, pImage);
+            }
+        });
 
+        moreBtnVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setMoreBtnVideo();
+            }
+        });
     }
 
 
@@ -585,12 +599,14 @@ public class PostDetailActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.GONE);
 
                         setPhotoNameOrEmailTv();
-                        moreBtn.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                showMoreOptions(moreBtn, hisUid, myUid, postId, pImage);
-                            }
-                        });
+                        moreBtnVideo.setVisibility(View.GONE);
+
+                        if (hisUid.equals(myUid)){
+                            moreBtn.setVisibility(View.VISIBLE);
+                        }
+                        else {
+
+                        }
                     }
                     else {
                         //set post video
@@ -598,9 +614,17 @@ public class PostDetailActivity extends AppCompatActivity {
                         videoView.setVisibility(View.VISIBLE);
                         pDescriptionTv.setVisibility(View.GONE);
 
+                        moreBtn.setVisibility(View.GONE);
+
                         setVideoNameOrEmailTv();
                         setVideoToView();
-                        setMoreBtnVideo();
+
+                        if (hisUid.equals(myUid)){
+                            moreBtnVideo.setVisibility(View.VISIBLE);
+                        }
+                        else {
+
+                        }
 
                     }
 
