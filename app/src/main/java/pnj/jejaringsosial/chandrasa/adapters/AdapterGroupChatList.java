@@ -106,7 +106,7 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
                             //convert timestamp to dd/mm/yy hh:mm am/pm
                             Calendar cal = Calendar.getInstance(Locale.ENGLISH);
                             cal.setTimeInMillis(Long.parseLong(timestamp));
-                            String dateTime = DateFormat.format("HH:mm, MMM d", cal).toString();
+                            String dateTime = DateFormat.format("dd/MM/yy hh:mm aa", cal).toString();
 
                             holder.timeTv.setText(dateTime);
                             if (messageType.equals("image")){

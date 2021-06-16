@@ -69,7 +69,7 @@
             android:drawableStart="@drawable/ic_add_participant"
             android:drawablePadding="10dp"
             android:layout_gravity="center_vertical"
-            android:text="Add Pariticipant"
+            android:text="Add Participant"
             android:padding="5dp"/>
         <View
             android:layout_width="match_parent"
