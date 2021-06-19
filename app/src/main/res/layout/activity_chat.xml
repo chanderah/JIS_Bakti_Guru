@@ -19,8 +19,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:translationX="-20dp"
-            android:scaleType="centerCrop"
-            android:background="@drawable/ic_default_img_white"/>
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="match_parent"

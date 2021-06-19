@@ -54,12 +54,11 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
         myHolder.mNameTv.setText(userName);
         myHolder.mEmailTv.setText(userEmail);
         try {
-            Picasso.get().load(userImage)
-                    .placeholder(R.drawable.ic_default_img)
-                    .into(myHolder.mAvatarIv);
+            Picasso.get().load(userImage).into(myHolder.mAvatarIv);
+
         }
         catch (Exception e){
-
+            myHolder.mAvatarIv.setImageResource(R.drawable.ic_default_img);
         }
 
         //handle item click
