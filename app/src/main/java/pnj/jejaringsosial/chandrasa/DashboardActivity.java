@@ -46,6 +46,8 @@ public class  DashboardActivity extends AppCompatActivity {
 
     DatabaseReference userRefForSeen;
 
+    long back_pressed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +142,18 @@ public class  DashboardActivity extends AppCompatActivity {
 
         //set offline with last seen timestamp
         checkOnlineStatus(timestamp);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 1000 > System.currentTimeMillis()){
+            super.onBackPressed();
+        }
+        else{
+            Toast.makeText(getBaseContext(),
+                    "Press once again to exit...", Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener selectedListener =
