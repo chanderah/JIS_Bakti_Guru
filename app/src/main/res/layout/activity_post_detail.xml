@@ -169,12 +169,6 @@
                         android:textStyle="bold"
                         android:text="Title"
                         android:autoLink="all"/>
-                    <TextView
-                        android:id="@+id/pDescriptionTv"
-                        android:text="The description of post"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:autoLink="all"/>
 
                     <View
                         android:layout_width="match_parent"

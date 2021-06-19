@@ -142,8 +142,7 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     ModelPost modelPost = ds.getValue(ModelPost.class);
 
-                    if (modelPost.getpTitle().toLowerCase().contains(searchQuery.toLowerCase()) ||
-                            modelPost.getpDesc().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    if (modelPost.getpTitle().toLowerCase().contains(searchQuery.toLowerCase())) {
                         postList.add(modelPost);
                     }
 
@@ -192,9 +191,8 @@ public class HomeFragment extends Fragment {
         menu.findItem(R.id.action_create_group).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
         menu.findItem(R.id.action_add_participant_group).setVisible(false);
+        menu.findItem(R.id.action_search).setVisible(false);
         menu.findItem(R.id.aboutApp).setVisible(true);
-
-
 
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);

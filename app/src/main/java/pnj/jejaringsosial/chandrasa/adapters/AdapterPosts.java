@@ -100,7 +100,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         String uDp = modelPost.getuDp();
         String pId = modelPost.getpId();
         String pTitle = modelPost.getpTitle();
-        String pDesc = modelPost.getpDesc();
         String pImage = modelPost.getpImage();
         String pTimeStamp = modelPost.getpTime();
         String pLikes = modelPost.getpLikes(); //total likes
@@ -116,7 +115,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         //set data
         myHolder.pTimeTv.setText(pTime);
         myHolder.pTitleTv.setText(pTitle);
-        myHolder.pDescriptionTv.setText(pDesc);
         myHolder.pLikesTv.setText(pLikes + " Likes");
         myHolder.pCommentsTv.setText(pComments +" Comments");
 
@@ -162,7 +160,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             setVideoUrl(modelPost, myHolder, pId);
             myHolder.videoView.setVisibility(View.VISIBLE);
             myHolder.pImageIv.setVisibility(View.GONE);
-            myHolder.pDescriptionTv.setVisibility(View.GONE);
 
             if (uName.equals("")){
                 try {
@@ -606,7 +603,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
         //views from row post xml
         ImageView uPictureIv, pImageIv, playIv;
         VideoView videoView;
-        TextView uNameTv, pTimeTv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, uEmailTv;
+        TextView uNameTv, pTimeTv, pTitleTv, pLikesTv, pCommentsTv, uploadedBy, uEmailTv;
         ImageButton moreBtn;
         Button likeBtn, commentBtn;
         LinearLayout profileLayout;
@@ -621,7 +618,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             uNameTv = itemView.findViewById(R.id.uNameTv);
             pTimeTv = itemView.findViewById(R.id.pTimeTv);
             pTitleTv = itemView.findViewById(R.id.pTitleTv);
-            pDescriptionTv = itemView.findViewById(R.id.pDescriptionTv);
             pLikesTv = itemView.findViewById(R.id.pLikesTv);
             moreBtn = itemView.findViewById(R.id.moreBtn);
             likeBtn = itemView.findViewById(R.id.likeBtn);

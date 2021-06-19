@@ -73,7 +73,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
     //views
     ImageView uPictureIv, pImageIv;
-    TextView uNameTv, pTimeTiv, pTitleTv, pDescriptionTv, pLikesTv, pCommentsTv, uploadedBy, emailTv;
+    TextView uNameTv, pTimeTiv, pTitleTv, pLikesTv, pCommentsTv, uploadedBy, emailTv;
     ImageButton moreBtn, moreBtnVideo;
     Button likeBtn;
     LinearLayout profileLayout;
@@ -114,7 +114,6 @@ public class PostDetailActivity extends AppCompatActivity {
         uNameTv = findViewById(R.id.uNameTv);
         pTimeTiv = findViewById(R.id.pTimeTiv);
         pTitleTv = findViewById(R.id.pTitleTv);
-        pDescriptionTv = findViewById(R.id.pDescriptionTv);
         pLikesTv = findViewById(R.id.pLikesTv);
         pCommentsTv = findViewById(R.id.pCommentsTv);
         moreBtn = findViewById(R.id.moreBtn);
@@ -580,7 +579,6 @@ public class PostDetailActivity extends AppCompatActivity {
 
                     //set data
                     pTitleTv.setText(pTitle);
-                    pDescriptionTv.setText(pDesc);
                     pLikesTv.setText(pLikes + " Likes");
                     pTimeTiv.setText(pTime);
                     if (commentCount.equals("0")){
@@ -611,8 +609,6 @@ public class PostDetailActivity extends AppCompatActivity {
                         //set post video
                         pImageIv.setVisibility(View.GONE);
                         videoView.setVisibility(View.VISIBLE);
-                        pDescriptionTv.setVisibility(View.GONE);
-
 
                         setVideoNameOrEmailTv();
                         setVideoToView();

@@ -70,7 +70,7 @@ public class AddPostActivity extends AppCompatActivity {
     String[] storagePermissions;
 
     //views
-    EditText titleEt, descriptionEt;
+    EditText titleEt;
     ImageView imageIv;
     FloatingActionButton uploadBtn;
 
@@ -78,7 +78,7 @@ public class AddPostActivity extends AppCompatActivity {
     String name, email, uid, dp;
 
     //info post edited
-    String editTitle, editDesc, editImage;
+    String editTitle, editImage;
 
     //image picked same uri
     Uri image_rui = null;
@@ -109,7 +109,6 @@ public class AddPostActivity extends AppCompatActivity {
 
         //init views
         titleEt = findViewById(R.id.pTitleEt) ;
-        descriptionEt = findViewById(R.id.pDescriptionEt) ;
         imageIv = findViewById(R.id.pImageIv) ;
         uploadBtn = findViewById(R.id.pUploadBtn) ;
 
@@ -146,20 +145,16 @@ public class AddPostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //get title, desc from et
                 String title = titleEt.getText().toString().trim();
-                String description = descriptionEt.getText().toString().trim();
                 if (TextUtils.isEmpty(title)){
                     Toast.makeText(AddPostActivity.this, "Please enter a title...", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (TextUtils.isEmpty(description)){
-                    Toast.makeText(AddPostActivity.this, "Please enter a description...", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
 
                 if (isUpdateKey.equals("editPost")) {
                     actionBar.setTitle("Update Post");
-                    beginUpdate(title, description, editPostId);
+                    beginUpdate(title, editPostId);
 
                 }
                 else {
@@ -170,7 +165,7 @@ public class AddPostActivity extends AppCompatActivity {
                         return;
                     }
                     else {
-                        uploadData(title, description);
+                        uploadData(title);
                     }
                 }
             }
@@ -199,13 +194,13 @@ public class AddPostActivity extends AppCompatActivity {
 
     }
 
-    private void beginUpdate(String title, String description, String editPostId) {
+    private void beginUpdate(String title, String editPostId) {
         pd.setMessage("Updating Post...");
         pd.show();
-        updateWithCurrentImage(title, description, editPostId);
+        updateWithCurrentImage(title, editPostId);
     }
 
-    private void updateWithCurrentImage(final String title, String description, String editPostId) {
+    private void updateWithCurrentImage(final String title, String editPostId) {
         String timeStamp = String.valueOf(System.currentTimeMillis());
         String filePathAndName = "Posts/"+ "post_"+timeStamp;
 
@@ -224,7 +219,6 @@ public class AddPostActivity extends AppCompatActivity {
                             hashMap.put("uEmail", email);
                             hashMap.put("uDp", dp);
                             hashMap.put("pTitle", title);
-                            hashMap.put("pDesc", description);
 
                             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
                             ref.child(editPostId)
@@ -267,12 +261,10 @@ public class AddPostActivity extends AppCompatActivity {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     //get data
                     editTitle = ""+ds.child("pTitle").getValue();
-                    editDesc = ""+ds.child("pDesc").getValue();
                     editImage = ""+ds.child("pImage").getValue();
 
                     //set data to views
                     titleEt.setText(editTitle);
-                    descriptionEt.setText(editDesc);
 
                     //set image
                     try {
@@ -292,7 +284,7 @@ public class AddPostActivity extends AppCompatActivity {
         });
     }
 
-    private void uploadData(String title, String description) {
+    private void uploadData(String title) {
         pd.setMessage("Publishing post...");
         pd.show();
 
@@ -329,7 +321,6 @@ public class AddPostActivity extends AppCompatActivity {
                             hashMap.put("uDp", dp);
                             hashMap.put("pId", timeStamp);
                             hashMap.put("pTitle", title);
-                            hashMap.put("pDesc", description);
                             hashMap.put("pImage", downloadUri);
                             hashMap.put("pTime", timeStamp);
                             hashMap.put("pLikes", "0");

@@ -55,32 +55,18 @@
                 android:layout_margin="5dp"
                 android:background="#F5F0F0"/>
 
+
             <EditText
                 android:id="@+id/pTitleEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Title"
-                android:inputType="textCapSentences"
-                android:textColor="@color/colorWhite"
-                android:textColorHint="@color/colorSilver"
-                android:minHeight="60dp"
-                android:padding="10dp"
-                android:singleLine="true" />
-
-            <EditText
-                android:id="@+id/pDescriptionEt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:gravity="start"
-                android:hint="Enter Description"
+                android:hint="Enter Title"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorSilver"
                 android:inputType="textCapSentences|textMultiLine"
                 android:minHeight="120dp"
                 android:padding="10dp" />
-
-
-
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
