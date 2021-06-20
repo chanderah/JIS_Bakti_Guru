@@ -1,0 +1,810 @@
+@startuml
+class pnj.jejaringsosial.chandrasa.models.ModelChatlist {
+~ String id
++ String getId()
++ void setId(String)
+}
+
+class pnj.jejaringsosial.chandrasa.fragments.ProfileFragment {
+~ FirebaseAuth firebaseAuth
+~ FirebaseUser user
+~ FirebaseDatabase firebaseDatabase
+~ DatabaseReference databaseReference
+~ StorageReference storageReference
+~ String storagePath
+~ ImageView avatarIv
+~ TextView nameTv
+~ FloatingActionButton fab
+~ RecyclerView postsRecyclerView
+~ SwipeRefreshLayout swiperefreshlayout
+~ ProgressDialog pd
+- {static} int CAMERA_REQUEST_CODE
+- {static} int STORAGE_REQUEST_CODE
+- {static} int IMAGE_PICK_GALLERY_CODE
+- {static} int IMAGE_PICK_CAMERA_CODE
+~ String[] cameraPermissions
+~ String[] storagePermissions
+~ List<ModelPost> postList
+~ AdapterPosts adapterPosts
+~ String uid
+~ Uri image_uri
+~ String profileOrCoverPhoto
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void loadMyPosts()
+- void searchMyPosts(String)
+- boolean checkStoragePermission()
+- void requestStoragePermission()
+- boolean checkCameraPermission()
+- void requestCameraPermission()
+- void showEditProfileDialog()
+- void showChangePasswordDialog()
+- void updatePassword(String,String)
+- void showNamePhoneUpdateDialog(String)
+- void showImagePicDialog()
++ void onRequestPermissionsResult(int,String[],int[])
++ void onActivityResult(int,int,Intent)
+- void uploadProfileCoverPhoto(Uri)
+- void pickFromCamera()
+- void pickFromGallery()
+- void checkUserStatus()
++ void onCreate(Bundle)
++ void onCreateOptionsMenu(Menu,MenuInflater)
++ boolean onOptionsItemSelected(MenuItem)
+}
+class pnj.jejaringsosial.chandrasa.DashboardActivity {
+~ FirebaseAuth firebaseAuth
+~ ActionBar actionBar
+~ String mUID
+- BottomNavigationView navigationView
+~ FirebaseDatabase firebaseDatabase
+~ DatabaseReference usersDbRef
+~ DatabaseReference userRefForSeen
+~ long back_pressed
+- BottomNavigationView.OnNavigationItemSelectedListener selectedListener
+# void onCreate(Bundle)
+- void updateToken()
+# void onResume()
+- void checkUserStatus()
+- void checkOnlineStatus(String)
+# void onStart()
+# void onPause()
++ void onBackPressed()
+- void showMoreOptions()
+}
+class pnj.jejaringsosial.chandrasa.LoginActivity {
+- {static} int RC_SIGN_IN
+~ GoogleSignInClient mGoogleSignInClient
+~ EditText mEmailEt
+~ TextView notHaveAccountTv
+~ Button mLoginBtn
+~ SignInButton mGoogleLoginBtn
+- FirebaseAuth mAuth
+~ ProgressDialog pd
+# void onCreate(Bundle)
+- void showRecoverPasswordDialog()
+- void beginRecovery(String)
+- void loginUser(String,String)
++ boolean onSupportNavigateUp()
+}
+class pnj.jejaringsosial.chandrasa.models.ModelPost {
+~ String pId
++ String getpId()
++ void setpId(String)
++ String getpTitle()
++ void setpTitle(String)
++ String getpDesc()
++ void setpDesc(String)
++ String getpLikes()
++ void setpLikes(String)
++ String getpComments()
++ void setpComments(String)
++ String getpImage()
++ void setpImage(String)
++ String getpTime()
++ void setpTime(String)
++ String getUid()
++ void setUid(String)
++ String getuEmail()
++ void setuEmail(String)
++ String getuDp()
++ void setuDp(String)
++ String getuName()
++ void setuName(String)
++ String getVideoUrl()
++ void setVideoUrl(String)
++ String getType()
++ void setType(String)
+}
+class pnj.jejaringsosial.chandrasa.GroupChatActivity {
+- FirebaseAuth firebaseAuth
+- String groupId
+- ActionBar actionBar
+- Toolbar toolbar
+- ImageView groupIconIv
+- ImageButton attachBtn
+- TextView groupTitleTv
+- EditText messageEt
+- RecyclerView chatRv
+- ArrayList<ModelGroupChat> groupChatList
+- AdapterGroupChat adapterGroupChat
+- {static} int CAMERA_REQUEST_CODE
+- {static} int STORAGE_REQUEST_CODE
+- {static} int IMAGE_PICK_GALLERY_CODE
+- {static} int IMAGE_PICK_CAMERA_CODE
+- String[] cameraPermission
+- String[] storagePermission
+- Uri image_uri
+# void onCreate(Bundle)
+- void showImagePickDialog()
+- void pickFromGallery()
+- void pickFromCamera()
+- boolean checkStoragePermission()
+- void requestStoragePermission()
++ void onRequestPermissionsResult(int,String[],int[])
+# void onActivityResult(int,int,Intent)
+- void sendImageMessage(Uri)
+- boolean checkCameraPermission()
+- void requestCameraPermission()
+- void checkUserStatus()
++ boolean onSupportNavigateUp()
+- void loadMyGroupRole()
+- void loadGroupMessages()
+- void sendMessage(String)
+- void loadGroupInfo()
++ boolean onCreateOptionsMenu(Menu)
++ boolean onOptionsItemSelected(MenuItem)
+}
+
+class pnj.jejaringsosial.chandrasa.GroupInfoActivity {
+- String groupId
+- String myGroupRole
+- FirebaseAuth firebaseAuth
+- ActionBar actionBar
+- ImageView groupIconIv
+- TextView groupDescTv
+- RecyclerView participantsRv
+- ArrayList<ModelUser> userList
+- AdapterParticipantAdd adapterParticipantAdd
+# void onCreate(Bundle)
+- void deleteGroup()
+- void leaveGroup()
+- void loadGroupInfo()
+- void loadCreatorInfo(String,String)
+- void loadMyGroupRole()
+- void loadParticipants()
++ boolean onSupportNavigateUp()
+}
+class pnj.jejaringsosial.chandrasa.PostDetailActivity {
+~ String hisUid
+~ boolean mProcessComment
+~ boolean mProcessLike
+~ boolean paused
+~ ProgressDialog pd
+~ ImageView uPictureIv
+~ TextView uNameTv
+~ ImageButton moreBtn
+~ Button likeBtn
+~ LinearLayout profileLayout
+~ RecyclerView recyclerView
+~ List<ModelComment> commentList
+~ List<ModelPost> postList
+~ AdapterComments adapterComments
+~ EditText commentEt
+~ ImageButton sendBtn
+~ ImageView cAvatarIv
+~ VideoView videoView
+~ ProgressBar progressBar
+# void onCreate(Bundle)
+- void deleteVideo(String,String)
+- void showEditVideoDialog(String,String)
+- void loadComments()
+- void showMoreOptions(ImageButton,String,String,String,String)
+- void beginDelete(String,String)
+- void setLikes()
+- void likePost()
+- void postComment()
+- void updateCommentCount()
+- void loadUserInfo()
+- void loadPostInfo()
+- void setMoreBtnVideo()
+- void setVideoToView()
+- void setVideoNameOrEmailTv()
+- void setPhotoNameOrEmailTv()
+- void checkUserStatus()
+- void addToHisNotifications(String,String,String)
++ boolean onSupportNavigateUp()
++ boolean onCreateOptionsMenu(Menu)
++ boolean onOptionsItemSelected(MenuItem)
+}
+class pnj.jejaringsosial.chandrasa.models.ModelChat {
+~ String message
++ String getMessage()
++ void setMessage(String)
++ String getReceiver()
++ void setReceiver(String)
++ String getSender()
++ void setSender(String)
++ String getTimestamp()
++ void setTimestamp(String)
++ String getType()
++ void setType(String)
++ boolean isSeen()
++ void setSeen(boolean)
+}
+
+class pnj.jejaringsosial.chandrasa.models.ModelComment {
+~ String cId
++ String getcId()
++ void setcId(String)
++ String getComment()
++ void setComment(String)
++ String getTimestamp()
++ void setTimestamp(String)
++ String getUid()
++ void setUid(String)
++ String getuEmail()
++ void setuEmail(String)
++ String getuDp()
++ void setuDp(String)
++ String getuName()
++ void setuName(String)
+}
+class pnj.jejaringsosial.chandrasa.fragments.GroupChatsFragment {
+- RecyclerView groupsRv
+- FirebaseAuth firebaseAuth
+- ArrayList<ModelGroupChatList> groupChatLists
+- AdapterGroupChatList adapterGroupChatList
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void loadGroupChatsList()
+- void searchGroupChatsList(String)
++ void onCreate(Bundle)
++ void onCreateOptionsMenu(Menu,MenuInflater)
++ boolean onOptionsItemSelected(MenuItem)
+- void checkUserStatus()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChat {
+- {static} int MSG_TYPE_LEFT
+- {static} int MSG_TYPE_RIGHT
+- Context context
+- ArrayList<ModelGroupChat> modelGroupChat
+- FirebaseAuth firebaseAuth
++ HolderGroupChat onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(HolderGroupChat,int)
+- void setUserName(ModelGroupChat,HolderGroupChat)
++ int getItemCount()
++ int getItemViewType(int)
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChat.HolderGroupChat {
+- TextView nameTv
+- ImageView messageIv
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterParticipantAdd {
+- Context context
+- ArrayList<ModelUser> userList
+- String groupId
++ HolderParticipantAdd onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(HolderParticipantAdd,int)
+- void addParticipant(ModelUser)
+- void makeAdmin(ModelUser)
+- void removeParticipant(ModelUser)
+- void removeAdmin(ModelUser)
+- void checkIfAlreadyExists(ModelUser,HolderParticipantAdd)
++ int getItemCount()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterParticipantAdd.HolderParticipantAdd {
+- ImageView avatarIv
+- TextView nameTv
+}
+class pnj.jejaringsosial.chandrasa.GroupAddParticipantActivity {
+- RecyclerView usersRv
+- ActionBar actionBar
+- FirebaseAuth firebaseAuth
+- String groupId
+- ArrayList<ModelUser> userList
+- AdapterParticipantAdd adapterParticipantAdd
+# void onCreate(Bundle)
+- void getAllUsers()
+- void loadGroupInfo()
++ boolean onSupportNavigateUp()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterChats {
+~ Context context
+~ List<ModelUser> userList
+- HashMap<String,String> lastMessageMap
++ MyHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(MyHolder,int)
++ void setLastMessageMap(String,String)
++ int getItemCount()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterChats.MyHolder {
+~ ImageView profileIv
+~ TextView nameTv
+}
+class pnj.jejaringsosial.chandrasa.ChatActivity {
+~ Toolbar toolbar
+~ RecyclerView recyclerView
+~ ImageView profileIv
+~ TextView nameTv
+~ EditText messageEt
+~ ImageButton sendBtn
+- ActionBar actionBar
+~ SwipeRefreshLayout swiperefreshlayout
+~ FirebaseAuth firebaseAuth
+~ FirebaseDatabase firebaseDatabase
+~ DatabaseReference usersDbRef
+~ ValueEventListener seenListener
+~ DatabaseReference userRefForSeen
+~ List<ModelChat> chatList
+~ AdapterChat adapterChat
+~ String hisUid
+~ String myUid
+~ String hisImage
+~ String hisEmail
+- RequestQueue requestQueue
+- boolean notify
+- {static} int CAMERA_REQUEST_CODE
+- {static} int STORAGE_REQUEST_CODE
+- {static} int IMAGE_PICK_CAMERA_CODE
+- {static} int IMAGE_PICK_GALLERY_CODE
+- String[] cameraPermissions
+- String[] storagePermissions
+- Uri image_rui
+# void onCreate(Bundle)
+- void showImagePickDialog()
+- void pickFromGallery()
+- void pickFromCamera()
+- boolean checkStoragePermission()
+- void requestStoragePermission()
+- boolean checkCameraPermission()
+- void requestCameraPermission()
+- void seenMessage()
+- void readMessages()
+- void sendMessage(String)
+- void sendImageMessage(Uri)
+- void senNotification(String,String,String,String)
+- void checkUserStatus()
+- void checkOnlineStatus(String)
+# void onStart()
+# void onPause()
+# void onResume()
++ void onRequestPermissionsResult(int,String[],int[])
+# void onActivityResult(int,int,Intent)
++ boolean onCreateOptionsMenu(Menu)
++ boolean onOptionsItemSelected(MenuItem)
++ boolean onSupportNavigateUp()
+}
+class pnj.jejaringsosial.chandrasa.GroupCreateActivity {
+- {static} int CAMERA_REQUEST_CODE
+- {static} int STORAGE_REQUEST_CODE
+- {static} int IMAGE_PICK_CAMERA_CODE
+- {static} int IMAGE_PICK_GALLERY_CODE
+- String[] cameraPermissions
+- String[] storagePermissions
+- Uri image_uri
+- ActionBar actionBar
+- FirebaseAuth firebaseAuth
+- ImageView groupIconIv
+- EditText groupTitleEt
+- FloatingActionButton createGroupBtn
+- ProgressDialog progressDialog
+# void onCreate(Bundle)
+- void startCreatingGroup()
+- void createGroup(String,String,String,String)
+- void showImagePickDialog()
+- void pickFromGallery()
+- void pickFromCamera()
+- boolean checkStoragePermissions()
+- void requestStoragePermissions()
+- boolean checkCameraPermissions()
+- void requestCameraPermissions()
+- void checkUser()
++ boolean onSupportNavigateUp()
++ void onRequestPermissionsResult(int,String[],int[])
+# void onActivityResult(int,int,Intent)
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterComments {
+~ Context context
+~ List<ModelComment> commentList
+~ String myUid
++ MyHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(MyHolder,int)
+- void deleteComment(String)
++ int getItemCount()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterComments.MyHolder {
+~ ImageView avatarIv
+~ TextView nameTv
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterNotification {
+- Context context
+- ArrayList<ModelNotification> notificationList
+- FirebaseAuth firebaseAuth
++ HolderNotification onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(HolderNotification,int)
++ int getItemCount()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterNotification.HolderNotification {
+~ ImageView avatarIv
+~ TextView nameTv
+}
+
+class pnj.jejaringsosial.chandrasa.GroupEditActivity {
+- {static} int CAMERA_REQUEST_CODE
+- {static} int STORAGE_REQUEST_CODE
+- {static} int IMAGE_PICK_CAMERA_CODE
+- {static} int IMAGE_PICK_GALLERY_CODE
+- String[] cameraPermissions
+- String[] storagePermissions
+- Uri image_uri
+- ActionBar actionBar
+- String groupId
+- FirebaseAuth firebaseAuth
+- ImageView groupIconIv
+- EditText groupTitleEt
+- FloatingActionButton updateGroupBtn
+- ProgressDialog progressDialog
+# void onCreate(Bundle)
+- void startUpdatingGroup()
+- void loadGroupInfo()
+- void showImagePickDialog()
+- void pickFromGallery()
+- void pickFromCamera()
+- boolean checkStoragePermissions()
+- void requestStoragePermissions()
+- boolean checkCameraPermissions()
+- void requestCameraPermissions()
+- void checkUser()
++ void onRequestPermissionsResult(int,String[],int[])
+# void onActivityResult(int,int,Intent)
++ boolean onSupportNavigateUp()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterUsers {
+~ Context context
+~ List<ModelUser> userList
++ MyHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(MyHolder,int)
++ int getItemCount()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterUsers.MyHolder {
+~ ImageView mAvatarIv
+~ TextView mNameTv
+}
+class pnj.jejaringsosial.chandrasa.fragments.UsersFragment {
+~ RecyclerView recyclerView
+~ AdapterUsers adapterUsers
+~ List<ModelUser> userList
+~ SwipeRefreshLayout swiperefreshlayout
+~ FirebaseAuth firebaseAuth
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void getAllUsers()
+- void searchUsers(String)
+- void checkUserStatus()
++ void onCreate(Bundle)
++ void onCreateOptionsMenu(Menu,MenuInflater)
++ boolean onOptionsItemSelected(MenuItem)
+}
+
+class pnj.jejaringsosial.chandrasa.MainActivity {
+- {static} int RC_SIGN_IN
+~ GoogleSignInClient mGoogleSignInClient
+~ Button mRegisterBtn
+~ SignInButton mGoogleLoginBtn
+- FirebaseAuth mAuth
+~ ProgressDialog pd
+# void onCreate(Bundle)
++ void onActivityResult(int,int,Intent)
+- void firebaseAuthWithGoogle(String)
+}
+class pnj.jejaringsosial.chandrasa.AddVideoActivity {
+- ActionBar actionBar
+~ FirebaseAuth firebaseAuth
+~ DatabaseReference userDbRef
+~ String name
+~ String editTitle
+~ EditText titleEt
+~ ImageView pickVideoIv
+~ VideoView videoView
+~ FloatingActionButton uploadVideoBtn
+- {static} int VIDEO_PICK_GALLERY_CODE
+- {static} int VIDEO_PICK_CAMERA_CODE
+- {static} int CAMERA_REQUEST_CODE
+- String[] cameraPermissions
+- Uri videoUri
+- String title
+- String description
+- ProgressDialog progressDialog
+# void onCreate(Bundle)
+- void loadPostData(String)
+# void onStart()
+# void onResume()
+- void checkUserStatus()
+- void uploadVideoFirebase(String,String)
+- void videoPickDialog()
+- void requestCameraPermission()
+- boolean checkCameraPermission()
+- void videoPickGallery()
+- void videoPickCamera()
+- void setVideoToVideoView()
++ void onRequestPermissionsResult(int,String[],int[])
+# void onActivityResult(int,int,Intent)
++ boolean onCreateOptionsMenu(Menu)
++ boolean onOptionsItemSelected(MenuItem)
++ boolean onSupportNavigateUp()
+}
+class pnj.jejaringsosial.chandrasa.models.ModelGroupChatList {
+~ String groupId
++ String getGroupId()
++ void setGroupId(String)
++ String getGroupTitle()
++ void setGroupTitle(String)
++ String getGroupDescription()
++ void setGroupDescription(String)
++ String getGroupIcon()
++ void setGroupIcon(String)
++ String getTimestamp()
++ void setTimestamp(String)
++ String getCreatedBy()
++ void setCreatedBy(String)
+}
+class pnj.jejaringsosial.chandrasa.models.ModelGroupChat {
+~ String message
++ String getMessage()
++ void setMessage(String)
++ String getSender()
++ void setSender(String)
++ String getTimestamp()
++ void setTimestamp(String)
++ String getType()
++ void setType(String)
+}
+class pnj.jejaringsosial.chandrasa.UserProfileActivity {
+~ FirebaseAuth firebaseAuth
+~ ImageView avatarIv
+~ TextView nameTv
+~ RecyclerView postsRecyclerView
+~ SwipeRefreshLayout swiperefreshlayout
+~ List<ModelPost> postList
+~ AdapterPosts adapterPosts
+~ String uid
+# void onCreate(Bundle)
+- void loadHisPosts()
+- void searchHisPosts(String)
+- void checkUserStatus()
++ boolean onSupportNavigateUp()
++ boolean onCreateOptionsMenu(Menu)
++ boolean onOptionsItemSelected(MenuItem)
+}
+class pnj.jejaringsosial.chandrasa.models.ModelNotification {
+~ String pId
++ String getpId()
++ void setpId(String)
++ String getTimestamp()
++ void setTimestamp(String)
++ String getpUid()
++ void setpUid(String)
++ String getNotification()
++ void setNotification(String)
++ String getsUid()
++ void setsUid(String)
++ String getsName()
++ void setsName(String)
++ String getsEmail()
++ void setsEmail(String)
++ String getsImage()
++ void setsImage(String)
+}
+class pnj.jejaringsosial.chandrasa.RegisterActivity {
+~ EditText mEmailEt
+~ Button mRegisterBtn
+~ TextView mHaveAccountTv
+~ ProgressDialog progressDialog
+- FirebaseAuth mAuth
+# void onCreate(Bundle)
+- void registerUser(String,String)
++ boolean onSupportNavigateUp()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterPosts {
+~ Context context
+~ List<ModelPost> postList
+~ boolean paused
+~ String myUid
+- DatabaseReference likesRef
+- DatabaseReference postsRef
+~ boolean mProcessLike
++ MyHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(MyHolder,int)
+- void deleteVideo(ModelPost)
+- void setVideoUrl(ModelPost,MyHolder,String)
+- void showEditVideoDialog(String,String)
+- void addToHisNotifications(String,String,String)
+- void setLikes(MyHolder,String)
+- void showMoreOptions(ImageButton,String,String,String,String)
+- void beginDelete(String,String)
++ int getItemCount()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterPosts.MyHolder {
+~ ImageView uPictureIv
+~ VideoView videoView
+~ TextView uNameTv
+~ ImageButton moreBtn
+~ Button likeBtn
+~ LinearLayout profileLayout
+~ ProgressBar progressBar
+}
+class pnj.jejaringsosial.chandrasa.fragments.NotificationsFragment {
+~ RecyclerView notificationsRv
+- FirebaseAuth firebaseAuth
+- ArrayList<ModelNotification> notificationsList
+- AdapterNotification adapterNotification
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void getAllNotifications()
+}
+class pnj.jejaringsosial.chandrasa.models.ModelUser {
+~ String name
++ String getName()
++ void setName(String)
++ String getEmail()
++ void setEmail(String)
++ String getSearch()
++ void setSearch(String)
++ String getPhone()
++ void setPhone(String)
++ String getImage()
++ void setImage(String)
++ String getCover()
++ void setCover(String)
++ String getUid()
++ void setUid(String)
++ String getOnlineStatus()
++ void setOnlineStatus(String)
++ String getTypingTo()
++ void setTypingTo(String)
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterChat {
+- {static} int MSG_TYPE_LEFT
+- {static} int MSG_TYPE_RIGHT
+~ Context context
+~ List<ModelChat> chatList
+~ String imageUrl
+~ boolean seen
+~ FirebaseUser fUser
++ MyHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(MyHolder,int)
+- void deleteMessage(int)
++ int getItemCount()
++ int getItemViewType(int)
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterChat.MyHolder {
+~ ImageView profileIv
+~ TextView messageTv
+~ LinearLayout messageLAyout
+}
+class pnj.jejaringsosial.chandrasa.fragments.HomeFragment {
+~ FirebaseAuth firebaseAuth
+~ RecyclerView recyclerView
+~ List<ModelPost> postList
+~ AdapterPosts adapterPosts
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void loadPosts()
+- void searchPosts(String)
+- void checkUserStatus()
++ void onCreate(Bundle)
++ void onCreateOptionsMenu(Menu,MenuInflater)
++ boolean onOptionsItemSelected(MenuItem)
+}
+class pnj.jejaringsosial.chandrasa.fragments.ChatsFragment {
+~ FirebaseAuth firebaseAuth
+~ RecyclerView recyclerView
+~ List<ModelChatlist> chatlistList
+~ List<ModelUser> userList
+~ DatabaseReference reference
+~ FirebaseUser currentUser
+~ AdapterChats adapterChats
+~ SwipeRefreshLayout swiperefreshlayout
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void loadChats()
+- void lastMessage(String)
+- void checkUserStatus()
++ void onCreateOptionsMenu(Menu,MenuInflater)
++ boolean onOptionsItemSelected(MenuItem)
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList {
+- Context context
+- ArrayList<ModelGroupChatList> groupChatLists
++ HolderGroupChatList onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(HolderGroupChatList,int)
+- void loadLastMessage(ModelGroupChatList,HolderGroupChatList)
++ int getItemCount()
+}
+class pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList.HolderGroupChatList {
+- ImageView groupIconIv
+- TextView groupTitleTv
+}
+class pnj.jejaringsosial.chandrasa.AddPostActivity {
+~ FirebaseAuth firebaseAuth
+~ DatabaseReference userDbRef
+~ ActionBar actionBar
+- {static} int CAMERA_REQUEST_CODE
+- {static} int STORAGE_REQUEST_CODE
+- {static} int IMAGE_PICK_CAMERA_CODE
+- {static} int IMAGE_PICK_GALLERY_CODE
+~ String[] cameraPermissions
+~ String[] storagePermissions
+~ EditText titleEt
+~ ImageView imageIv
+~ FloatingActionButton uploadBtn
+~ String name
+~ String editTitle
+~ Uri image_rui
+~ ProgressDialog pd
+# void onCreate(Bundle)
+- void beginUpdate(String,String)
+- void updateWithCurrentImage(String,String)
+- void loadPostData(String)
+- void uploadData(String)
+- void showImagePickDialog()
+- void pickFromGallery()
+- void pickFromCamera()
+- boolean checkStoragePermission()
+- void requestStoragePermission()
+- boolean checkCameraPermission()
+- void requestCameraPermission()
+# void onStart()
+# void onResume()
+- void checkUserStatus()
++ boolean onSupportNavigateUp()
++ boolean onCreateOptionsMenu(Menu)
++ boolean onOptionsItemSelected(MenuItem)
++ void onRequestPermissionsResult(int,String[],int[])
+# void onActivityResult(int,int,Intent)
+}
+
+
+androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.ProfileFragment
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.DashboardActivity
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.LoginActivity
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.GroupChatActivity
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.GroupInfoActivity
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.PostDetailActivity
+androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.GroupChatsFragment
+pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChat
+pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChat +.. pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChat.HolderGroupChat
+pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChat.HolderGroupChat
+pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterParticipantAdd
+pnj.jejaringsosial.chandrasa.adapters.AdapterParticipantAdd +.. pnj.jejaringsosial.chandrasa.adapters.AdapterParticipantAdd.HolderParticipantAdd
+pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterParticipantAdd.HolderParticipantAdd
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.GroupAddParticipantActivity
+pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterChats
+pnj.jejaringsosial.chandrasa.adapters.AdapterChats +.. pnj.jejaringsosial.chandrasa.adapters.AdapterChats.MyHolder
+pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterChats.MyHolder
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.ChatActivity
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.GroupCreateActivity
+pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterComments
+pnj.jejaringsosial.chandrasa.adapters.AdapterComments +.. pnj.jejaringsosial.chandrasa.adapters.AdapterComments.MyHolder
+pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterComments.MyHolder
+pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterNotification
+pnj.jejaringsosial.chandrasa.adapters.AdapterNotification +.. pnj.jejaringsosial.chandrasa.adapters.AdapterNotification.HolderNotification
+pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterNotification.HolderNotification
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.GroupEditActivity
+pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterUsers
+pnj.jejaringsosial.chandrasa.adapters.AdapterUsers +.. pnj.jejaringsosial.chandrasa.adapters.AdapterUsers.MyHolder
+pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterUsers.MyHolder
+androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.UsersFragment
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.AddVideoActivity
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.UserProfileActivity
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.RegisterActivity
+pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterPosts
+pnj.jejaringsosial.chandrasa.adapters.AdapterPosts +.. pnj.jejaringsosial.chandrasa.adapters.AdapterPosts.MyHolder
+pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterPosts.MyHolder
+androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.NotificationsFragment
+pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterChat
+pnj.jejaringsosial.chandrasa.adapters.AdapterChat +.. pnj.jejaringsosial.chandrasa.adapters.AdapterChat.MyHolder
+pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterChat.MyHolder
+androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.HomeFragment
+androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.ChatsFragment
+pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList
+pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList +.. pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList.HolderGroupChatList
+pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList.HolderGroupChatList
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.AddPostActivity
+@enduml
