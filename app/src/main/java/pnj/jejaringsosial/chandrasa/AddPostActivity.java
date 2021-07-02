@@ -296,7 +296,7 @@ public class AddPostActivity extends AppCompatActivity {
         Bitmap bitmap = ((BitmapDrawable)imageIv.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         //image compress
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 95, baos);
         byte[] data = baos.toByteArray();
         //post with img
         StorageReference ref = FirebaseStorage.getInstance().getReference().child(filePathAndName);

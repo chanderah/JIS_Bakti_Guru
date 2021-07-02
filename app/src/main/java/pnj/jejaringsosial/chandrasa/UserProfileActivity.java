@@ -202,8 +202,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     ModelPost myPosts = ds.getValue(ModelPost.class);
 
-                    if (myPosts.getpTitle().toLowerCase().contains(searchQuery.toLowerCase()) ||
-                            myPosts.getpDesc().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    if (myPosts.getpTitle().toLowerCase().contains(searchQuery.toLowerCase())) {
                         //add to list
                         postList.add(myPosts);
                     }

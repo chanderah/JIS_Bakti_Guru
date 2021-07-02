@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     ProgressDialog pd;
 
+    long back_pressed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,4 +166,17 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }}
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + 1000 > System.currentTimeMillis()){
+            super.onBackPressed();
+        }
+        else{
+            Toast.makeText(getBaseContext(),
+                    "Press once again to exit...", Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
+    }
+}

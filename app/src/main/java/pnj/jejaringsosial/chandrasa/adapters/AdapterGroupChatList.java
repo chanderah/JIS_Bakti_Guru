@@ -124,7 +124,28 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
                                         public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                                             for (DataSnapshot ds: dataSnapshot.getChildren()){
                                                 String name = ""+ds.child("name").getValue();
-                                                holder.nameTv.setText(name+":");
+                                                String hisEmail = ""+ds.child("email").getValue();
+
+                                                if (name.equals("")){
+                                                    try {
+                                                        holder.emailTv.setText(hisEmail);
+                                                        holder.emailTv.setVisibility(View.VISIBLE);
+                                                        holder.nameTv.setVisibility(View.GONE);
+                                                        holder.messageTv.setVisibility(View.GONE);
+
+                                                        holder.emailMessageTv.setText(message);
+                                                        holder.emailMessageTv.setVisibility(View.VISIBLE);
+                                                    }
+                                                    catch (Exception e) {
+                                                    }
+                                                }
+                                                else {
+                                                    holder.emailTv.setVisibility(View.GONE);
+                                                    holder.nameTv.setText(name+":");
+                                                    holder.emailMessageTv.setVisibility(View.GONE);
+                                                    holder.nameTv.setVisibility(View.VISIBLE);
+                                                }
+
                                             }
 
                                         }
@@ -157,7 +178,7 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
 
         //ui views
         private ImageView groupIconIv;
-        private TextView groupTitleTv, nameTv, messageTv, timeTv;
+        private TextView groupTitleTv, nameTv, messageTv, timeTv, emailTv, emailMessageTv;
 
         public HolderGroupChatList(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -165,7 +186,9 @@ public class AdapterGroupChatList extends RecyclerView.Adapter<AdapterGroupChatL
             groupIconIv = itemView.findViewById(R.id.groupIconIv);
             groupTitleTv = itemView.findViewById(R.id.groupTitleTv);
             nameTv = itemView.findViewById(R.id.nameTv);
+            emailTv = itemView.findViewById(R.id.emailTv);
             messageTv = itemView.findViewById(R.id.messageTv);
+            emailMessageTv = itemView.findViewById(R.id.emailMessageTv);
             timeTv = itemView.findViewById(R.id.timeTv);
         }
     }

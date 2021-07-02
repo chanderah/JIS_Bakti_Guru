@@ -208,8 +208,19 @@ public class ProfileFragment extends Fragment {
 
         checkUserStatus();
         loadMyPosts();
+        checkEmailVerification();
 
         return view;
+    }
+
+    private void checkEmailVerification() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        if (user.isEmailVerified()) {
+            // email verified ...
+        } else {
+            Toast.makeText(getActivity(), "Please verify your email address...", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void loadMyPosts() {
@@ -275,8 +286,7 @@ public class ProfileFragment extends Fragment {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     ModelPost myPosts = ds.getValue(ModelPost.class);
 
-                    if (myPosts.getpTitle().toLowerCase().contains(searchQuery.toLowerCase()) ||
-                    myPosts.getpDesc().toLowerCase().contains(searchQuery.toLowerCase())) {
+                    if (myPosts.getpTitle().toLowerCase().contains(searchQuery.toLowerCase())) {
                         //add to list
                         postList.add(myPosts);
                     }

@@ -47,12 +47,31 @@
                 android:text=""/>
 
             <TextView
+                android:id="@+id/emailTv"
+                android:layout_below="@id/groupTitleTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:maxLength="12"
+                android:visibility="gone"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/messageTv"
                 android:text=""
                 android:layout_toEndOf="@id/nameTv"
                 android:layout_alignBottom="@id/nameTv"
+                android:layout_marginStart="5dp"
+                android:singleLine="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emailMessageTv"
+                android:text=""
+                android:layout_toEndOf="@id/emailTv"
+                android:layout_alignBottom="@id/emailTv"
                 android:layout_marginStart="5dp"
                 android:singleLine="true" />
 

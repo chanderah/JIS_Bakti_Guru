@@ -97,9 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerUser(String email, String password) {
-
         progressDialog.show();
-
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -123,7 +121,6 @@ public class RegisterActivity extends AppCompatActivity {
                             hashMap.put("image", ""); //edit profile
                             hashMap.put("cover", ""); //edit profile
 
-
                             //FirebaseDatabase instance
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             //path to store user data "Users"
@@ -134,8 +131,9 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Registered...\n"+user.getEmail(), Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(RegisterActivity.this, DashboardActivity.class));
                             finish();
+
+                            sendVerification();
                         } else {
-                            // If sign in fails, display default_coverimg message to the user.
                             progressDialog.dismiss();
                             Toast.makeText(RegisterActivity.this, "Registering account failed.",
                                     Toast.LENGTH_SHORT).show();
@@ -149,6 +147,18 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void sendVerification() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(RegisterActivity.this, "Verification email sent...", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
