@@ -2,15 +2,16 @@ package pnj.jejaringsosial.chandrasa.models;
 
 public class ModelAgenda {
 
-    String aId, aTimestamp, cUid, cImage, cName, cEmail, jUid, jEmail, aTitle, aDesc, aPlace, aDate, message, sender, mTimestamp, type;
+    String aId, aParticipants, aTimestamp, createdBy, cImage, cName, cEmail, jUid, jEmail, aTitle, aDesc, aPlace, aDate, message, sender, mTimestamp, type;
 
     public ModelAgenda() {
     }
 
-    public ModelAgenda(String aId, String aTimestamp, String cUid, String cImage, String cName, String cEmail, String jUid, String jEmail, String aTitle, String aDesc, String aPlace, String aDate, String message, String sender, String mTimestamp, String type) {
+    public ModelAgenda(String aId, String aParticipants, String aTimestamp, String createdBy, String cImage, String cName, String cEmail, String jUid, String jEmail, String aTitle, String aDesc, String aPlace, String aDate, String message, String sender, String mTimestamp, String type) {
         this.aId = aId;
+        this.aParticipants = aParticipants;
         this.aTimestamp = aTimestamp;
-        this.cUid = cUid;
+        this.createdBy = createdBy;
         this.cImage = cImage;
         this.cName = cName;
         this.cEmail = cEmail;
@@ -34,6 +35,14 @@ public class ModelAgenda {
         this.aId = aId;
     }
 
+    public String getaParticipants() {
+        return aParticipants;
+    }
+
+    public void setaParticipants(String aParticipants) {
+        this.aParticipants = aParticipants;
+    }
+
     public String getaTimestamp() {
         return aTimestamp;
     }
@@ -42,12 +51,12 @@ public class ModelAgenda {
         this.aTimestamp = aTimestamp;
     }
 
-    public String getcUid() {
-        return cUid;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setcUid(String cUid) {
-        this.cUid = cUid;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getcImage() {

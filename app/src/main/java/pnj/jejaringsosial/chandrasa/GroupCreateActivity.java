@@ -124,9 +124,10 @@ public class GroupCreateActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter the group title...", Toast.LENGTH_SHORT).show();
             return; //dont proceed
         }
+
         progressDialog.show();
 
-        //timestamp groupicon, groupId, timeCreated etc
+        //timestamp groupIcon, groupId, timeCreated etc
         String g_timestamp = ""+System.currentTimeMillis();
         if (image_uri == null){
             //create group without icon image

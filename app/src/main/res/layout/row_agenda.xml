@@ -31,14 +31,14 @@
             android:layout_marginStart="5dp">
 
             <TextView
-                android:id="@+id/aTitle"
+                android:id="@+id/aTitleTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sukabumi"
                 android:textSize="18sp"/>
 
             <TextView
-                android:id="@+id/aDate"
+                android:id="@+id/aDateTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="2 Juni 2012"
@@ -46,7 +46,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/cName"
+            android:id="@+id/cNameTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="chandra sa"
@@ -58,7 +58,7 @@
             />
 
         <TextView
-            android:id="@+id/cEmail"
+            android:id="@+id/cEmailTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""

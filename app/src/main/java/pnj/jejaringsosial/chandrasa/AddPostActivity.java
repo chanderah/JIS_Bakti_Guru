@@ -123,8 +123,6 @@ public class AddPostActivity extends AppCompatActivity {
             loadPostData(editPostId);
         }
         else {
-            //add
-
             actionBar.setTitle("Add New Photo");
         }
 

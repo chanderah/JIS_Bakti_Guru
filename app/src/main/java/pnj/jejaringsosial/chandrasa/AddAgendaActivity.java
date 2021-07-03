@@ -1,23 +1,46 @@
 package pnj.jejaringsosial.chandrasa;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
+import java.util.HashMap;
+
+import pnj.jejaringsosial.chandrasa.fragments.AgendasFragment;
 
 public class AddAgendaActivity extends AppCompatActivity {
 
@@ -26,6 +49,11 @@ public class AddAgendaActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
     private Button dateTimeBtn;
+
+    EditText aTitleEt;
+    EditText aDescEt;
+
+    ProgressDialog progressDialog;
 
     FloatingActionButton uploadBtn;
 
@@ -36,6 +64,8 @@ public class AddAgendaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_agenda);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+
         actionBar = getSupportActionBar();
         actionBar.setTitle("Add New Agenda");
 
@@ -43,6 +73,8 @@ public class AddAgendaActivity extends AppCompatActivity {
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        aTitleEt = findViewById(R.id.aTitleEt);
+        aDescEt = findViewById(R.id.aDescEt);
         dateTimeBtn = findViewById(R.id.dateTimePickerBtn);
         uploadBtn = findViewById(R.id.aAgendaBtn);
 
@@ -57,7 +89,67 @@ public class AddAgendaActivity extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startAddingAgenda();
+            }
+        });
     }
+
+    private void startAddingAgenda() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Adding Agenda...");
+
+        //input title, description
+
+        String aTimestamp = ""+ System.currentTimeMillis();
+        String aTitle = aTitleEt.getText().toString().trim();
+        String aDesc = aDescEt.getText().toString().trim();
+        String aDate = dateTimeBtn.getText().toString().trim();
+
+        //validation
+        if (TextUtils.isEmpty(aTitle)){
+            Toast.makeText(this, "Please enter the agenda title...", Toast.LENGTH_SHORT).show();
+            return; //dont proceed
+        }
+        if (TextUtils.isEmpty(aDesc)){
+            Toast.makeText(this, "Please enter the agenda description...", Toast.LENGTH_SHORT).show();
+            return; //dont proceed
+        }
+        progressDialog.show();
+
+        //setup agenda info
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("aId", ""+aTimestamp);
+        hashMap.put("aTitle", ""+aTitle);
+        hashMap.put("aDesc", ""+aDesc);
+        hashMap.put("aDate", ""+aDate);
+        hashMap.put("aParticipants", "0");
+        hashMap.put("timestamp", ""+aTimestamp);
+        hashMap.put("createdBy", ""+firebaseAuth.getUid());
+
+        //create
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Agendas");
+        ref.child(aTimestamp).setValue(hashMap)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        progressDialog.dismiss();
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull @NotNull Exception e) {
+                        //failed
+                        progressDialog.dismiss();
+                        Toast.makeText(AddAgendaActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 
     private String getTodaysDate() {
         Calendar cal = Calendar.getInstance();
@@ -109,6 +201,7 @@ public class AddAgendaActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int day) {
                 month = month + 1;
                 String date = makeDateString(day, month, year);
+                String dateTarget = makeDateString(day, month, year);
 
                 initTimePicker(date);
             }

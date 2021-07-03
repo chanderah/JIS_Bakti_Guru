@@ -43,7 +43,7 @@
             android:background="@color/colorWhite"/>
 
         <EditText
-            android:id="@id/aTitle"
+            android:id="@+id/aTitleEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
@@ -52,7 +52,7 @@
             android:paddingStart="8dp"/>
 
         <EditText
-            android:id="@+id/aDesc"
+            android:id="@+id/aDescEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""

@@ -44,8 +44,10 @@ import pnj.jejaringsosial.chandrasa.MainActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterAgendas;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterNotification;
+import pnj.jejaringsosial.chandrasa.adapters.AdapterUsers;
 import pnj.jejaringsosial.chandrasa.models.ModelAgenda;
 import pnj.jejaringsosial.chandrasa.models.ModelNotification;
+import pnj.jejaringsosial.chandrasa.models.ModelUser;
 
 
 public class AgendasFragment extends Fragment {
@@ -53,7 +55,7 @@ public class AgendasFragment extends Fragment {
     //rv
     RecyclerView agendasRv;
     private FirebaseAuth firebaseAuth;
-    private ArrayList<ModelAgenda> agendasList;
+    private ArrayList<ModelAgenda> agendaList;
     private AdapterAgendas adapterAgendas;
 
     public AgendasFragment() {
@@ -86,6 +88,30 @@ public class AgendasFragment extends Fragment {
     }
 
     private void getAllAgendas() {
+        agendaList = new ArrayList<>();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Agendas");
+        //get all data from path
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                agendaList.clear();
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    ModelAgenda model = ds.getValue(ModelAgenda.class);
+                    agendaList.add(model);
+                    }
+
+                    //adapter
+                    adapterAgendas = new AdapterAgendas(getActivity(), agendaList) ;
+                    //set adapter to recycler view
+                    agendasRv.setAdapter(adapterAgendas);
+                }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
     }
 
     //menu inflate
