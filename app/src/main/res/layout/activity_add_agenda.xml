@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="5dp"
+    tools:context=".AddAgendaActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agenda Details"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:padding="20dp"/>
+
+        <ImageView
+            android:id="@+id/agendaIc"
+            android:layout_gravity="center"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_agenda"/>
+
+        <Button
+            android:id="@+id/dateTimePickerBtn"
+            android:layout_margin="20dp"
+            android:drawablePadding="8dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="00:19, JAN 01 2021"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:background="@color/colorWhite"/>
+
+        <EditText
+            android:id="@id/aTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:inputType="textCapSentences"
+            android:hint="Agenda Title"
+            android:paddingStart="8dp"/>
+
+        <EditText
+            android:id="@+id/aDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:inputType="textCapSentences|textMultiLine"
+            android:hint="Agenda Description"
+            android:paddingStart="8dp"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/aAgendaBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_done_white"
+        android:tintMode="@color/colorWhite"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

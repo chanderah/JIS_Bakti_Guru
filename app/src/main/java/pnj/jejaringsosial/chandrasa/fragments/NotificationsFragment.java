@@ -54,7 +54,6 @@ public class NotificationsFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-
         getAllNotifications();
 
         //swipe refresh
@@ -65,7 +64,6 @@ public class NotificationsFragment extends Fragment {
             getAllNotifications();
             swiperefreshlayout.setRefreshing(false);
         });
-
 
         return view;
     }

@@ -33,6 +33,11 @@
         app:showAsAction="always"
         app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
+    <item android:id="@+id/action_add_agenda"
+        android:title="Add Agenda"
+        android:visible="false"
+        app:showAsAction="always" />
+
     <item android:id="@+id/aboutApp"
         android:title="About"
         android:visible="false" />

@@ -25,6 +25,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.HashMap;
 
+import pnj.jejaringsosial.chandrasa.fragments.AgendasFragment;
 import pnj.jejaringsosial.chandrasa.fragments.ChatsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.GroupChatsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.HomeFragment;
@@ -209,6 +210,7 @@ public class  DashboardActivity extends AppCompatActivity {
         //popup menu to show more options
         PopupMenu popupMenu = new PopupMenu(this, navigationView, Gravity.END);
         //items to show
+        popupMenu.getMenu().add(Menu.NONE,2,0,"Agenda");
         popupMenu.getMenu().add(Menu.NONE,1,0,"Group Chats");
         popupMenu.getMenu().add(Menu.NONE,0,0,"Notifications");
 
@@ -227,12 +229,20 @@ public class  DashboardActivity extends AppCompatActivity {
                     ft5.commit();
                 }
                 else if (id == 1) {
-                    //groupchats clicked
+                    //groupChats clicked
                     actionBar.setTitle("Group Chats");
                     GroupChatsFragment fragment6 = new GroupChatsFragment();
                     FragmentTransaction ft6 = getSupportFragmentManager().beginTransaction();
                     ft6.replace(R.id.content, fragment6, "");
                     ft6.commit();
+                }
+                else if (id == 2) {
+                    //agenda clicked
+                    actionBar.setTitle("Agenda");
+                    AgendasFragment fragment7 = new AgendasFragment();
+                    FragmentTransaction ft7 = getSupportFragmentManager().beginTransaction();
+                    ft7.replace(R.id.content, fragment7, "");
+                    ft7.commit();
                 }
                 return false;
             }

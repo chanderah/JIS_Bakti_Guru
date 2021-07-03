@@ -6,7 +6,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -20,11 +22,12 @@
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
 
-        <activity android:name=".GroupEditActivity"></activity>
+        <activity android:name=".AddAgendaActivity" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".GroupEditActivity" />
         <activity android:name=".GroupInfoActivity" />
         <activity android:name=".GroupAddParticipantActivity" />
         <activity android:name=".GroupChatActivity" android:theme="@style/ThemeAppNo" />
-        <activity android:name=".PostDetailActivity" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".PostDetailActivity" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".GroupCreateActivity" />
         <activity android:name=".AddVideoActivity" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".UserProfileActivity" />
@@ -34,12 +37,12 @@
         <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
-
         <service
             android:name=".notifications.FirebaseMessaging"
             android:enabled="true"
@@ -49,4 +52,5 @@
             </intent-filter>
         </service>
     </application>
+
 </manifest>

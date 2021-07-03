@@ -195,6 +195,7 @@ public class ChatsFragment extends Fragment {
 
         //hide option
         menu.findItem(R.id.action_create_group).setVisible(false);
+        menu.findItem(R.id.action_add_post).setVisible(false);
         menu.findItem(R.id.action_add_video).setVisible(false);
         menu.findItem(R.id.action_add_participant_group).setVisible(false);
         menu.findItem(R.id.aboutApp).setVisible(true);
@@ -232,5 +233,11 @@ public class ChatsFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true); //show menu option
+        super.onCreate(savedInstanceState);
     }
 }

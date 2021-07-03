@@ -167,7 +167,6 @@ public class HomeFragment extends Fragment {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){
             //signed user stay here
-
         }
         else {
             startActivity(new Intent(getActivity(), MainActivity.class));
@@ -226,56 +225,56 @@ public class HomeFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-            //handle menu click
-            @Override
-            public boolean onOptionsItemSelected(MenuItem item) {
-                //get item id
-                int id = item.getItemId();
-                if (id == R.id.action_logout) {
-                    firebaseAuth.signOut();
-                    checkUserStatus();
+    //handle menu click
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //get item id
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            firebaseAuth.signOut();
+            checkUserStatus();
+        }
+
+        if (id == R.id.action_add_post) {
+
+            //show dialog
+            AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
+            builder.setItems(new String[]{"Add Photo", "Add Video"}, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (which==0) {
+                        //Add Photo Dialog clicked
+                        startActivity(new Intent(getActivity(), AddPostActivity.class));
+
+                    }
+                    if (which==1) {
+                        //Add Video Dialog clicked
+                        startActivity(new Intent(getActivity(), AddVideoActivity.class));
+                    }
+
                 }
+            });
+            builder.create().show();
+        };
 
-                if (id == R.id.action_add_post) {
+        if (id == R.id.aboutApp) {
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_about_app, null);
+            Button closeBtn = view.findViewById(R.id.closeBtn);
 
-                    //show dialog
-                    AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
-                    builder.setItems(new String[]{"Add Photo", "Add Video"}, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            if (which==0) {
-                                //Add Photo Dialog clicked
-                                startActivity(new Intent(getActivity(), AddPostActivity.class));
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setView(view);
 
-                            }
-                            if (which==1) {
-                                //Add Video Dialog clicked
-                                startActivity(new Intent(getActivity(), AddVideoActivity.class));
-                            }
+            AlertDialog dialog = builder.create();
+            dialog.show();
 
-                        }
-                    });
-                    builder.create().show();
-                };
-
-                if (id == R.id.aboutApp) {
-                    View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_about_app, null);
-                    Button closeBtn = view.findViewById(R.id.closeBtn);
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setView(view);
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-
-                    closeBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
+            closeBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
                 }
-                return super.onOptionsItemSelected(item);
-            }
+            });
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
