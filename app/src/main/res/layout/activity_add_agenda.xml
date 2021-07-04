@@ -37,7 +37,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="00:19, JAN 01 2021"
+            android:text="23:19, JAN 25 2021"
             android:textStyle="bold"
             android:textAlignment="center"
             android:background="@color/colorWhite"/>

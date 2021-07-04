@@ -36,6 +36,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import pnj.jejaringsosial.chandrasa.AddAgendaActivity;
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
@@ -98,7 +100,13 @@ public class AgendasFragment extends Fragment {
                 agendaList.clear();
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     ModelAgenda model = ds.getValue(ModelAgenda.class);
-                    agendaList.add(model);
+
+                    long currentTime = Calendar.getInstance().getTimeInMillis();
+                    long modelTimeMillis = Long.parseLong(model.getaDateMillis());
+
+                        if (modelTimeMillis>currentTime){
+                            agendaList.add(model);
+                        }
                     }
 
                     //adapter

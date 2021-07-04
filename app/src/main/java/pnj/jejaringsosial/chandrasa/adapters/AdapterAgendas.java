@@ -4,16 +4,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.text.Layout;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,8 +22,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,18 +31,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-import pnj.jejaringsosial.chandrasa.PostDetailActivity;
+import pnj.jejaringsosial.chandrasa.ChatActivity;
+import pnj.jejaringsosial.chandrasa.DashboardActivity;
 import pnj.jejaringsosial.chandrasa.R;
-import pnj.jejaringsosial.chandrasa.UserProfileActivity;
 import pnj.jejaringsosial.chandrasa.models.ModelAgenda;
-import pnj.jejaringsosial.chandrasa.models.ModelNotification;
 
 public class AdapterAgendas extends RecyclerView.Adapter<AdapterAgendas.HolderAgendas>{
 
     private Context context;
     private ArrayList<ModelAgenda> agendaList;
 
+    FirebaseAuth firebaseAuth;
+    String myUid;
+
+    public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
+    private final static String default_notification_channel_id = "default" ;
+
+    final Calendar myCalendar = Calendar. getInstance () ;
+
     public AdapterAgendas(Context context, ArrayList<ModelAgenda> agendaList) {
+        myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         this.context = context;
         this.agendaList = agendaList;
     }
@@ -70,22 +77,178 @@ public class AdapterAgendas extends RecyclerView.Adapter<AdapterAgendas.HolderAg
         String aDate = model.getaDate();
         String cName = model.getcName();
         String cEmail = model.getcEmail();
-        String createdBy = model.getCreatedBy();
+        String cUid = model.getCreatedBy();
 
         //set
         holder.aTitleTv.setText(aTitle);
+
         holder.aDateTv.setText(aDate);
 
-        holder.cEmailTv.setText(cEmail);
+        DatabaseReference reference  = FirebaseDatabase.getInstance().getReference("Users");
+        reference.orderByChild("uid").equalTo(cUid)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                            String name = ""+ds.child("name").getValue();
+                            String image = ""+ds.child("image").getValue();
+                            String email = ""+ds.child("email").getValue();
+
+                            //set data
+                            if (name.equals("")){
+                                holder.cEmailTv.setText(email);
+                                holder.cEmailTv.setVisibility(View.VISIBLE);
+                                holder.cNameTv.setVisibility(View.GONE);
+                            }
+                            else {
+                                holder.cNameTv.setText(name);
+                                holder.cNameTv.setVisibility(View.VISIBLE);
+                                holder.cEmailTv.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+                    }
+                });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, UserProfileActivity.class);
-                intent.putExtra("uid", createdBy);
-                context.startActivity(intent);
+                View view = LayoutInflater.from(context).inflate(R.layout.dialog_agenda_details, null);
+                TextView aTitleTv = view.findViewById(R.id.aTitleTv);
+                TextView aDescTv = view.findViewById(R.id.aDescTv);
+                TextView aDateTv = view.findViewById(R.id.aDateTv);
+                TextView aCreatorTv = view.findViewById(R.id.aCreatorTv);
+                Button contactBtn = view.findViewById(R.id.contactBtn);
+                Button joinBtn = view.findViewById(R.id.joinBtn);
+                Button closeBtn = view.findViewById(R.id.closeBtn);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setView(view);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Agendas");
+                Query query = ref.orderByChild("aId").equalTo(aId);
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                            //get data
+                            String aTitle = ""+ds.child("aTitle").getValue();
+                            String aDesc = ""+ds.child("aDesc").getValue();
+                            String aDate = ""+ds.child("aDate").getValue();
+                            String createdBy = ""+ds.child("createdBy").getValue();
+
+                            //set data
+                            aTitleTv.setText(aTitle);
+                            aDescTv.setText(aDesc);
+                            aDateTv.setText(aDate);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                DatabaseReference reference  = FirebaseDatabase.getInstance().getReference("Users");
+                reference.orderByChild("uid").equalTo(cUid)
+                        .addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                                    String name = ""+ds.child("name").getValue();
+                                    String image = ""+ds.child("image").getValue();
+                                    String email = ""+ds.child("email").getValue();
+
+                                    //set data
+                                    if (name.equals("")){
+                                        aCreatorTv.setText("("+email+")");
+                                    }
+                                    else {
+                                        aCreatorTv.setText("("+name+")");
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+                            }
+                        });
+
+                contactBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, ChatActivity.class);
+                        intent.putExtra("hisUid", cUid);
+                        context.startActivity(intent);
+                    }
+                });
+
+                joinBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, DashboardActivity.class);
+                        context.startActivity(intent);
+                    }
+                });
+
+                closeBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
             }
         });
+
+        if (cUid.equals(myUid)){
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    //show confirm dialog
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Delete");
+                    builder.setMessage("Are you sure to delete this agenda?");
+                    builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Query fquery = FirebaseDatabase.getInstance().getReference("Agendas").orderByChild("aId").equalTo(aId);
+                            fquery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
+                                    for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                                        ds.getRef().removeValue(); //remove values matched pid
+
+                                    }
+                                    //deleted
+                                    Toast.makeText(context, "Deleted successfully...", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull @NotNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    });
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //cancel
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.create().show();
+
+                    return false;
+                }
+            });
+        }
+
     }
 
     @Override

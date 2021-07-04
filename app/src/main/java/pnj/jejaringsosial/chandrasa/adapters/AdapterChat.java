@@ -90,7 +90,6 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyHolder>{
         if (type.equals("text")){
             myHolder.messageTv.setVisibility(View.VISIBLE);
             myHolder.messageIv.setVisibility(View.GONE);
-
             myHolder.messageTv.setText(message);
 
         }

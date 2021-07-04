@@ -2,12 +2,12 @@ package pnj.jejaringsosial.chandrasa.models;
 
 public class ModelAgenda {
 
-    String aId, aParticipants, aTimestamp, createdBy, cImage, cName, cEmail, jUid, jEmail, aTitle, aDesc, aPlace, aDate, message, sender, mTimestamp, type;
+    String aId, aParticipants, aTimestamp, createdBy, cImage, cName, cEmail, jUid, jEmail, aTitle, aDesc, aPlace, aDate, aDateMillis, message, sender, mTimestamp, type;
 
     public ModelAgenda() {
     }
 
-    public ModelAgenda(String aId, String aParticipants, String aTimestamp, String createdBy, String cImage, String cName, String cEmail, String jUid, String jEmail, String aTitle, String aDesc, String aPlace, String aDate, String message, String sender, String mTimestamp, String type) {
+    public ModelAgenda(String aId, String aParticipants, String aTimestamp, String createdBy, String cImage, String cName, String cEmail, String jUid, String jEmail, String aTitle, String aDesc, String aPlace, String aDate, String aDateMillis, String message, String sender, String mTimestamp, String type) {
         this.aId = aId;
         this.aParticipants = aParticipants;
         this.aTimestamp = aTimestamp;
@@ -21,6 +21,7 @@ public class ModelAgenda {
         this.aDesc = aDesc;
         this.aPlace = aPlace;
         this.aDate = aDate;
+        this.aDateMillis = aDateMillis;
         this.message = message;
         this.sender = sender;
         this.mTimestamp = mTimestamp;
@@ -129,6 +130,14 @@ public class ModelAgenda {
 
     public void setaDate(String aDate) {
         this.aDate = aDate;
+    }
+
+    public String getaDateMillis() {
+        return aDateMillis;
+    }
+
+    public void setaDateMillis(String aDateMillis) {
+        this.aDateMillis = aDateMillis;
     }
 
     public String getMessage() {
