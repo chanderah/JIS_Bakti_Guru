@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -93,11 +94,11 @@ public class AddAgendaActivity extends AppCompatActivity {
     public void showDateTimePicker() {
         final Calendar currentDate = Calendar.getInstance();
         date = Calendar.getInstance();
-        new DatePickerDialog(AddAgendaActivity.this, new DatePickerDialog.OnDateSetListener() {
+        new DatePickerDialog(AddAgendaActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 date.set(year, monthOfYear, dayOfMonth);
-                new TimePickerDialog(AddAgendaActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                new TimePickerDialog(AddAgendaActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_DARK, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         date.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -108,53 +109,20 @@ public class AddAgendaActivity extends AppCompatActivity {
 
                         dateTimeBtn.setText(dateTime);
                     }
-
-                    private String getMonthFormat() {
-                        if (monthOfYear == 1)
-                            return "JAN";
-                        if (monthOfYear == 2)
-                            return "FEB";
-                        if (monthOfYear == 3)
-                            return "MAR";
-                        if (monthOfYear == 4)
-                            return "APR";
-                        if (monthOfYear == 5)
-                            return "MAY";
-                        if (monthOfYear == 6)
-                            return "JUN";
-                        if (monthOfYear == 7)
-                            return "JUL";
-                        if (monthOfYear == 8)
-                            return "AUG";
-                        if (monthOfYear == 9)
-                            return "SEP";
-                        if (monthOfYear == 10)
-                            return "OCT";
-                        if (monthOfYear == 11)
-                            return "NOV";
-                        if (monthOfYear == 12)
-                            return "DEC";
-
-                        return "JAN";
-                    }
-
-                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), false).show();
+                }, currentDate.get(Calendar.HOUR_OF_DAY), currentDate.get(Calendar.MINUTE), true).show();
             }
         }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
     }
-
 
     private void startAddingAgenda(long millis) {
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Adding Agenda...");
 
         //input title, description
-
         String aTimestamp = ""+ System.currentTimeMillis();
         String aTitle = aTitleEt.getText().toString().trim();
         String aDesc = aDescEt.getText().toString().trim();
         String aDate = dateTimeBtn.getText().toString().trim();
-
 
         //validation
         if (TextUtils.isEmpty(aTitle)){
