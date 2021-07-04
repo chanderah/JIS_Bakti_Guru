@@ -17,22 +17,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/ThemeApp">
+        <activity android:name=".JoinClicked"></activity>
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
 
-        <activity android:name=".AddAgendaActivity" android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".AddAgendaActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".GroupEditActivity" />
         <activity android:name=".GroupInfoActivity" />
         <activity android:name=".GroupAddParticipantActivity" />
-        <activity android:name=".GroupChatActivity" android:theme="@style/ThemeAppNo" />
-        <activity android:name=".PostDetailActivity" android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".GroupChatActivity"
+            android:theme="@style/ThemeAppNo" />
+        <activity
+            android:name=".PostDetailActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".GroupCreateActivity" />
-        <activity android:name=".AddVideoActivity" android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".AddVideoActivity"
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".UserProfileActivity" />
-        <activity android:name=".AddPostActivity" android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".ChatActivity" android:theme="@style/ThemeAppNo" />
+        <activity
+            android:name=".AddPostActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ChatActivity"
+            android:theme="@style/ThemeAppNo" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".DashboardActivity">
             <intent-filter>
@@ -43,6 +56,7 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
+
         <service
             android:name=".notifications.FirebaseMessaging"
             android:enabled="true"
@@ -51,6 +65,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <receiver android:name=".notifications.ReminderBroadcast" />
     </application>
 
 </manifest>

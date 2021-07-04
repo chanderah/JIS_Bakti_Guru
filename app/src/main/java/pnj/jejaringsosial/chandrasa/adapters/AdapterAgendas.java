@@ -1,9 +1,12 @@
 package pnj.jejaringsosial.chandrasa.adapters;
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
+
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import pnj.jejaringsosial.chandrasa.notifications.Data;
+import pnj.jejaringsosial.chandrasa.notifications.ReminderBroadcast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,12 +50,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import pnj.jejaringsosial.chandrasa.ChatActivity;
 import pnj.jejaringsosial.chandrasa.DashboardActivity;
+import pnj.jejaringsosial.chandrasa.JoinClicked;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.models.ModelAgenda;
+
+import static android.content.Context.ALARM_SERVICE;
 
 public class AdapterAgendas extends RecyclerView.Adapter<AdapterAgendas.HolderAgendas>{
 
@@ -67,7 +92,8 @@ public class AdapterAgendas extends RecyclerView.Adapter<AdapterAgendas.HolderAg
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull HolderAgendas holder, int position) {
-        //get and set data to views
+
+        createNotificationChannel();
 
         //get data
         ModelAgenda model = agendaList.get(position);
@@ -191,8 +217,28 @@ public class AdapterAgendas extends RecyclerView.Adapter<AdapterAgendas.HolderAg
                 joinBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, DashboardActivity.class);
-                        context.startActivity(intent);
+
+                        long timeJoinClicked = System.currentTimeMillis();
+                        long timeEvent = Long.parseLong(model.getaDateMillis());
+
+                        long eventRange = timeEvent - timeJoinClicked - 3600000;
+
+                        int requestCodeUnique = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+
+                        Toast.makeText(context, "Reminder Set!", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(context, ReminderBroadcast.class);
+                        intent.putExtra("aTitle", aTitle);
+                        intent.putExtra("aDate", aDate);
+                        intent.putExtra("requestCodeUnique", requestCodeUnique);
+
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,requestCodeUnique,intent,0);
+
+                        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
+
+                        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                                eventRange,pendingIntent);
+
                     }
                 });
 
@@ -249,6 +295,19 @@ public class AdapterAgendas extends RecyclerView.Adapter<AdapterAgendas.HolderAg
             });
         }
 
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Depok Social Stories";
+            String description = "Channel for DSS Reminder";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("notifyDSS", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     @Override
