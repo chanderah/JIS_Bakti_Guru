@@ -31,8 +31,6 @@ public class ReminderBroadcast extends BroadcastReceiver {
                 .setContentText(eventDate)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        Toast.makeText(context, ""+eventTitle+eventDate, Toast.LENGTH_SHORT).show();
-
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
 
         notificationManagerCompat.notify(requestCodeUnique, builder.build());

@@ -217,13 +217,10 @@ public class AdapterAgendas extends RecyclerView.Adapter<AdapterAgendas.HolderAg
                 joinBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        int requestCodeUnique = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
                         long timeJoinClicked = System.currentTimeMillis();
                         long timeEvent = Long.parseLong(model.getaDateMillis());
-
-                        long eventRange = timeEvent - timeJoinClicked - 3600000;
-
-                        int requestCodeUnique = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+                        long eventRange = timeEvent - timeJoinClicked;
 
                         Toast.makeText(context, "Reminder Set!", Toast.LENGTH_SHORT).show();
 
@@ -235,10 +232,7 @@ public class AdapterAgendas extends RecyclerView.Adapter<AdapterAgendas.HolderAg
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(context,requestCodeUnique,intent,0);
 
                         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
-
-                        alarmManager.set(AlarmManager.RTC_WAKEUP,
-                                eventRange,pendingIntent);
-
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, eventRange-(300*60*1000), pendingIntent);
                     }
                 });
 
