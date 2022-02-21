@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true"
+    app:contentPadding="5dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/profileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/uPictureIv"
+                android:scaleType="centerCrop"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_default_img"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp">
+                <TextView
+                    android:id="@+id/uNameTv"
+                    android:text="Name"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/uEmailTv"
+                    android:text="Email"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/pTimeeTv"
+                    android:text="33 min"
+                    android:textColor="@color/colorWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/moreBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:src="@drawable/ic_more_black"
+                android:layout_marginEnd="10dp"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/imageOrVideoView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/pImageIv"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/ic_image_black" />
+
+                <VideoView
+                    android:id="@+id/pVideoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/pTitleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@id/pImageIv"
+                    android:autoLink="all"
+                    android:text="Title"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/pDescTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pTitleTv"
+                    android:layout_marginTop="0dp"
+                    android:layout_toRightOf="@id/pImageIv"
+                    android:autoLink="all"
+                    android:text="Desc"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <ProgressBar
+                    android:id="@+id/progressBarr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:indeterminateTint="@color/colorSilver" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/playIv"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_play"
+                    android:visibility="gone"
+                    app:civ_circle_background_color="@color/hover" />
+
+                <TextView
+                    android:id="@+id/pTimeTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/pImageIv"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@id/pImageIv"
+                    android:layout_weight="1"
+                    android:text="1 Comments"
+                    android:textAlignment="textEnd" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/uploadedBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/imageOrVideoView"
+                android:layout_centerHorizontal="true"
+                android:background="@color/hover"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="This"
+                android:visibility="gone"
+                android:textAlignment="center"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/pLikesTv"
+                android:text="... likes"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:background="#F5F0F0"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/likeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="LIKE"
+                android:drawableLeft="@drawable/ic_like_white"
+                android:drawablePadding="5dp"
+                android:background="@color/colorWhite"/>
+            <Button
+                android:id="@+id/commentBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="COMMENT"
+                android:drawableLeft="@drawable/ic_comment_white"
+                android:drawablePadding="5dp"
+                android:background="@color/colorWhite"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -7,13 +7,13 @@
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true"
-    app:contentPadding="5dp"
-    >
+    app:contentPadding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <LinearLayout
             android:id="@+id/profileLayout"
@@ -27,7 +27,8 @@
                 android:id="@+id/uPictureIv"
                 android:scaleType="centerCrop"
                 android:layout_width="50dp"
-                android:layout_height="50dp"/>
+                android:layout_height="50dp"
+                android:src="@drawable/ic_face_black"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -39,7 +40,6 @@
                 <TextView
                     android:id="@+id/uNameTv"
                     android:text="Name"
-                    android:textColor="@color/colorWhite"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -47,7 +47,6 @@
                 <TextView
                     android:id="@+id/uEmailTv"
                     android:text="Email"
-                    android:textColor="@color/colorWhite"
                     android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -55,7 +54,6 @@
                 <TextView
                     android:id="@+id/pTimeTv"
                     android:text="33 min"
-                    android:textColor="@color/colorWhite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -66,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:src="@drawable/ic_more_black"
+                android:src="@drawable/ic_more_blackk"
                 android:layout_marginEnd="10dp"/>
 
         </LinearLayout>
@@ -137,7 +135,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="@color/colorWhite"
             android:textStyle="bold"
             android:text="Title"
             android:autoLink="all"/>
@@ -200,5 +197,4 @@
 
 
     </LinearLayout>
-
 </com.google.android.material.card.MaterialCardView>

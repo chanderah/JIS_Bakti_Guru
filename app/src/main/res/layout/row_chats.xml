@@ -7,7 +7,7 @@
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp"
     app:contentPadding="3dp"
-    app:cardBackgroundColor="@color/colorPrimaryDark">
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:id="@+id/profileIv"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_default_img"/>
+            android:src="@drawable/ic_face_black" />
 
         <ImageView
             android:id="@+id/onlineStatusIv"

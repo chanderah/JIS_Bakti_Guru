@@ -58,7 +58,7 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
 
         }
         catch (Exception e){
-            myHolder.mAvatarIv.setImageResource(R.drawable.ic_default_img);
+            myHolder.mAvatarIv.setImageResource(R.drawable.ic_face_black);
         }
 
         //handle item click

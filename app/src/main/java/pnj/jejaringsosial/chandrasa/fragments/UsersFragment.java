@@ -64,7 +64,6 @@ public class UsersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_users, container, false);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         //init firebase
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -75,7 +74,6 @@ public class UsersFragment extends Fragment {
             getAllUsers(); //
             swiperefreshlayout.setRefreshing(false);
         });
-
 
         //layout recycler view
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -93,12 +91,8 @@ public class UsersFragment extends Fragment {
         //getAll users
         getAllUsers();
 
-
-
         return view;
     }
-
-
 
     private void getAllUsers() {
         //get current user
@@ -113,12 +107,8 @@ public class UsersFragment extends Fragment {
                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
                     ModelUser modelUser = ds.getValue(ModelUser.class);
 
-                    //
-
                     //get all users except current user
-                    if (!modelUser.getUid().equals(fUser.getUid())){
                         userList.add(modelUser);
-                    }
 
                     //adapter
                     adapterUsers = new AdapterUsers(getActivity(), userList) ;

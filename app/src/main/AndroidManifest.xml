@@ -47,10 +47,10 @@
             android:name=".ChatActivity"
             android:theme="@style/ThemeAppNo" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".DashboardActivity">
+        <activity android:name=".DashboardActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -54,7 +54,6 @@ public class  DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
         actionBar = getSupportActionBar();
         actionBar.setTitle("Profile");
