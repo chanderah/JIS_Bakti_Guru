@@ -26,7 +26,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
         eventDate = intent.getStringExtra("aDate");
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "notifyDSS")
-                .setSmallIcon(R.mipmap.ic_launcher_foreground)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Today's Agenda - "+eventTitle)
                 .setContentText(eventDate)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);

@@ -579,7 +579,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (name.equals("")){
                     for (DataSnapshot ds: dataSnapshot.getChildren()) {
                         Token token = ds.getValue(Token.class);
-                        Data data = new Data(myUid, email + ": " + message, "New Message", hisUid, R.mipmap.ic_launcher_foreground);
+                        Data data = new Data(myUid, email + ": " + message, "New Message", hisUid, R.mipmap.ic_launcher);
 
                         Sender sender = new Sender(data, token.getToken());
 
@@ -623,7 +623,7 @@ public class ChatActivity extends AppCompatActivity {
                 else {
                     for (DataSnapshot ds: dataSnapshot.getChildren()) {
                         Token token = ds.getValue(Token.class);
-                        Data data = new Data(myUid, name + ": " + message, "New Message", hisUid, R.mipmap.ic_launcher_foreground);
+                        Data data = new Data(myUid, name + ": " + message, "New Message", hisUid, R.mipmap.ic_launcher);
 
                         Sender sender = new Sender(data, token.getToken());
 

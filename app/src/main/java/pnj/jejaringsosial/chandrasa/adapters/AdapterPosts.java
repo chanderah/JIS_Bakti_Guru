@@ -7,13 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.IInterface;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -46,13 +44,13 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.net.CookieHandler;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
-import pnj.jejaringsosial.chandrasa.DashboardActivity;
 import pnj.jejaringsosial.chandrasa.PostDetailActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.UserProfileActivity;
@@ -123,10 +121,10 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
 
         //set user dp
         try {
-            Picasso.get().load(uDp).placeholder(R.drawable.ic_default_img).into(myHolder.uPictureIv);
+            Picasso.get().load(uDp).placeholder(R.drawable.ic_face_black).into(myHolder.uPictureIv);
         }
         catch (Exception e) {
-            myHolder.uPictureIv.setImageResource(R.drawable.ic_default_img);
+            myHolder.uPictureIv.setImageResource(R.drawable.ic_face_black);
         }
 
         if (type.equals("photo")) {

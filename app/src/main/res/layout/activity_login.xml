@@ -11,13 +11,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:gravity="center_horizontal"
-        android:text="Login"
-        android:textColor="@color/colorWhite"
-        android:textSize="25sp"
         android:layout_above="@id/emailTIL"
-        android:paddingBottom="50dp"/>
+        android:gravity="center_horizontal"
+        android:paddingBottom="50dp"
+        android:text="Login"
+        android:fontFamily="@font/lato_light"
+        android:textAlignment="center"
+        android:textSize="25sp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -31,6 +31,7 @@
             android:id="@+id/emailEt"
             android:inputType="textEmailAddress"
             android:hint="Email"
+            android:background="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -48,19 +49,22 @@
             android:id="@+id/passwordEt"
             android:inputType="textPassword"
             android:hint="Password"
+            android:background="@color/colorWhite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/login_btn"
-        android:text="Login"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_below="@id/passwordTIL"
-        android:layout_width="wrap_content"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/passwordTIL"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_login_black"
+        android:text="Login"
+        />
 
     <TextView
         android:id="@+id/forgotPasswordTv"

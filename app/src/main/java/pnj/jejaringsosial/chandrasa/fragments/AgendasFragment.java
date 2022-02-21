@@ -69,7 +69,6 @@ public class AgendasFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_agenda,container,false);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         //init rv
         agendasRv = view.findViewById(R.id.agendasRv);
 

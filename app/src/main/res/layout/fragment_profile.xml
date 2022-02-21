@@ -20,13 +20,14 @@
                 android:layout_height="wrap_content">
 
                 //cover photo
+
                 <ImageView
                     android:id="@+id/coverIv"
-                    android:src="@drawable/default_coverimg"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
+                    android:background="@color/hover"
                     android:scaleType="centerCrop"
-                    android:background="@color/hover">
+                    android:src="@drawable/default_coverimg">
 
                 </ImageView>
 
@@ -57,7 +58,9 @@
                         android:background="@color/hover">
 
                         <TextView
+
                             android:id="@+id/nameTv"
+                            android:text="Name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
@@ -69,6 +72,7 @@
 
                         <TextView
                             android:id="@+id/emailTv"
+                            android:text="Identity 1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="9dp"
@@ -77,6 +81,7 @@
 
                         <TextView
                             android:id="@+id/phoneTv"
+                            android:text="Identity 2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"

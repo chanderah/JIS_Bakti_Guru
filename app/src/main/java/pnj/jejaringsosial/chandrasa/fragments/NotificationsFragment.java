@@ -48,7 +48,6 @@ public class NotificationsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notifications,container,false);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         //init rv
         notificationsRv = view.findViewById(R.id.notificationsRv);
 
