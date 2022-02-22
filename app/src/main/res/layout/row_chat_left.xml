@@ -73,6 +73,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="23:31 - Wed, May 5"
+            android:textColor="@color/colorSilver"
             android:textSize="10sp"
             android:paddingStart="65dp"
             android:paddingBottom="5dp"

@@ -227,7 +227,6 @@ public class ChatActivity extends AppCompatActivity {
                     catch (Exception e) {
                         //error getting pic, set default pic
                         profileIv.setImageResource(R.drawable.ic_default_img);
-
                     }
                 }
             }

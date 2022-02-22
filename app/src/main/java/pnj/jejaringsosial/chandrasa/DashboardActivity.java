@@ -209,8 +209,8 @@ public class  DashboardActivity extends AppCompatActivity {
         //popup menu to show more options
         PopupMenu popupMenu = new PopupMenu(this, navigationView, Gravity.END);
         //items to show
-        popupMenu.getMenu().add(Menu.NONE,2,0,"Agenda");
-        popupMenu.getMenu().add(Menu.NONE,1,0,"Group Chats");
+        //popupMenu.getMenu().add(Menu.NONE,2,0,"Agenda");
+        //popupMenu.getMenu().add(Menu.NONE,1,0,"Group Chats");
         popupMenu.getMenu().add(Menu.NONE,0,0,"Notifications");
 
 

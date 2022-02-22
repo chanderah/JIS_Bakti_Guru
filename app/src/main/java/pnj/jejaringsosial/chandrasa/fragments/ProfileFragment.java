@@ -180,7 +180,7 @@ public class ProfileFragment extends Fragment {
                         Picasso.get().load(image).into(avatarIv);
                     }
                     catch (Exception e) {
-                        avatarIv.setImageResource(R.drawable.ic_default_img);
+                        avatarIv.setImageResource(R.drawable.ic_face_black);
                     }
 
                     try {
@@ -882,7 +882,7 @@ public class ProfileFragment extends Fragment {
         if (id == R.id.action_add_post) {
             //show dialog
             AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
-            builder.setItems(new String[]{"Add Photo", "Add Video"}, new DialogInterface.OnClickListener() {
+            builder.setItems(new String[]{"Add Photo"}, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (which==0) {

@@ -2,15 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-
     <item android:id="@+id/action_add_post"
         android:title="Add Post"
         app:showAsAction="always"/>
 
       <item android:id="@+id/action_create_group"
         android:title="Create Group"
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:icon="@drawable/ic_creategroup"/>
 
     <item android:id="@+id/action_add_video"
@@ -36,7 +34,8 @@
     <item android:id="@+id/action_add_agenda"
         android:title="Add Agenda"
         android:visible="false"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        />
 
     <item android:id="@+id/aboutApp"
         android:title="About"

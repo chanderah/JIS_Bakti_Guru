@@ -66,6 +66,7 @@
             android:layout_weight="1"
             android:paddingEnd="15dp"
             android:text="23:31 - Wed, May 5"
+            android:textColor="@color/colorSilver"
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

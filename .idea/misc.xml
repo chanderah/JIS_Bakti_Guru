@@ -3,24 +3,38 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/drawable-anydpi/ic_add_image.xml" value="0.1215" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/drawable-anydpi/ic_done_white.xml" value="0.1" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/drawable-anydpi/ic_group_white.xml" value="0.1215" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/drawable-anydpi/ic_register_white.xml" value="0.1215" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/drawable/ic_add_image_black.xml" value="0.1215" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/drawable/ic_register_circle.xml" value="0.1215" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/drawable/zzz.xml" value="0.1215" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/font/rubik.xml" value="0.14351851851851852" />
-        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_chat.xml" value="0.11041666666666666" />
-        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_dashboard.xml" value="0.11041666666666666" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_add_post.xml" value="0.2" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_add_video.xml" value="0.176" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_chat.xml" value="0.136" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_dashboard.xml" value="0.136" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_login.xml" value="0.136" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_post_detail.xml" value="0.264" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_register.xml" value="0.136" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/activity_user_profile.xml" value="0.13229166666666667" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/dialog_agenda_details.xml" value="0.11041666666666666" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/fragment_chats.xml" value="0.176" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/fragment_home.xml" value="0.152" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/fragment_notifications.xml" value="0.2359375" />
-        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
-        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_chats.xml" value="0.136" />
-        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_market.xml" value="0.264" />
-        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_posts.xml" value="0.144" />
-        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_users.xml" value="0.16799999999999998" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/fragment_profile.xml" value="0.176" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_chat_left.xml" value="0.264" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_chat_right.xml" value="0.11041666666666666" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_chats.xml" value="0.2" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_comments.xml" value="0.264" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_groupchat_left.xml" value="0.16799999999999998" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_market.xml" value="0.2" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_notification.xml" value="0.11041666666666666" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_posts.xml" value="0.2" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/layout/row_users.xml" value="0.152" />
+        <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/menu/menu_main.xml" value="0.11041666666666666" />
         <entry key="..\:/.AndroidStudioProjects/JIS-BaktiGuru/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1215" />
         <entry key="..\:/.AndroidStudioProjects/JejaringSosialKomunitasFotografi/app/src/main/res/drawable-anydpi/ic_add_image.xml" value="0.1" />
         <entry key="..\:/.AndroidStudioProjects/JejaringSosialKomunitasFotografi/app/src/main/res/drawable/zzz.xml" value="0.1" />

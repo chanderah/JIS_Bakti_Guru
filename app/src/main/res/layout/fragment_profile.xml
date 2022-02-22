@@ -35,59 +35,59 @@
                     android:id="@+id/linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="100dp">
+                    android:layout_marginTop="100dp"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/avatarIv"
-                        android:layout_marginStart="20dp"
-                        android:background="@color/hover"
-                        android:padding="0dp"
-                        android:src="@drawable/ic_default_img"
-                        android:scaleType="centerCrop"
-                        android:layout_gravity="center"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
-                        android:clickable="true"/>
+                        android:background="@color/hover"
+                        android:clickable="true"
+                        android:padding="0dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_default_img" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@color/hover">
+                        android:background="@color/hover"
+                        android:orientation="vertical">
 
                         <TextView
 
                             android:id="@+id/nameTv"
-                            android:text="Name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="2dp"
                             android:paddingTop="2dp"
-                            android:textSize="25sp"
+                            android:text=""
                             android:textColor="@color/colorWhite"
-                            android:layout_marginLeft="5dp" />
+                            android:textSize="25sp" />
 
                         <TextView
                             android:id="@+id/emailTv"
-                            android:text="Identity 1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="9dp"
-                            android:textColor="@color/colorWhite"
-                            android:layout_marginLeft="5dp" />
+                            android:layout_marginLeft="5dp"
+                            android:text=""
+                            android:textColor="@color/colorWhite" />
 
                         <TextView
                             android:id="@+id/phoneTv"
-                            android:text="Identity 2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginBottom="4dp"
-                            android:textColor="@color/colorWhite"
-                            android:layout_marginLeft="5dp" />
+                            android:text=""
+                            android:textColor="@color/colorWhite" />
 
                     </LinearLayout>
 
@@ -95,10 +95,10 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_posts"
-                    android:layout_below="@id/linearLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:nestedScrollingEnabled="false"/>
+                    android:layout_below="@id/linearLayout"
+                    android:nestedScrollingEnabled="false" />
 
             </RelativeLayout>
 
@@ -108,14 +108,18 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     //float act button
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:src="@drawable/ic_edit_white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
-        android:tintMode="@color/colorWhite"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/ic_edit_white"
+        android:tintMode="@color/colorWhite" />
 
 </RelativeLayout>

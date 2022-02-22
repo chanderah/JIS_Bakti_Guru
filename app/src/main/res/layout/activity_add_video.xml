@@ -6,22 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
+    android:background="@color/colorBlack"
     tools:context=".AddVideoActivity">
+
 
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:backgroundTint="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="9dp" />
 
     <ImageView
         android:id="@+id/pickVideoIv"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/ic_video_white"
+        android:src="@drawable/ic_video_black"
         app:layout_constraintBottom_toTopOf="@+id/detailPost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +31,6 @@
 
     <LinearLayout
         android:id="@+id/detailPost"
-        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Video Title"
+            android:textColor="@color/colorSilver"
             android:inputType="textCapSentences|textMultiLine"
             android:textStyle="bold"
             android:paddingTop="5dp"
@@ -60,6 +62,7 @@
             android:layout_height="wrap_content"
             android:hint="Enter Title..."
             android:textColorHint="@color/colorSilver"
+            android:textColor="@color/colorWhite"
             android:inputType="textPersonName|textCapSentences"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +78,8 @@
         app:layout_constraintBottom_toTopOf="@id/detailPost"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
-        android:src="@drawable/ic_done_white"/>
+        android:src="@drawable/ic_done_white"
+        android:backgroundTint="@color/colorWhite"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

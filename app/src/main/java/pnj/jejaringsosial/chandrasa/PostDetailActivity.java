@@ -96,7 +96,6 @@ public class PostDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
 
-
         //actionbar prop
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("Post Detail");
@@ -532,10 +531,10 @@ public class PostDetailActivity extends AppCompatActivity {
                     //set dp
                     try {
                         //set img
-                        Picasso.get().load(myDp).placeholder(R.drawable.ic_default_img).into(cAvatarIv);
+                        Picasso.get().load(myDp).placeholder(R.drawable.ic_face_black).into(cAvatarIv);
                     }
                     catch (Exception e){
-                        cAvatarIv.setImageResource(R.drawable.ic_default_img);
+                        cAvatarIv.setImageResource(R.drawable.ic_face_black);
 
                     }
 
@@ -623,10 +622,10 @@ public class PostDetailActivity extends AppCompatActivity {
 
                     //set user img in comment part
                     try {
-                        Picasso.get().load(hisDp).placeholder(R.drawable.ic_default_img).into(uPictureIv);
+                        Picasso.get().load(hisDp).placeholder(R.drawable.ic_face_black).into(uPictureIv);
                     }
                     catch (Exception e) {
-                        uPictureIv.setImageResource(R.drawable.ic_default_img);
+                        uPictureIv.setImageResource(R.drawable.ic_face_black);
 
                     }
                 }
@@ -760,6 +759,8 @@ public class PostDetailActivity extends AppCompatActivity {
             emailTv.setVisibility(View.VISIBLE);
             uNameTv.setVisibility(View.GONE);
             uploadedBy.setText("This image is uploaded by "+ hisEmail);
+            uploadedBy.setVisibility(View.GONE);
+
         }
         else {
             uNameTv.setText(hisName);
@@ -767,7 +768,7 @@ public class PostDetailActivity extends AppCompatActivity {
             emailTv.setVisibility(View.GONE);
 
             uploadedBy.setText("This image is uploaded by "+ hisName);
-            uploadedBy.setVisibility(View.VISIBLE);
+            uploadedBy.setVisibility(View.GONE);
         }
     }
 

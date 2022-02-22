@@ -51,8 +51,19 @@ public class AdapterUsers extends RecyclerView.Adapter<AdapterUsers.MyHolder>{
         String userEmail = userList.get(i).getEmail();
 
         //set data
-        myHolder.mNameTv.setText(userName);
-        myHolder.mEmailTv.setText(userEmail);
+
+
+        if(userName!=null & !userName.isEmpty()) {
+            myHolder.mNameTv.setText(userName);
+            myHolder.mEmailTv.setVisibility(View.GONE);
+            myHolder.mNameTv.setVisibility(View.VISIBLE);
+        }
+        else {
+            myHolder.mEmailTv.setText(userEmail);
+            myHolder.mEmailTv.setVisibility(View.VISIBLE);
+            myHolder.mNameTv.setVisibility(View.GONE);
+        }
+
         try {
             Picasso.get().load(userImage).into(myHolder.mAvatarIv);
 

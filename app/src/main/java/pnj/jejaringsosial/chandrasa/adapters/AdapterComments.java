@@ -72,27 +72,28 @@ public class AdapterComments extends RecyclerView.Adapter<AdapterComments.MyHold
         String pTime = DateFormat.format("dd/MM/yy hh:mm aa", calendar).toString();
 
         //set data
-        myHolder.commentTv.setText(comment);
-        myHolder.timeTv.setText(pTime);
 
-        //uploadedBy
-        if (name.equals("")){
+        //
+        if(name==null) {
             myHolder.emailTv.setText(email);
             myHolder.emailTv.setVisibility(View.VISIBLE);
             myHolder.nameTv.setVisibility(View.GONE);
         }
         else {
+            myHolder.emailTv.setVisibility(View.GONE);
             myHolder.nameTv.setText(name);
             myHolder.nameTv.setVisibility(View.VISIBLE);
-            myHolder.emailTv.setVisibility(View.GONE);
         }
+
+        myHolder.commentTv.setText(comment);
+        myHolder.timeTv.setText(pTime);
 
         //set user dp
         try {
-            Picasso.get().load(image).placeholder(R.drawable.ic_default_img).into(myHolder.avatarIv);
+            Picasso.get().load(image).placeholder(R.drawable.ic_face_black).into(myHolder.avatarIv);
         }
         catch (Exception e) {
-            myHolder.avatarIv.setImageResource(R.drawable.ic_default_img);
+            myHolder.avatarIv.setImageResource(R.drawable.ic_face_black);
         }
 
         //comment click listener

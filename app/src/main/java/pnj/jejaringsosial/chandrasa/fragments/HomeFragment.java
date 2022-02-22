@@ -238,7 +238,7 @@ public class HomeFragment extends Fragment {
 
             //show dialog
             AlertDialog.Builder builder =  new AlertDialog.Builder(getActivity());
-            builder.setItems(new String[]{"Add Photo", "Add Video"}, new DialogInterface.OnClickListener() {
+            builder.setItems(new String[]{"Add Photo"}, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (which==0) {

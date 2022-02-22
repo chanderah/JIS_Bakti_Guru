@@ -133,12 +133,12 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             myHolder.pImageIv.setVisibility(View.VISIBLE);
             myHolder.progressBar.setVisibility(View.GONE);
             myHolder.videoView.setVisibility(View.GONE);
-            if (uName.equals("")){
+            if (uName==null){
                 try {
                     myHolder.uEmailTv.setText(uEmail);
                     myHolder.uEmailTv.setVisibility(View.VISIBLE);
                     myHolder.uNameTv.setVisibility(View.GONE);
-                    myHolder.uploadedBy.setText("This image is uploaded by "+ uEmail);
+                    //myHolder.uploadedBy.setText("This image is uploaded by "+ uEmail);
 
                 }
                 catch (Exception e) {
@@ -149,8 +149,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                 myHolder.uNameTv.setVisibility(View.VISIBLE);
                 myHolder.uEmailTv.setVisibility(View.GONE);
 
-                myHolder.uploadedBy.setText("This image is uploaded by "+ uName);
-                myHolder.uploadedBy.setVisibility(View.VISIBLE);
+                //myHolder.uploadedBy.setText("This image is uploaded by "+ uName);
+                //myHolder.uploadedBy.setVisibility(View.VISIBLE);
             }
         }
         else {
@@ -164,7 +164,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                     myHolder.uEmailTv.setText(uEmail);
                     myHolder.uEmailTv.setVisibility(View.VISIBLE);
                     myHolder.uNameTv.setVisibility(View.GONE);
-                    myHolder.uploadedBy.setText("This video is uploaded by "+ uEmail);
+                    //myHolder.uploadedBy.setText("This video is uploaded by "+ uEmail);
 
                 }
                 catch (Exception e) {
@@ -175,8 +175,8 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
                 myHolder.uNameTv.setVisibility(View.VISIBLE);
                 myHolder.uEmailTv.setVisibility(View.GONE);
 
-                myHolder.uploadedBy.setText("This video is uploaded by "+ uName);
-                myHolder.uploadedBy.setVisibility(View.VISIBLE);
+                //myHolder.uploadedBy.setText("This video is uploaded by "+ uName);
+                //myHolder.uploadedBy.setVisibility(View.VISIBLE);
             }
         }
 

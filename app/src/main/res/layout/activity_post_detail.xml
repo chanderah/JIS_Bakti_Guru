@@ -22,7 +22,6 @@
                 app:cardCornerRadius="3dp"
                 app:cardElevation="3dp"
                 app:cardUseCompatPadding="true"
-                app:cardBackgroundColor="@color/colorPrimaryDark"
                 app:contentPadding="5dp"
                 >
 
@@ -36,12 +35,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical">
+                        android:gravity="center_vertical"
+                        android:paddingBottom="5dp">
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/uPictureIv"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_default_img_white"
+                            android:src="@drawable/ic_face_black"
                             android:layout_width="50dp"
                             android:layout_height="50dp"/>
 
@@ -56,14 +56,14 @@
                             <TextView
                                 android:id="@+id/uNameTv"
                                 android:text="Name"
-                                android:textSize="20sp"
+                                android:textSize="16sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
                             <TextView
                                 android:id="@+id/emailTv"
                                 android:text="Email"
-                                android:textSize="16sp"
+                                android:textSize="12sp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -170,6 +170,16 @@
                         android:text="Title"
                         android:autoLink="all"/>
 
+                    <TextView
+                        android:id="@+id/pDescTv"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:text="Desc"
+                        android:autoLink="all"/>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -227,8 +237,9 @@
                 android:text="Comments"
                 android:drawablePadding="5dp"
                 android:padding="2dp"
-                android:drawableStart="@drawable/ic_comments"
-                android:nestedScrollingEnabled="false"/>
+                android:drawableStart="@drawable/ic_comments_black"
+                android:nestedScrollingEnabled="false"
+                android:paddingStart="10dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
@@ -246,32 +257,34 @@
         android:layout_alignParentBottom="true">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/cAvatarIv"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/cAvatarIv"
-            android:src="@drawable/ic_default_img"/>
+            android:src="@drawable/ic_face_black" />
 
         <EditText
             android:id="@+id/commentEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/cAvatarIv"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
             android:layout_toStartOf="@id/sendBtn"
-            android:padding="10dp"
+            android:layout_toEndOf="@id/cAvatarIv"
             android:hint="Enter a comment..."
             android:inputType="textCapSentences|textMultiLine"
-            android:layout_margin="1dp"/>
+            android:padding="10dp" />
 
         <ImageButton
+            android:id="@+id/sendBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_send"
-            android:layout_marginEnd="10dp"
             android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
             android:background="@null"
-            android:id="@+id/sendBtn"
-            android:tintMode="@color/colorWhite"/>
+            android:src="@drawable/ic_send_black"/>
 
     </RelativeLayout>
 
