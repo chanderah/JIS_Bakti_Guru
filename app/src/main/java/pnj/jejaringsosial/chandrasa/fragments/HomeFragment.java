@@ -69,7 +69,6 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
-
         //init
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -81,8 +80,6 @@ public class HomeFragment extends Fragment {
             loadPosts(); //
             swiperefreshlayout.setRefreshing(false);
         });
-
-
 
         //recycler view and its properties
         recyclerView = view.findViewById(R.id.postsRecyclerview);

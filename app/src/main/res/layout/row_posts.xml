@@ -7,8 +7,7 @@
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true"
-    app:contentPadding="5dp"
-    >
+    app:contentPadding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -154,7 +153,7 @@
                     android:layout_weight="1"
                     android:paddingLeft="10dp"
                     android:text="... likes"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/pCommentsTv"
@@ -167,7 +166,7 @@
                     android:layout_weight="1"
                     android:text="1 Comments"
                     android:textAlignment="textEnd"
-                    android:textSize="12sp"/>
+                    android:textSize="12sp" />
 
             </RelativeLayout>
 
@@ -221,7 +220,6 @@
 
 
         </LinearLayout>
-
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

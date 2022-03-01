@@ -50,7 +50,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
-public class AddPostActivity extends AppCompatActivity {
+public class SuretyBond extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     DatabaseReference userDbRef;
@@ -144,7 +144,7 @@ public class AddPostActivity extends AppCompatActivity {
                 //get title, desc from et
                 String title = titleEt.getText().toString().trim();
                 if (TextUtils.isEmpty(title)){
-                    Toast.makeText(AddPostActivity.this, "Please enter a title...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SuretyBond.this, "Please enter a title...", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -159,7 +159,7 @@ public class AddPostActivity extends AppCompatActivity {
                     actionBar.setTitle("Add New Photo");
 
                     if (image_rui==null){
-                        Toast.makeText(AddPostActivity.this, "Pick a photo first...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SuretyBond.this, "Pick a photo first...", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     else {
@@ -189,7 +189,6 @@ public class AddPostActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void beginUpdate(String title, String editPostId) {
@@ -210,41 +209,41 @@ public class AddPostActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            HashMap<String, Object> hashMap = new HashMap<>();
-                            //put post info
-                            hashMap.put("uid", uid);
-                            hashMap.put("uName", name);
-                            hashMap.put("uEmail", email);
-                            hashMap.put("uDp", dp);
-                            hashMap.put("pTitle", title);
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        //put post info
+                        hashMap.put("uid", uid);
+                        hashMap.put("uName", name);
+                        hashMap.put("uEmail", email);
+                        hashMap.put("uDp", dp);
+                        hashMap.put("pTitle", title);
 
-                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
-                            ref.child(editPostId)
-                                    .updateChildren(hashMap)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            pd.dismiss();
-                                            Toast.makeText(AddPostActivity.this, "Updated...", Toast.LENGTH_SHORT).show();
-                                            finish();
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Posts");
+                        ref.child(editPostId)
+                                .updateChildren(hashMap)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        pd.dismiss();
+                                        Toast.makeText(SuretyBond.this, "Updated...", Toast.LENGTH_SHORT).show();
+                                        finish();
 
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull @NotNull Exception e) {
-                                            pd.dismiss();
-                                            Toast.makeText(AddPostActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull @NotNull Exception e) {
+                                        pd.dismiss();
+                                        Toast.makeText(SuretyBond.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
 
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull @NotNull Exception e) {
                         pd.dismiss();
-                        Toast.makeText(AddPostActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SuretyBond.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -334,8 +333,8 @@ public class AddPostActivity extends AppCompatActivity {
                                         public void onSuccess(Void unused) {
                                             //database added
                                             pd.dismiss();
-                                            Toast.makeText(AddPostActivity.this, "Post published", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(AddPostActivity.this, DashboardActivity.class));
+                                            Toast.makeText(SuretyBond.this, "Post published", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(SuretyBond.this, DashboardActivity.class));
                                             finish();
 
                                         }
@@ -344,7 +343,7 @@ public class AddPostActivity extends AppCompatActivity {
                                         @Override
                                         public void onFailure(@NonNull @NotNull Exception e) {
                                             pd.dismiss();
-                                            Toast.makeText(AddPostActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(SuretyBond.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
                         }
@@ -355,7 +354,7 @@ public class AddPostActivity extends AppCompatActivity {
                     public void onFailure(@NonNull @NotNull Exception e) {
                         //failed upload
                         pd.dismiss();
-                        Toast.makeText(AddPostActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SuretyBond.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -374,12 +373,12 @@ public class AddPostActivity extends AppCompatActivity {
                 //item click handle
                 if (which==0) {
                     //camera click
-                   if (!checkCameraPermission()) {
-                       requestCameraPermission();
-                   }
-                   else {
-                       pickFromCamera();
-                   }
+                    if (!checkCameraPermission()) {
+                        requestCameraPermission();
+                    }
+                    else {
+                        pickFromCamera();
+                    }
                 }
                 if (which==1) {
                     //gallery click
@@ -405,7 +404,6 @@ public class AddPostActivity extends AppCompatActivity {
 
     private void pickFromCamera() {
         //intent pick img from camera
-
         ContentValues cv = new ContentValues();
         cv.put(MediaStore.Images.Media.TITLE,"Temp Pick");
         cv.put(MediaStore.Images.Media.DESCRIPTION,"Temp Desc");
@@ -442,7 +440,6 @@ public class AddPostActivity extends AppCompatActivity {
         //request runtime permission camera
         ActivityCompat.requestPermissions(this, cameraPermissions, CAMERA_REQUEST_CODE);
     }
-
 
     @Override
     protected void onStart() {
@@ -497,7 +494,7 @@ public class AddPostActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_add_video) {
-            startActivity(new Intent(AddPostActivity.this, AddVideoActivity.class));
+            startActivity(new Intent(SuretyBond.this, AddVideoActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

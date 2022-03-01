@@ -83,7 +83,6 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
     public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         //inflate layout row post
         View view = LayoutInflater.from(context).inflate(R.layout.row_posts, viewGroup, false);
-
         return new MyHolder(view);
     }
 

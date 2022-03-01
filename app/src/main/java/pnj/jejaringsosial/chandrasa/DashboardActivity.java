@@ -29,6 +29,7 @@ import pnj.jejaringsosial.chandrasa.fragments.AgendasFragment;
 import pnj.jejaringsosial.chandrasa.fragments.ChatsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.GroupChatsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.HomeFragment;
+import pnj.jejaringsosial.chandrasa.fragments.MarketFragment;
 import pnj.jejaringsosial.chandrasa.fragments.NotificationsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.ProfileFragment;
 import pnj.jejaringsosial.chandrasa.fragments.UsersFragment;
@@ -211,8 +212,8 @@ public class  DashboardActivity extends AppCompatActivity {
         //items to show
         //popupMenu.getMenu().add(Menu.NONE,2,0,"Agenda");
         //popupMenu.getMenu().add(Menu.NONE,1,0,"Group Chats");
+        popupMenu.getMenu().add(Menu.NONE,1,0,"Marketplace");
         popupMenu.getMenu().add(Menu.NONE,0,0,"Notifications");
-
 
         //menu clicks
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -228,6 +229,14 @@ public class  DashboardActivity extends AppCompatActivity {
                     ft5.commit();
                 }
                 else if (id == 1) {
+                    //groupChats clicked
+                    actionBar.setTitle("Marketplace");
+                    MarketFragment fragment7 = new MarketFragment();
+                    FragmentTransaction ft7 = getSupportFragmentManager().beginTransaction();
+                    ft7.replace(R.id.content, fragment7, "");
+                    ft7.commit();
+                }
+                else if (id == 5) {
                     //groupChats clicked
                     actionBar.setTitle("Group Chats");
                     GroupChatsFragment fragment6 = new GroupChatsFragment();
