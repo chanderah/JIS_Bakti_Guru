@@ -23,7 +23,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -464,7 +463,7 @@ public class AddPostActivity extends AppCompatActivity {
             uid = user.getUid();
         }
         else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, TimelineActivity.class));
             finish();
         }
     }

@@ -4,10 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -34,8 +32,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-
-import pnj.jejaringsosial.chandrasa.notifications.ReminderBroadcast;
 
 public class AddAgendaActivity extends AppCompatActivity {
 
@@ -178,7 +174,7 @@ public class AddAgendaActivity extends AppCompatActivity {
             //signed user stay here
         }
         else {
-            startActivity(new Intent(AddAgendaActivity.this, MainActivity.class));
+            startActivity(new Intent(AddAgendaActivity.this, TimelineActivity.class));
             finish();
         }
     }

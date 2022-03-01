@@ -484,7 +484,7 @@ class pnj.jejaringsosial.chandrasa.fragments.UsersFragment {
 + boolean onOptionsItemSelected(MenuItem)
 }
 
-class pnj.jejaringsosial.chandrasa.MainActivity {
+class pnj.jejaringsosial.chandrasa.TimelineActivity {
 - {static} int RC_SIGN_IN
 ~ GoogleSignInClient mGoogleSignInClient
 ~ Button mRegisterBtn
@@ -679,7 +679,7 @@ class pnj.jejaringsosial.chandrasa.adapters.AdapterChat.MyHolder {
 ~ TextView messageTv
 ~ LinearLayout messageLAyout
 }
-class pnj.jejaringsosial.chandrasa.fragments.HomeFragment {
+class pnj.jejaringsosial.chandrasa.fragments.TimelineFragment {
 ~ FirebaseAuth firebaseAuth
 ~ RecyclerView recyclerView
 ~ List<ModelPost> postList
@@ -790,7 +790,7 @@ pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.
 pnj.jejaringsosial.chandrasa.adapters.AdapterUsers +.. pnj.jejaringsosial.chandrasa.adapters.AdapterUsers.MyHolder
 pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterUsers.MyHolder
 androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.UsersFragment
-androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.TimelineActivity
 androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.AddVideoActivity
 androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.UserProfileActivity
 androidx.appcompat.app.AppCompatActivity <|-- pnj.jejaringsosial.chandrasa.RegisterActivity
@@ -801,7 +801,7 @@ androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.Notif
 pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterChat
 pnj.jejaringsosial.chandrasa.adapters.AdapterChat +.. pnj.jejaringsosial.chandrasa.adapters.AdapterChat.MyHolder
 pnj.jejaringsosial.chandrasa.adapters.ViewHolder <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterChat.MyHolder
-androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.HomeFragment
+androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.TimelineFragment
 androidx.fragment.app.Fragment <|-- pnj.jejaringsosial.chandrasa.fragments.ChatsFragment
 pnj.jejaringsosial.chandrasa.adapters.Adapter <|-- pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList
 pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList +.. pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList.HolderGroupChatList

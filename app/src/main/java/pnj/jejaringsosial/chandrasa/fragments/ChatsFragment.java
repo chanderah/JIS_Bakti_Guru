@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pnj.jejaringsosial.chandrasa.GroupCreateActivity;
-import pnj.jejaringsosial.chandrasa.MainActivity;
+import pnj.jejaringsosial.chandrasa.TimelineActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterChats;
 import pnj.jejaringsosial.chandrasa.models.ModelChat;
@@ -182,7 +181,7 @@ public class ChatsFragment extends Fragment {
             //signed user stay here
         }
         else {
-            startActivity(new Intent(getActivity(), MainActivity.class));
+            startActivity(new Intent(getActivity(), TimelineActivity.class));
             getActivity().finish();
         }
     }

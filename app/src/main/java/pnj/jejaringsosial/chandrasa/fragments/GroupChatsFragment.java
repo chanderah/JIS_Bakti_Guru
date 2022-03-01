@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
@@ -34,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 import pnj.jejaringsosial.chandrasa.GroupCreateActivity;
-import pnj.jejaringsosial.chandrasa.MainActivity;
+import pnj.jejaringsosial.chandrasa.TimelineActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChatList;
 import pnj.jejaringsosial.chandrasa.models.ModelGroupChatList;
@@ -214,7 +213,7 @@ public class GroupChatsFragment extends Fragment {
     private void checkUserStatus() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
             if (user==null){
-                startActivity(new Intent(getActivity(), MainActivity.class));
+                startActivity(new Intent(getActivity(), TimelineActivity.class));
                 getActivity().finish();
             }
         }

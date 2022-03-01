@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -25,7 +24,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,7 +54,6 @@ import java.util.HashMap;
 
 import pnj.jejaringsosial.chandrasa.adapters.AdapterGroupChat;
 import pnj.jejaringsosial.chandrasa.models.ModelGroupChat;
-import pnj.jejaringsosial.chandrasa.models.ModelUser;
 
 public class GroupChatActivity extends AppCompatActivity {
 
@@ -384,7 +381,7 @@ public class GroupChatActivity extends AppCompatActivity {
             user.getUid(); //current user id
         }
         else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, TimelineActivity.class));
             finish();
         }
     }

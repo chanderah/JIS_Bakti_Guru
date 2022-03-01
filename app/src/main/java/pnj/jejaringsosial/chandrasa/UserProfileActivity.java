@@ -3,7 +3,6 @@ package pnj.jejaringsosial.chandrasa;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -230,7 +229,7 @@ public class UserProfileActivity extends AppCompatActivity {
             //signed user stay here
         }
         else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, TimelineActivity.class));
             finish();
         }
     }

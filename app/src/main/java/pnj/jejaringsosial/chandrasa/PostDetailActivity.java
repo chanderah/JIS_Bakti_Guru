@@ -3,10 +3,8 @@ package pnj.jejaringsosial.chandrasa;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -779,7 +777,7 @@ public class PostDetailActivity extends AppCompatActivity {
             myUid = user.getUid();
         }
         else {
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, TimelineActivity.class));
             finish();
         }
     }

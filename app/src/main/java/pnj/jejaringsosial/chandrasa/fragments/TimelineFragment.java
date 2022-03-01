@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
@@ -23,9 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,14 +39,12 @@ import java.util.List;
 
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
 import pnj.jejaringsosial.chandrasa.AddVideoActivity;
-import pnj.jejaringsosial.chandrasa.ChatActivity;
-import pnj.jejaringsosial.chandrasa.MainActivity;
+import pnj.jejaringsosial.chandrasa.TimelineActivity;
 import pnj.jejaringsosial.chandrasa.R;
-import pnj.jejaringsosial.chandrasa.UserProfileActivity;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterPosts;
 import pnj.jejaringsosial.chandrasa.models.ModelPost;
 
-public class HomeFragment extends Fragment {
+public class TimelineFragment extends Fragment {
 
     //firebase auth
     FirebaseAuth firebaseAuth;
@@ -59,14 +53,14 @@ public class HomeFragment extends Fragment {
     List<ModelPost> postList;
     AdapterPosts adapterPosts;
 
-    public HomeFragment() {
+    public TimelineFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_home, container, false);
+        View view =  inflater.inflate(R.layout.fragment_timeline, container, false);
 
         //init
         firebaseAuth = FirebaseAuth.getInstance();
@@ -164,7 +158,7 @@ public class HomeFragment extends Fragment {
             //signed user stay here
         }
         else {
-            startActivity(new Intent(getActivity(), MainActivity.class));
+            startActivity(new Intent(getActivity(), TimelineActivity.class));
             getActivity().finish();
         }
     }

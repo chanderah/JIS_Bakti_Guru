@@ -3,7 +3,6 @@ package pnj.jejaringsosial.chandrasa;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -28,7 +27,7 @@ import java.util.HashMap;
 import pnj.jejaringsosial.chandrasa.fragments.AgendasFragment;
 import pnj.jejaringsosial.chandrasa.fragments.ChatsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.GroupChatsFragment;
-import pnj.jejaringsosial.chandrasa.fragments.HomeFragment;
+import pnj.jejaringsosial.chandrasa.fragments.TimelineFragment;
 import pnj.jejaringsosial.chandrasa.fragments.MarketFragment;
 import pnj.jejaringsosial.chandrasa.fragments.NotificationsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.ProfileFragment;
@@ -69,8 +68,8 @@ public class  DashboardActivity extends AppCompatActivity {
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
 
         //home fragment transaction default
-        actionBar.setTitle("Home");
-        HomeFragment fragment1 = new HomeFragment();
+        actionBar.setTitle("Timeline");
+        TimelineFragment fragment1 = new TimelineFragment();
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.replace(R.id.content, fragment1, "");
         ft1.commit();
@@ -113,7 +112,7 @@ public class  DashboardActivity extends AppCompatActivity {
             updateToken();
         }
         else {
-            startActivity(new Intent(DashboardActivity.this, MainActivity.class));
+            startActivity(new Intent(DashboardActivity.this, TimelineActivity.class));
             finish();
             Toast.makeText(this, "Your session expired. Please login...", Toast.LENGTH_SHORT).show();
         }
@@ -165,9 +164,9 @@ public class  DashboardActivity extends AppCompatActivity {
                     ActionBar actionBar = getSupportActionBar();
 
                     switch (menuItem.getItemId()) {
-                        case R.id.nav_home:
-                            actionBar.setTitle("Home");
-                            HomeFragment fragment1 = new HomeFragment();
+                        case R.id.nav_timeline:
+                            actionBar.setTitle("Timeline");
+                            TimelineFragment fragment1 = new TimelineFragment();
                             FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
                             ft1.replace(R.id.content, fragment1, "");
                             ft1.commit();

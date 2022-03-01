@@ -3,7 +3,6 @@ package pnj.jejaringsosial.chandrasa;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -32,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 100;
     GoogleSignInClient mGoogleSignInClient;
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RegisterActivity.class));
+                startActivity(new Intent(TimelineActivity.this, RegisterActivity.class));
             }
         });
 
@@ -88,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivity(new Intent(TimelineActivity.this, LoginActivity.class));
             }
         });
     }
@@ -150,19 +149,19 @@ public class MainActivity extends AppCompatActivity {
                                 reference.child(uid).setValue(hashMap);
                             }
 
-                            Toast.makeText(MainActivity.this, "Logged in as "+user.getEmail(), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(MainActivity.this, DashboardActivity.class));                            finish();
+                            Toast.makeText(TimelineActivity.this, "Logged in as "+user.getEmail(), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(TimelineActivity.this, DashboardActivity.class));                            finish();
 
                         } else {
                             // If sign in fails, display default_coverimg message to the user.
-                            Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(TimelineActivity.this, "Login Failed", Toast.LENGTH_SHORT).show();
 
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(TimelineActivity.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

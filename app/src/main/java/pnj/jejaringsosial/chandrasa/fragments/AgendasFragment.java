@@ -1,14 +1,11 @@
 package pnj.jejaringsosial.chandrasa.fragments;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
@@ -37,19 +34,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 import pnj.jejaringsosial.chandrasa.AddAgendaActivity;
-import pnj.jejaringsosial.chandrasa.AddPostActivity;
-import pnj.jejaringsosial.chandrasa.AddVideoActivity;
-import pnj.jejaringsosial.chandrasa.MainActivity;
+import pnj.jejaringsosial.chandrasa.TimelineActivity;
 import pnj.jejaringsosial.chandrasa.R;
 import pnj.jejaringsosial.chandrasa.adapters.AdapterAgendas;
-import pnj.jejaringsosial.chandrasa.adapters.AdapterNotification;
-import pnj.jejaringsosial.chandrasa.adapters.AdapterUsers;
 import pnj.jejaringsosial.chandrasa.models.ModelAgenda;
-import pnj.jejaringsosial.chandrasa.models.ModelNotification;
-import pnj.jejaringsosial.chandrasa.models.ModelUser;
 
 
 public class AgendasFragment extends Fragment {
@@ -217,7 +207,7 @@ public class AgendasFragment extends Fragment {
             //signed user stay here
         }
         else {
-            startActivity(new Intent(getActivity(), MainActivity.class));
+            startActivity(new Intent(getActivity(), TimelineActivity.class));
             getActivity().finish();
         }
     }
