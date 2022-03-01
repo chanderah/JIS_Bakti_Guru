@@ -90,7 +90,6 @@ public class PostDetailActivity extends AppCompatActivity {
     VideoView videoView;
     ProgressBar progressBar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

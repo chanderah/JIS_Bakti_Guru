@@ -149,6 +149,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/hover"
                             android:text="This"
+                            android:visibility="gone"
                             android:textAlignment="center"
                             android:gravity="center"
                             android:padding="5dp"

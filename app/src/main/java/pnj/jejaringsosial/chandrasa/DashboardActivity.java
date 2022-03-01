@@ -212,7 +212,7 @@ public class  DashboardActivity extends AppCompatActivity {
         //items to show
         //popupMenu.getMenu().add(Menu.NONE,2,0,"Agenda");
         //popupMenu.getMenu().add(Menu.NONE,1,0,"Group Chats");
-        popupMenu.getMenu().add(Menu.NONE,1,0,"Marketplace");
+        popupMenu.getMenu().add(Menu.NONE,1,0,"Insurance");
         popupMenu.getMenu().add(Menu.NONE,0,0,"Notifications");
 
         //menu clicks
@@ -230,7 +230,7 @@ public class  DashboardActivity extends AppCompatActivity {
                 }
                 else if (id == 1) {
                     //groupChats clicked
-                    actionBar.setTitle("Marketplace");
+                    actionBar.setTitle("Insurance");
                     MarketFragment fragment7 = new MarketFragment();
                     FragmentTransaction ft7 = getSupportFragmentManager().beginTransaction();
                     ft7.replace(R.id.content, fragment7, "");
