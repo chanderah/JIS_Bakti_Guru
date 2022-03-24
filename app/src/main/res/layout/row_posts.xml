@@ -12,8 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/profileLayout"
@@ -197,27 +196,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            >
 
             <Button
                 android:id="@+id/likeBtn"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="LIKE"
-                android:drawableLeft="@drawable/ic_like_white"
+                android:drawableLeft="@drawable/ic_liked"
                 android:drawablePadding="5dp"
-                android:background="@color/colorWhite"/>
+                android:text="LIKE"
+                android:layout_weight="1"/>
+
             <Button
                 android:id="@+id/commentBtn"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="COMMENT"
-                android:drawableLeft="@drawable/ic_comment_white"
+                android:drawableLeft="@drawable/ic_comments_black"
                 android:drawablePadding="5dp"
-                android:background="@color/colorWhite"/>
-
+                android:text="COMMENT"
+                android:layout_weight="1"/>
 
         </LinearLayout>
 

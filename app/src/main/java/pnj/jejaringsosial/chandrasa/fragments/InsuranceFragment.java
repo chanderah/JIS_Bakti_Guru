@@ -17,13 +17,13 @@ import androidx.fragment.app.Fragment;
 import pnj.jejaringsosial.chandrasa.AddPostActivity;
 import pnj.jejaringsosial.chandrasa.R;
 
-public class MarketFragment extends Fragment {
+public class InsuranceFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.row_market,container,false);
+        View view = inflater.inflate(R.layout.row_insurance,container,false);
 
         CardView card_view = view.findViewById(R.id.cvUser); // creating a CardView and assigning a value.
 
@@ -43,6 +43,6 @@ public class MarketFragment extends Fragment {
         super.onResume();
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setTitle("Marketplace");
+        actionBar.setTitle("Insurance");
     }
 }

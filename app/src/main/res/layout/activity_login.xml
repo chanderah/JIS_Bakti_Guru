@@ -63,8 +63,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/ic_login_black"
-        android:text="Login"
-        />
+        android:text="Login" />
 
     <TextView
         android:id="@+id/forgotPasswordTv"

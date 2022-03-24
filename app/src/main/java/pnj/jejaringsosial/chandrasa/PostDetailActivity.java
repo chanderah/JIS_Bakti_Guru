@@ -392,12 +392,12 @@ public class PostDetailActivity extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(postId).hasChild(myUid)){
                     //user has liked this post
-                    likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_liked,0,0,0);
+                    likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_black,0,0,0);
                     likeBtn.setText("Liked");
                 }
                 else {
                     //user has not liked this post
-                    likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_white,0,0,0);
+                    likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_liked,0,0,0);
                     likeBtn.setText("Like");
 
                 }

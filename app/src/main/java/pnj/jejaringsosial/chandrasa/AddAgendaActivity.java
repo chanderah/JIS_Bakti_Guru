@@ -167,7 +167,6 @@ public class AddAgendaActivity extends AppCompatActivity {
                 });
     }
 
-
     private void checkUserStatus() {
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user != null){

@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
@@ -48,12 +50,12 @@ public class UsersFragment extends Fragment {
     SwipeRefreshLayout swiperefreshlayout;
 
     FirebaseAuth firebaseAuth;
+    ActionBar actionBar;
 
 
     public UsersFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -176,6 +178,14 @@ public class UsersFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setTitle("Users");
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true); //show menu option
         super.onCreate(savedInstanceState);
@@ -196,6 +206,7 @@ public class UsersFragment extends Fragment {
 
         //searchview
         MenuItem item = menu.findItem(R.id.action_search);
+        item.setVisible(false);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
 
         //search listener
@@ -233,8 +244,6 @@ public class UsersFragment extends Fragment {
 
         super.onCreateOptionsMenu(menu, inflater);
     }
-
-
 
     //handle menu click
     @Override

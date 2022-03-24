@@ -9,6 +9,7 @@
       <item android:id="@+id/action_create_group"
         android:title="Create Group"
         app:showAsAction="never"
+          android:visible="false"
         android:icon="@drawable/ic_creategroup"/>
 
     <item android:id="@+id/action_add_video"

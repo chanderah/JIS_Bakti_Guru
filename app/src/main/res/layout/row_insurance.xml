@@ -30,15 +30,14 @@
             android:layout_height="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/imgSuretyBond"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_image_black" />
+                    android:src="@drawable/ic_key_black"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -61,15 +60,14 @@
             android:layout_height="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/ivBG"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_image_black" />
+                    android:src="@drawable/ic_bank_black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -92,15 +90,14 @@
             android:layout_height="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/ivAkredit"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_image_black" />
+                    android:src="@drawable/ic_card_black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -122,15 +119,14 @@
             android:layout_height="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/ivProperty"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_image_black" />
+                    android:src="@drawable/ic_property_black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -152,8 +148,7 @@
             android:layout_height="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/ivContractor"
@@ -182,15 +177,14 @@
             android:layout_height="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/ivGeneral"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_image_black" />
+                    android:src="@drawable/ic_man_black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -213,15 +207,14 @@
             android:layout_height="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/imgInsurance"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_image_black" />
+                    android:src="@drawable/ic_face_black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -244,15 +237,14 @@
             android:layout_height="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/imgInsurance"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_image_black" />
+                    android:src="@drawable/ic_face_black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -274,15 +266,14 @@
             android:layout_height="0dp">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/imgInsurance"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/ic_image_black" />
+                    android:src="@drawable/ic_face_black" />
 
                 <TextView
                     android:layout_width="match_parent"

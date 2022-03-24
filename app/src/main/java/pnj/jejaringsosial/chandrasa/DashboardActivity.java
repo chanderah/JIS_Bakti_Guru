@@ -27,8 +27,9 @@ import java.util.HashMap;
 import pnj.jejaringsosial.chandrasa.fragments.AgendasFragment;
 import pnj.jejaringsosial.chandrasa.fragments.ChatsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.GroupChatsFragment;
+import pnj.jejaringsosial.chandrasa.fragments.HomeFragment;
 import pnj.jejaringsosial.chandrasa.fragments.TimelineFragment;
-import pnj.jejaringsosial.chandrasa.fragments.MarketFragment;
+import pnj.jejaringsosial.chandrasa.fragments.InsuranceFragment;
 import pnj.jejaringsosial.chandrasa.fragments.NotificationsFragment;
 import pnj.jejaringsosial.chandrasa.fragments.ProfileFragment;
 import pnj.jejaringsosial.chandrasa.fragments.UsersFragment;
@@ -68,8 +69,8 @@ public class  DashboardActivity extends AppCompatActivity {
         navigationView.setOnNavigationItemSelectedListener(selectedListener);
 
         //home fragment transaction default
-        actionBar.setTitle("Timeline");
-        TimelineFragment fragment1 = new TimelineFragment();
+        actionBar.setTitle("Home");
+        HomeFragment fragment1 = new HomeFragment();
         FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
         ft1.replace(R.id.content, fragment1, "");
         ft1.commit();
@@ -77,7 +78,7 @@ public class  DashboardActivity extends AppCompatActivity {
         checkUserStatus();
 
     }
-    
+
 
     private void updateToken() {
 
@@ -164,12 +165,13 @@ public class  DashboardActivity extends AppCompatActivity {
                     ActionBar actionBar = getSupportActionBar();
 
                     switch (menuItem.getItemId()) {
-                        case R.id.nav_timeline:
-                            actionBar.setTitle("Timeline");
-                            TimelineFragment fragment1 = new TimelineFragment();
+                        case R.id.nav_home:
+                            actionBar.setTitle("Home");
+                            HomeFragment fragment1 = new HomeFragment();
                             FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
                             ft1.replace(R.id.content, fragment1, "");
                             ft1.commit();
+
                             //fragm
                             return true;
                         case R.id.nav_profile:
@@ -211,8 +213,10 @@ public class  DashboardActivity extends AppCompatActivity {
         //items to show
         //popupMenu.getMenu().add(Menu.NONE,2,0,"Agenda");
         //popupMenu.getMenu().add(Menu.NONE,1,0,"Group Chats");
+        popupMenu.getMenu().add(Menu.NONE,2,0,"Users");
         popupMenu.getMenu().add(Menu.NONE,1,0,"Insurance");
-        popupMenu.getMenu().add(Menu.NONE,0,0,"Notifications");
+        popupMenu.getMenu().add(Menu.NONE,3,0,"Timeline");
+        //popupMenu.getMenu().add(Menu.NONE,0,0,"Notifications");
 
         //menu clicks
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -230,20 +234,36 @@ public class  DashboardActivity extends AppCompatActivity {
                 else if (id == 1) {
                     //groupChats clicked
                     actionBar.setTitle("Insurance");
-                    MarketFragment fragment7 = new MarketFragment();
+                    InsuranceFragment fragment7 = new InsuranceFragment();
                     FragmentTransaction ft7 = getSupportFragmentManager().beginTransaction();
                     ft7.replace(R.id.content, fragment7, "");
                     ft7.commit();
                 }
-                else if (id == 5) {
+                else if (id == 2) {
+                    //groupChats clicked
+                    actionBar.setTitle("Users");
+                    UsersFragment fragment7 = new UsersFragment();
+                    FragmentTransaction ft7 = getSupportFragmentManager().beginTransaction();
+                    ft7.replace(R.id.content, fragment7, "");
+                    ft7.commit();
+                }
+                else if (id == 3) {
+                    //timeline clicked
+                    actionBar.setTitle("Timeline");
+                    TimelineFragment fragment6 = new TimelineFragment();
+                    FragmentTransaction ft6 = getSupportFragmentManager().beginTransaction();
+                    ft6.replace(R.id.content, fragment6, "");
+                    ft6.commit();
+                    }
+                else if (id == 4) {
                     //groupChats clicked
                     actionBar.setTitle("Group Chats");
                     GroupChatsFragment fragment6 = new GroupChatsFragment();
                     FragmentTransaction ft6 = getSupportFragmentManager().beginTransaction();
                     ft6.replace(R.id.content, fragment6, "");
                     ft6.commit();
-                }
-                else if (id == 2) {
+                    }
+                else if (id == 20) {
                     //agenda clicked
                     actionBar.setTitle("Agenda");
                     AgendasFragment fragment7 = new AgendasFragment();
@@ -251,12 +271,10 @@ public class  DashboardActivity extends AppCompatActivity {
                     ft7.replace(R.id.content, fragment7, "");
                     ft7.commit();
                 }
+
                 return false;
             }
         });
         popupMenu.show();
     }
-
-
-
 }

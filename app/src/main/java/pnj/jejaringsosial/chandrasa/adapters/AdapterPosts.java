@@ -44,7 +44,6 @@ import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.net.CookieHandler;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -487,12 +486,12 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.MyHolder> {
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(postKey).hasChild(myUid)){
                     //user has liked this post
-                    holder.likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_liked,0,0,0);
+                    holder.likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_black,0,0,0);
                     holder.likeBtn.setText("Liked");
                 }
                 else {
                     //user has not liked this post
-                    holder.likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_like_white,0,0,0);
+                    holder.likeBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_liked,0,0,0);
                     holder.likeBtn.setText("Like");
 
                 }

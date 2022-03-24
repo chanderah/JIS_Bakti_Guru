@@ -24,12 +24,12 @@
 
     <Button
         android:id="@+id/closeBtn"
-        android:layout_width="wrap_content"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="close"
-        android:background="@null"
-        android:layout_marginTop="10dp"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_margin="20dp"
+        android:layout_below="@id/passwordTIL"
+        android:layout_centerHorizontal="true"
+        android:text="Close" />
 
 </LinearLayout>
